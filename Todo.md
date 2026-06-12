@@ -307,34 +307,34 @@
 - [x] 267. Commit agent nodes + graphs
 
 ## Phase 10 — Agent integration (TDD) [FR-AGENT-008]
-- [ ] 268. Build committed MockLLM script for the luigi bug investigation
-- [ ] 269. Write `test_investigate_graph_mode.py`: locates buggy `to_str_params` node
-- [ ] 270. Make graph-mode integration pass
-- [ ] 271. Assert graph mode reads ≤ N files (config)
-- [ ] 272. Write `test_investigate_naive_mode.py`: also locates bug, reads more files
-- [ ] 273. Make naive-mode integration pass
-- [ ] 274. Assert graph mode tokens < naive tokens in the test
-- [ ] 275. Document each node role + context-reduction in `docs/prd/agent.md` [FR-AGENT-009]
-- [ ] 276. Coverage Phase 10 ≥85%
-- [ ] 277. Commit agent integration
+- [x] 268. Build committed MockLLM script for the luigi bug investigation
+- [x] 269. Write `test_investigate_graph_mode.py`: locates buggy `to_str_params` node
+- [x] 270. Make graph-mode integration pass
+- [x] 271. Assert graph mode reads ≤ N files (config)
+- [x] 272. Write `test_investigate_naive_mode.py`: also locates bug, reads more files
+- [x] 273. Make naive-mode integration pass
+- [x] 274. Assert graph mode tokens < naive tokens in the test
+- [x] 275. Document each node role + context-reduction in `docs/prd/agent.md` [FR-AGENT-009]
+- [x] 276. Coverage Phase 10 ≥85%
+- [x] 277. Commit agent integration
 
 ## Phase 11 — The Bug Fix [FR-FIX-*, H5, H9]
-- [ ] 278. Reconfirm vendored buggy test fails (`KeyError`) [FR-FIX-002]
-- [ ] 279. Apply 3-line fix to `target_repo/luigi/luigi/task.py` (drop `significant` guard) [FR-FIX-003]
-- [ ] 280. Run test → passes; capture → `reports/repro_pass.txt` [FR-FIX-004]
-- [ ] 281. Capture unified diff → `reports/fix.diff`
-- [ ] 282. Write `reports/bug_analysis.md`: problem statement
-- [ ] 283. bug_analysis: root cause (serialize/deserialize asymmetry) [RQ5]
-- [ ] 284. bug_analysis: investigation path (graph-guided steps)
-- [ ] 285. bug_analysis: the change + how verified
-- [ ] 286. bug_analysis: code before/after snippets [H9]
-- [ ] 287. Author `vault/findings/serialization-asymmetry.md`
-- [ ] 288. Author `vault/fix/to_str_params-fix.md`
-- [ ] 289. Update `vault/hot.md` + `vault/log.md` with resolution
-- [ ] 290. Snapshot vault AFTER → `reports/vault_after/` [FR-VAULT-006]
-- [ ] 291. Write `test_fix_behavior.py`: round-trip preserves insignificant params [FR-FIX-006]
-- [ ] 292. Make fix-behavior test pass (vendored/extracted luigi)
-- [ ] 293. Commit fix + analysis + after-snapshot
+- [x] 278. Reconfirm vendored buggy test fails (`KeyError`) [FR-FIX-002]
+- [x] 279. Apply 3-line fix to `target_repo/luigi/luigi/task.py` (drop `significant` guard) [FR-FIX-003]
+- [x] 280. Run test → passes; capture → `reports/repro_pass.txt` [FR-FIX-004]
+- [x] 281. Capture unified diff → `reports/fix.diff`
+- [x] 282. Write `reports/bug_analysis.md`: problem statement
+- [x] 283. bug_analysis: root cause (serialize/deserialize asymmetry) [RQ5]
+- [x] 284. bug_analysis: investigation path (graph-guided steps)
+- [x] 285. bug_analysis: the change + how verified
+- [x] 286. bug_analysis: code before/after snippets [H9]
+- [x] 287. Author `vault/findings/serialization-asymmetry.md`
+- [x] 288. Author `vault/fix/to_str_params-fix.md`
+- [x] 289. Update `vault/hot.md` + `vault/log.md` with resolution
+- [x] 290. Snapshot vault AFTER → `reports/vault_after/` [FR-VAULT-006]
+- [x] 291. Write `test_fix_behavior.py`: round-trip preserves insignificant params [FR-FIX-006]
+- [x] 292. Make fix-behavior test pass (vendored/extracted luigi)
+- [x] 293. Commit fix + analysis + after-snapshot
 
 ## Phase 12 — Token-Savings Proof [FR-TOKEN-*, H6]
 - [ ] 294. Add SDK hook to run both modes + persist metrics

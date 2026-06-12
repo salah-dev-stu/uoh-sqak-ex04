@@ -1,5 +1,6 @@
-# Never modify vendored target code or large generated graph artifacts.
-exclude: '^(target_repo/|reports/graph/)'
+# Never modify vendored target code, large generated graph artifacts, or
+# raw diff/log evidence (a diff's blank context line is a meaningful space).
+exclude: '^(target_repo/|reports/graph/|reports/fix\.diff|reports/repro_.*\.txt)'
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks

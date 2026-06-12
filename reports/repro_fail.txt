@@ -1,0 +1,14 @@
+luigi/task.py:314: KeyError
+=============================== warnings summary ===============================
+luigi/parameter.py:614
+  /Users/salah/Projects/orch-ai-agents/hw4/target_repo/luigi/luigi/parameter.py:614: DeprecationWarning: invalid escape sequence \d
+    return "(?P<%s>\d+)%s" % (key, key[0].upper())
+
+luigi/parameter.py:632
+  /Users/salah/Projects/orch-ai-agents/hw4/target_repo/luigi/luigi/parameter.py:632: DeprecationWarning: invalid escape sequence \d
+    ["((?P<%s>\d+) ?%s(%s)?(%s)? ?)?" % (k, k[0], k[1:-1], k[-1]) for k in keys]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED test/task_test.py::TaskTest::test_task_to_str_to_task - KeyError: 'ins...
+1 failed, 2 warnings in 0.11s
