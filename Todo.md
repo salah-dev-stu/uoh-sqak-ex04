@@ -372,30 +372,30 @@
 - [x] 323. Commit extensions + artifacts
 
 ## Phase 14 — SDK façade + CLI [FR-SDK-*, FR-CLI-*, R1]
-- [ ] 324. Write `test_facade.py`: `GraphGuide.graphify()` delegates to runner
-- [ ] 325. Implement `sdk/facade.py` `graphify()` [FR-SDK-001]
-- [ ] 326. Test+implement `build_vault()`
-- [ ] 327. Test+implement `investigate(mode)`
-- [ ] 328. Test+implement `rank_suspects()`
-- [ ] 329. Test+implement `knowledge_diff()`
-- [ ] 330. Test+implement `token_report()`
-- [ ] 330a. Add type hints + docstrings to every `GraphGuide` public method; `test_facade_typed.py` asserts signatures + non-empty docstrings [FR-SDK-003]
-- [ ] 331. Review: no business logic outside SDK [FR-SDK-002]
-- [ ] 332. Write `test_main_cli.py`: subcommand `version` prints VERSION
-- [ ] 333. Implement `main.py` arg parser + dispatch
-- [ ] 334. Implement CLI `graphify` subcommand → SDK
-- [ ] 335. Implement CLI `vault` subcommand
-- [ ] 336. Implement CLI `investigate --mode {naive,graph}`
-- [ ] 337. Implement CLI `suspects`
-- [ ] 338. Implement CLI `knowledge-diff`
-- [ ] 339. Implement CLI `token-report`
-- [ ] 339a. Implement CLI `version` subcommand → prints VERSION via SDK [FR-CLI-001]
-- [ ] 340. Test: each subcommand calls the SDK (mock)
-- [ ] 341. Write `test_e2e_mock.py`: full pipeline with MockLLM + fixtures [NFR-TEST-003]
-- [ ] 342. Make e2e smoke pass
-- [ ] 343. Refactor facade/main ≤150 lines
-- [ ] 344. Coverage Phase 14 ≥85%
-- [ ] 345. Commit SDK + CLI
+- [x] 324. Write `test_facade.py`: `GraphGuide.graphify()` delegates to runner
+- [x] 325. Implement `sdk/facade.py` `graphify()` [FR-SDK-001]
+- [x] 326. Test+implement `build_vault()`
+- [x] 327. Test+implement `investigate(mode)`
+- [x] 328. Test+implement `rank_suspects()`
+- [x] 329. Test+implement `knowledge_diff()`
+- [x] 330. Test+implement `token_report()`
+- [x] 330a. Add type hints + docstrings to every `GraphGuide` public method; `test_facade_typed.py` asserts signatures + non-empty docstrings [FR-SDK-003]
+- [x] 331. Review: no business logic outside SDK [FR-SDK-002]
+- [x] 332. Write `test_main_cli.py`: subcommand `version` prints VERSION
+- [x] 333. Implement `main.py` arg parser + dispatch
+- [x] 334. Implement CLI `graphify` subcommand → SDK
+- [x] 335. Implement CLI `vault` subcommand
+- [x] 336. Implement CLI `investigate --mode {naive,graph}`
+- [x] 337. Implement CLI `suspects`
+- [x] 338. Implement CLI `knowledge-diff`
+- [x] 339. Implement CLI `token-report`
+- [x] 339a. Implement CLI `version` subcommand → prints VERSION via SDK [FR-CLI-001]
+- [x] 340. Test: each subcommand calls the SDK (mock)
+- [x] 341. Write `test_e2e_mock.py`: full pipeline with MockLLM + fixtures [NFR-TEST-003]
+- [x] 342. Make e2e smoke pass
+- [x] 343. Refactor facade/main ≤150 lines
+- [x] 344. Coverage Phase 14 ≥85%
+- [x] 345. Commit SDK + CLI
 
 ## Phase 15 — README [FR-DOC-001/002, H11, H12]
 - [ ] 346. README: title + badges + one-paragraph pitch

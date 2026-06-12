@@ -1,9 +1,27 @@
 # Agent Prompts
 
-> The exact prompts the graph-guided agent uses at each LangGraph node. Filled in during Phase 16 (task 385) once the agent nodes are implemented.
+The graph-guided agent uses two LLM nodes. Templates live in `config/agents.json`
+(`prompts`) — never hardcoded (R10). They are formatted with the focused context the
+graph/vault assembled, so the prompt stays small (the token-efficiency mechanism).
 
-## diagnose
-_TBD — root-cause prompt given the focused subgraph + budgeted code snippet._
+## `diagnose`
+```
+Debug luigi. Focused context:
+{context}
 
-## propose_fix
-_TBD — fix-proposal prompt given the diagnosed root cause._
+In one paragraph, state the root cause of the failing test.
+```
+`{context}` = `index.md` + `hot.md` + the graph-selected suspect file(s) only — **not** the whole repo.
+
+## `fix`
+```
+Root cause:
+{root_cause}
+
+Propose the minimal code change to fix it.
+```
+
+## Determinism for grading
+Tests inject `MockLLM` (scripted, no API key) so the whole workflow runs in CI without tokens
+(grader Path D). The real `LLMClient` calls Anthropic through the Gatekeeper, which records the
+token usage that feeds `reports/token_comparison.md`.
