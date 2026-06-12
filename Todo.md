@@ -3,76 +3,76 @@
 > Execute one-by-one; mark `- [x]` done, `- [-]` skipped (+reason). Tags `[FR-…]/[NFR-…]/[R…/H…]` trace to `prd.md`/`RULES.md`. New features append here (per-feature workflow). This global list is the authoritative progress tracker.
 
 ## Phase 0 — Scaffold & Tooling [NFR-PKG, NFR-CI, NFR-SEC, R5,R12,R13]
-- [ ] 1. Create `src/graphguide/` package dir
-- [ ] 2. Create `src/graphguide/sdk/` dir
-- [ ] 3. Create `src/graphguide/graphify/` dir
-- [ ] 4. Create `src/graphguide/agent/` dir
-- [ ] 5. Create `src/graphguide/extensions/` dir
-- [ ] 6. Create `src/graphguide/shared/` dir
-- [ ] 7. Create `src/graphguide/vault_builder/` dir
-- [ ] 8. Create `tests/unit/` and `tests/integration/` dirs
-- [ ] 9. Create `tests/fixtures/` dir
-- [ ] 10. Create `config/`, `docs/prd/`, `docs/adr/` dirs
-- [ ] 11. Create `reports/graph/`, `reports/metrics/` dirs with `.gitkeep`
-- [ ] 12. Create `diagrams/`, `vault/`, `target_repo/`, `scripts/` dirs
-- [ ] 13. `git init`; set default branch `main`
-- [ ] 14. Verify `.gitignore` excludes `.blender-toolkit/`/`.claude/`/`SKILL.md`; keeps prd/Plan/Todo
-- [ ] 15. Create `pyproject.toml` `[project]` table (name=graphguide, description, authors)
-- [ ] 16. Set `requires-python = ">=3.13,<3.14"`
-- [ ] 17. Add `[build-system]` = hatchling
-- [ ] 18. Add `[tool.hatch.version]` path=`src/graphguide/shared/version.py`
-- [ ] 19. Add `[tool.hatch.build.targets.wheel] packages=["src/graphguide"]`
-- [ ] 20. Add runtime dep `langgraph`
-- [ ] 21. Add runtime dep `langchain-core`
-- [ ] 22. Add runtime dep `networkx`
-- [ ] 23. Add runtime dep `anthropic`
-- [ ] 24. Add runtime dep `tiktoken`
-- [ ] 25. Add runtime dep `matplotlib` (token chart)
-- [ ] 26. Add dev deps group: `pytest`, `pytest-cov`, `ruff`, `pre-commit`
-- [ ] 27. Configure `[tool.ruff] line-length=100`, `target-version=py313`
-- [ ] 28. Configure `[tool.ruff.lint] select=[E,F,W,I,N,UP,B,C4,SIM]`, `ignore=[E501]`
-- [ ] 29. Configure `[tool.pytest.ini_options] testpaths`, `addopts=--cov=graphguide --cov-report=term-missing`
-- [ ] 30. Configure `[tool.coverage.report] fail_under=85`, omit tests/fixtures
-- [ ] 31. Add `[project.scripts] graphguide = "graphguide.main:main"`
-- [ ] 32. `uv sync`; confirm `.venv` created
-- [ ] 33. Commit `uv.lock`
-- [ ] 34. Create `.env-example` with `ANTHROPIC_API_KEY=` + comment (never commit real key)
-- [ ] 35. Confirm `.env` is gitignored (add if missing)
-- [ ] 36. Create `src/graphguide/shared/version.py` → `VERSION = "1.00"`
-- [ ] 37. Create `src/graphguide/__init__.py` importing `VERSION` from `shared.version`
-- [ ] 38. Create `src/graphguide/constants.py` (output filenames, enum string keys; NO tunables)
-- [ ] 39. Create `src/graphguide/sdk/__init__.py`
-- [ ] 40. Create `src/graphguide/graphify/__init__.py`
-- [ ] 41. Create `src/graphguide/agent/__init__.py`
-- [ ] 42. Create `src/graphguide/extensions/__init__.py`
-- [ ] 43. Create `src/graphguide/shared/__init__.py`
-- [ ] 44. Create `src/graphguide/vault_builder/__init__.py`
-- [ ] 45. Create `config/graphify.json` (cli_path, mode, out_dir, deep_run, budget)
-- [ ] 46. Create `config/rate_limits.json` (rpm, token_budget.naive, token_budget.graph, max_iterations, max_files)
-- [ ] 47. Create `config/agents.json` (model_id, temperature, prompt_keys, success_criteria)
-- [ ] 48. Create `config/tasks.json` (task text, naive_file_cap, suspect_weights)
-- [ ] 49. Create `config/logging.json` (handlers, format, level)
-- [ ] 50. Copy `scripts/check_file_lines.py` (HW3 pattern)
-- [ ] 51. Adapt `check_file_lines.py` limit=150 + target=`src/graphguide`
-- [ ] 52. Run `check_file_lines.py`; confirm passes on skeleton
-- [ ] 53. Create `.pre-commit-config.yaml` (ruff)
-- [ ] 54. Add pre-commit hook: ruff-format
-- [ ] 55. Add pre-commit hook: trailing-whitespace + end-of-file-fixer
-- [ ] 56. Add pre-commit local hook: check_file_lines
-- [ ] 57. `pre-commit install`
-- [ ] 58. `pre-commit run --all-files`; fix issues
-- [ ] 59. Create `.github/workflows/ci.yml` name+triggers (push/PR)
-- [ ] 60. CI job step: `actions/checkout@v4`
-- [ ] 61. CI step: `actions/setup-python@v5` with `python-version: '3.13'` [NFR-CI-001]
-- [ ] 62. CI step: install uv (`astral-sh/setup-uv@v5`)
-- [ ] 63. CI step: `uv sync --all-extras --dev`
-- [ ] 64. CI step: `uv run ruff check`
-- [ ] 65. CI step: `uv run ruff format --check`
-- [ ] 66. CI step: `uv run python scripts/check_file_lines.py`
-- [ ] 67. CI step: `uv run pytest --cov --cov-fail-under=85`
-- [ ] 68. Add CI badge placeholder to README header
-- [ ] 69. Create `docs/PROMPTS.md` stub
-- [ ] 70. Commit Phase 0 scaffold (meaningful message)
+- [x] 1. Create `src/graphguide/` package dir
+- [x] 2. Create `src/graphguide/sdk/` dir
+- [x] 3. Create `src/graphguide/graphify/` dir
+- [x] 4. Create `src/graphguide/agent/` dir
+- [x] 5. Create `src/graphguide/extensions/` dir
+- [x] 6. Create `src/graphguide/shared/` dir
+- [x] 7. Create `src/graphguide/vault_builder/` dir
+- [x] 8. Create `tests/unit/` and `tests/integration/` dirs
+- [x] 9. Create `tests/fixtures/` dir
+- [x] 10. Create `config/`, `docs/prd/`, `docs/adr/` dirs
+- [x] 11. Create `reports/graph/`, `reports/metrics/` dirs with `.gitkeep`
+- [x] 12. Create `diagrams/`, `vault/`, `target_repo/`, `scripts/` dirs
+- [x] 13. `git init`; set default branch `main`
+- [x] 14. Verify `.gitignore` excludes `.blender-toolkit/`/`.claude/`/`SKILL.md`; keeps prd/Plan/Todo
+- [x] 15. Create `pyproject.toml` `[project]` table (name=graphguide, description, authors)
+- [x] 16. Set `requires-python = ">=3.13,<3.14"`
+- [x] 17. Add `[build-system]` = hatchling
+- [x] 18. Add `[tool.hatch.version]` path=`src/graphguide/shared/version.py`
+- [x] 19. Add `[tool.hatch.build.targets.wheel] packages=["src/graphguide"]`
+- [x] 20. Add runtime dep `langgraph`
+- [x] 21. Add runtime dep `langchain-core`
+- [x] 22. Add runtime dep `networkx`
+- [x] 23. Add runtime dep `anthropic`
+- [x] 24. Add runtime dep `tiktoken`
+- [x] 25. Add runtime dep `matplotlib` (token chart)
+- [x] 26. Add dev deps group: `pytest`, `pytest-cov`, `ruff`, `pre-commit`
+- [x] 27. Configure `[tool.ruff] line-length=100`, `target-version=py313`
+- [x] 28. Configure `[tool.ruff.lint] select=[E,F,W,I,N,UP,B,C4,SIM]`, `ignore=[E501]`
+- [x] 29. Configure `[tool.pytest.ini_options] testpaths`, `addopts=--cov=graphguide --cov-report=term-missing`
+- [x] 30. Configure `[tool.coverage.report] fail_under=85`, omit tests/fixtures
+- [x] 31. Add `[project.scripts] graphguide = "graphguide.main:main"`
+- [x] 32. `uv sync`; confirm `.venv` created
+- [x] 33. Commit `uv.lock`
+- [x] 34. Create `.env-example` with `ANTHROPIC_API_KEY=` + comment (never commit real key)
+- [x] 35. Confirm `.env` is gitignored (add if missing)
+- [x] 36. Create `src/graphguide/shared/version.py` → `VERSION = "1.00"`
+- [x] 37. Create `src/graphguide/__init__.py` importing `VERSION` from `shared.version`
+- [x] 38. Create `src/graphguide/constants.py` (output filenames, enum string keys; NO tunables)
+- [x] 39. Create `src/graphguide/sdk/__init__.py`
+- [x] 40. Create `src/graphguide/graphify/__init__.py`
+- [x] 41. Create `src/graphguide/agent/__init__.py`
+- [x] 42. Create `src/graphguide/extensions/__init__.py`
+- [x] 43. Create `src/graphguide/shared/__init__.py`
+- [x] 44. Create `src/graphguide/vault_builder/__init__.py`
+- [x] 45. Create `config/graphify.json` (cli_path, mode, out_dir, deep_run, budget)
+- [x] 46. Create `config/rate_limits.json` (rpm, token_budget.naive, token_budget.graph, max_iterations, max_files)
+- [x] 47. Create `config/agents.json` (model_id, temperature, prompt_keys, success_criteria)
+- [x] 48. Create `config/tasks.json` (task text, naive_file_cap, suspect_weights)
+- [x] 49. Create `config/logging.json` (handlers, format, level)
+- [x] 50. Copy `scripts/check_file_lines.py` (HW3 pattern)
+- [x] 51. Adapt `check_file_lines.py` limit=150 + target=`src/graphguide`
+- [x] 52. Run `check_file_lines.py`; confirm passes on skeleton
+- [x] 53. Create `.pre-commit-config.yaml` (ruff)
+- [x] 54. Add pre-commit hook: ruff-format
+- [x] 55. Add pre-commit hook: trailing-whitespace + end-of-file-fixer
+- [x] 56. Add pre-commit local hook: check_file_lines
+- [x] 57. `pre-commit install`
+- [x] 58. `pre-commit run --all-files`; fix issues
+- [x] 59. Create `.github/workflows/ci.yml` name+triggers (push/PR)
+- [x] 60. CI job step: `actions/checkout@v4`
+- [x] 61. CI step: `actions/setup-python@v5` with `python-version: '3.13'` [NFR-CI-001]
+- [x] 62. CI step: install uv (`astral-sh/setup-uv@v5`)
+- [x] 63. CI step: `uv sync --all-extras --dev`
+- [x] 64. CI step: `uv run ruff check`
+- [x] 65. CI step: `uv run ruff format --check`
+- [x] 66. CI step: `uv run python scripts/check_file_lines.py`
+- [x] 67. CI step: `uv run pytest --cov --cov-fail-under=85`
+- [x] 68. Add CI badge placeholder to README header
+- [x] 69. Create `docs/PROMPTS.md` stub
+- [x] 70. Commit Phase 0 scaffold (meaningful message)
 
 ## Phase 0.5 — Gate-2 docs package (authored during planning) [FR-DOC-003, R2]
 - [x] 70a. Author `prd.md` (master PRD, all FR/NFR) [FR-DOC-003]
@@ -88,26 +88,26 @@
 - [x] 70k. Author `docs/adr/0003-pin-python-3.13-ci.md` [FR-DOC-003]
 - [x] 70l. Author `docs/adr/0004-ast-fallback.md` [FR-GRAPH-009, FR-DOC-003]
 - [x] 70m. Author `docs/adr/0005-gatekeeper-wraps-all-calls.md` [FR-DOC-003]
-- [ ] 70n. Commit Gate-2 docs package
-- [ ] 70o. Write `diagrams/oop_plan.md` — planned class structure (base classes/mixins/Template Method, no duplication) [R2]
+- [x] 70n. Commit Gate-2 docs package
+- [x] 70o. Write `diagrams/oop_plan.md` — planned class structure (base classes/mixins/Template Method, no duplication) [R2]
 
 ## Phase 1 — Config, Version, Logging (TDD) [FR-CONFIG, FR-VERSION, FR-LOG, R4,R5,R10]
-- [ ] 71. Write failing `tests/unit/test_version.py`: `graphguide.VERSION == "1.00"`
-- [ ] 72. Make version test pass
-- [ ] 73. Write `test_version.py`: config version mirror == code VERSION [FR-VERSION-001]
-- [ ] 74. Add version mirror into a config + loader accessor; pass test
-- [ ] 75. Write failing `test_config.py`: `config.load("graphify")` returns dict
-- [ ] 76. Implement `shared/config.py` JSON loader
-- [ ] 77. Add typed accessors (`get_rate_limits()`, `get_graphify_cfg()`, etc.)
-- [ ] 78. Test: each config file loads + required keys present
-- [ ] 79. Make required-keys test pass
-- [ ] 80. Test: `test_no_hardcoded_model` greps `src/` for model-id literal → none [R10]
-- [ ] 81. Ensure model id only in config; pass grep test
-- [ ] 82. Implement `shared/logging_config.py` from `config/logging.json`
-- [ ] 83. Write `test_logging_config.py` (configures without error)
-- [ ] 84. Refactor any >150-line file
-- [ ] 85. Coverage Phase 1 ≥85%
-- [ ] 86. Commit config/version/logging
+- [x] 71. Write failing `tests/unit/test_version.py`: `graphguide.VERSION == "1.00"`
+- [x] 72. Make version test pass
+- [x] 73. Write `test_version.py`: config version mirror == code VERSION [FR-VERSION-001]
+- [x] 74. Add version mirror into a config + loader accessor; pass test
+- [x] 75. Write failing `test_config.py`: `config.load("graphify")` returns dict
+- [x] 76. Implement `shared/config.py` JSON loader
+- [x] 77. Add typed accessors (`get_rate_limits()`, `get_graphify_cfg()`, etc.)
+- [x] 78. Test: each config file loads + required keys present
+- [x] 79. Make required-keys test pass
+- [x] 80. Test: `test_no_hardcoded_model` greps `src/` for model-id literal → none [R10]
+- [x] 81. Ensure model id only in config; pass grep test
+- [x] 82. Implement `shared/logging_config.py` from `config/logging.json`
+- [x] 83. Write `test_logging_config.py` (configures without error)
+- [x] 84. Refactor any >150-line file
+- [x] 85. Coverage Phase 1 ≥85%
+- [x] 86. Commit config/version/logging
 
 ## Phase 2 — Gatekeeper + Token Meter (TDD) [FR-GATE, FR-TOKEN-001, R3]
 - [ ] 87. Write failing `test_token_meter.py`: `TokenRecord` dataclass fields
