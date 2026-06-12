@@ -337,20 +337,20 @@
 - [x] 293. Commit fix + analysis + after-snapshot
 
 ## Phase 12 — Token-Savings Proof [FR-TOKEN-*, H6]
-- [ ] 294. Add SDK hook to run both modes + persist metrics
-- [ ] 295. Run graph-guided investigation; persist `reports/metrics/graph.json` [FR-TOKEN-002]
-- [ ] 296. Run naive investigation (capped); persist `reports/metrics/naive.json`
-- [ ] 297. Compute delta: tokens consumed
-- [ ] 298. Compute delta: files/text-units read
-- [ ] 299. Compute delta: iterations/rounds
-- [ ] 300. Compute delta: time-to-root-cause [FR-TOKEN-003]
-- [ ] 301. Compute efficiency `%` = (T_naive−T_graph)/T_naive [FR-TOKEN-004]
-- [ ] 302. Write `reports/token_comparison.md` table [RQ6,RQ7]
-- [ ] 303. token_comparison: narrative on why graph saves tokens (Lost-in-the-Middle)
-- [ ] 304. Generate `reports/metrics/comparison.png` (matplotlib) [FR-TOKEN-005]
-- [ ] 305. Honest note if savings < target with reasons [FR-TOKEN-004]
-- [ ] 306. Write `test_token_report.py`: regenerates from committed metrics JSON [FR-TOKEN-006]
-- [ ] 307. Commit token proof
+- [x] 294. Add SDK hook to run both modes + persist metrics
+- [x] 295. Run graph-guided investigation; persist `reports/metrics/graph.json` [FR-TOKEN-002]
+- [x] 296. Run naive investigation (capped); persist `reports/metrics/naive.json`
+- [x] 297. Compute delta: tokens consumed
+- [x] 298. Compute delta: files/text-units read
+- [x] 299. Compute delta: iterations/rounds
+- [x] 300. Compute delta: time-to-root-cause [FR-TOKEN-003]
+- [x] 301. Compute efficiency `%` = (T_naive−T_graph)/T_naive [FR-TOKEN-004]
+- [x] 302. Write `reports/token_comparison.md` table [RQ6,RQ7]
+- [x] 303. token_comparison: narrative on why graph saves tokens (Lost-in-the-Middle)
+- [x] 304. Generate `reports/metrics/comparison.png` (matplotlib) [FR-TOKEN-005]
+- [x] 305. Honest note if savings < target with reasons [FR-TOKEN-004]
+- [x] 306. Write `test_token_report.py`: regenerates from committed metrics JSON [FR-TOKEN-006]
+- [x] 307. Commit token proof
 
 ## Phase 13 — Extensions [FR-EXT-*, H10]
 - [ ] 308. Write `test_suspect_ranker.py`: ranks by centrality + dist-to-failing-test
