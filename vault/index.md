@@ -21,5 +21,6 @@ System map for the **luigi** codebase (reverse-engineered from the Graphify grap
 ## Investigation
 - [[tests/test_task_to_str_to_task|failing test]]
 - [[log|investigation log]]
+- [[suspects/ranked|ranked suspects]]
 - [[findings/serialization-asymmetry|root-cause finding]]
 - [[fix/to_str_params-fix|the fix]]

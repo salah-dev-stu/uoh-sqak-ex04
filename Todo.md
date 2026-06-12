@@ -353,23 +353,23 @@
 - [x] 307. Commit token proof
 
 ## Phase 13 — Extensions [FR-EXT-*, H10]
-- [ ] 308. Write `test_suspect_ranker.py`: ranks by centrality + dist-to-failing-test
-- [ ] 309. Implement `extensions/suspect_ranker.py` scoring (weights from config) [FR-EXT-101]
-- [ ] 310. Test: dist computed via NetworkX shortest path from failing-test node
-- [ ] 311. Implement distance computation
-- [ ] 312. Test: top suspect is the `Task.to_str_params` region
-- [ ] 313. Verify ranking surfaces the real suspect
-- [ ] 314. Write `vault/suspects/ranked.md` from ranker [FR-EXT-102]
-- [ ] 315. Wire ranker as agent seed (graph mode) → fewer iterations
-- [ ] 316. Re-run graph mode; confirm iteration reduction recorded
-- [ ] 317. Write `test_knowledge_diff.py`: diffs nodes/links/pages before vs after
-- [ ] 318. Implement `extensions/knowledge_diff.py` [FR-EXT-201]
-- [ ] 319. Generate `reports/knowledge_diff.md` from snapshots [H9]
-- [ ] 320. Test: knowledge_diff lists added pages + insights
-- [ ] 320a. Document both extensions WITH rationale + concrete example output (sample ranked-suspect list, sample knowledge-diff) in `docs/prd/extensions.md` + README [FR-EXT-301]
-- [ ] 321. Refactor extensions ≤150 lines
-- [ ] 322. Coverage Phase 13 ≥85%
-- [ ] 323. Commit extensions + artifacts
+- [x] 308. Write `test_suspect_ranker.py`: ranks by centrality + dist-to-failing-test
+- [x] 309. Implement `extensions/suspect_ranker.py` scoring (weights from config) [FR-EXT-101]
+- [x] 310. Test: dist computed via NetworkX shortest path from failing-test node
+- [x] 311. Implement distance computation
+- [x] 312. Test: top suspect is the `Task.to_str_params` region
+- [x] 313. Verify ranking surfaces the real suspect
+- [x] 314. Write `vault/suspects/ranked.md` from ranker [FR-EXT-102]
+- [x] 315. Wire ranker as agent seed (graph mode) → fewer iterations
+- [x] 316. Re-run graph mode; confirm iteration reduction recorded
+- [x] 317. Write `test_knowledge_diff.py`: diffs nodes/links/pages before vs after
+- [x] 318. Implement `extensions/knowledge_diff.py` [FR-EXT-201]
+- [x] 319. Generate `reports/knowledge_diff.md` from snapshots [H9]
+- [x] 320. Test: knowledge_diff lists added pages + insights
+- [x] 320a. Document both extensions WITH rationale + concrete example output (sample ranked-suspect list, sample knowledge-diff) in `docs/prd/extensions.md` + README [FR-EXT-301]
+- [x] 321. Refactor extensions ≤150 lines
+- [x] 322. Coverage Phase 13 ≥85%
+- [x] 323. Commit extensions + artifacts
 
 ## Phase 14 — SDK façade + CLI [FR-SDK-*, FR-CLI-*, R1]
 - [ ] 324. Write `test_facade.py`: `GraphGuide.graphify()` delegates to runner
