@@ -1,0 +1,26 @@
+{
+  "nodes": [
+    {"id": "interface", "label": "interface", "file_type": "code", "source_file": "luigi/interface.py"},
+    {"id": "task", "label": "Task", "file_type": "code", "source_file": "luigi/task.py"},
+    {"id": "register", "label": "Register", "file_type": "code", "source_file": "luigi/task_register.py"},
+    {"id": "parameter", "label": "Parameter", "file_type": "code", "source_file": "luigi/parameter.py"},
+    {"id": "scheduler", "label": "Scheduler", "file_type": "code", "source_file": "luigi/scheduler.py"},
+    {"id": "worker", "label": "Worker", "file_type": "code", "source_file": "luigi/worker.py"},
+    {"id": "target", "label": "Target", "file_type": "code", "source_file": "luigi/target.py"},
+    {"id": "to_str_params", "label": "Task.to_str_params", "file_type": "code", "source_file": "luigi/task.py"},
+    {"id": "from_str_params", "label": "Task.from_str_params", "file_type": "code", "source_file": "luigi/task.py"}
+  ],
+  "edges": [
+    {"source": "interface", "target": "task", "relation": "calls", "confidence": "EXTRACTED"},
+    {"source": "scheduler", "target": "task", "relation": "calls", "confidence": "EXTRACTED"},
+    {"source": "worker", "target": "task", "relation": "calls", "confidence": "EXTRACTED"},
+    {"source": "worker", "target": "scheduler", "relation": "calls", "confidence": "EXTRACTED"},
+    {"source": "task", "target": "register", "relation": "implements", "confidence": "EXTRACTED"},
+    {"source": "task", "target": "parameter", "relation": "uses", "confidence": "EXTRACTED"},
+    {"source": "task", "target": "target", "relation": "uses", "confidence": "INFERRED"},
+    {"source": "task", "target": "to_str_params", "relation": "contains", "confidence": "EXTRACTED"},
+    {"source": "task", "target": "from_str_params", "relation": "contains", "confidence": "EXTRACTED"},
+    {"source": "to_str_params", "target": "parameter", "relation": "calls", "confidence": "EXTRACTED"},
+    {"source": "from_str_params", "target": "parameter", "relation": "calls", "confidence": "AMBIGUOUS"}
+  ]
+}
