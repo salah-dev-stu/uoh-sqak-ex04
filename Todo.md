@@ -110,35 +110,35 @@
 - [x] 86. Commit config/version/logging
 
 ## Phase 2 — Gatekeeper + Token Meter (TDD) [FR-GATE, FR-TOKEN-001, R3]
-- [ ] 87. Write failing `test_token_meter.py`: `TokenRecord` dataclass fields
-- [ ] 88. Implement `shared/token_meter.py` `TokenRecord`
-- [ ] 89. Test: `TokenMeter.add()` accumulates totals
-- [ ] 90. Implement `TokenMeter.add` + internal store
-- [ ] 91. Test: `totals(mode)` returns per-mode aggregates
-- [ ] 92. Implement `totals`
-- [ ] 93. Test: `to_json(path)` / `from_json(path)` round-trips records
-- [ ] 94. Implement persistence
-- [ ] 95. Test: `estimate_tokens(text)` via tiktoken > 0
-- [ ] 96. Implement `estimate_tokens` (encoding from config)
-- [ ] 97. Write failing `test_gatekeeper.py`: `ApiGatekeeper.call(kind, fn)` returns fn result
-- [ ] 98. Implement `shared/gatekeeper.py` skeleton + `call`
-- [ ] 99. Test: records a TokenRecord per call
-- [ ] 100. Implement metering hook
-- [ ] 101. Test: raises when token budget exceeded
-- [ ] 102. Implement budget check from `rate_limits.json`
-- [ ] 103. Test: enforces rate limit (max calls/window)
-- [ ] 104. Implement rate-limit counter
-- [ ] 105. Test: `get_spend_report()` aggregates per mode + call_type
-- [ ] 106. Implement `get_spend_report`
-- [ ] 107. Test: subprocess kind ingests tokens from a `cost.json`
-- [ ] 108. Implement subprocess cost ingestion
-- [ ] 109. Test: file-read kind records `files_read`/`units_read`
-- [ ] 110. Implement file-read metering
-- [ ] 111. Write `test_no_bypass.py`: grep `src/` for raw `subprocess.`/`anthropic.` outside gatekeeper [FR-GATE-003]
-- [ ] 112. Ensure all external calls route via gatekeeper; pass test
-- [ ] 113. Refactor gatekeeper/meter to ≤150 lines each
-- [ ] 114. Coverage Phase 2 ≥85%
-- [ ] 115. Commit gatekeeper + meter
+- [x] 87. Write failing `test_token_meter.py`: `TokenRecord` dataclass fields
+- [x] 88. Implement `shared/token_meter.py` `TokenRecord`
+- [x] 89. Test: `TokenMeter.add()` accumulates totals
+- [x] 90. Implement `TokenMeter.add` + internal store
+- [x] 91. Test: `totals(mode)` returns per-mode aggregates
+- [x] 92. Implement `totals`
+- [x] 93. Test: `to_json(path)` / `from_json(path)` round-trips records
+- [x] 94. Implement persistence
+- [x] 95. Test: `estimate_tokens(text)` via tiktoken > 0
+- [x] 96. Implement `estimate_tokens` (encoding from config)
+- [x] 97. Write failing `test_gatekeeper.py`: `ApiGatekeeper.call(kind, fn)` returns fn result
+- [x] 98. Implement `shared/gatekeeper.py` skeleton + `call`
+- [x] 99. Test: records a TokenRecord per call
+- [x] 100. Implement metering hook
+- [x] 101. Test: raises when token budget exceeded
+- [x] 102. Implement budget check from `rate_limits.json`
+- [x] 103. Test: enforces rate limit (max calls/window)
+- [x] 104. Implement rate-limit counter
+- [x] 105. Test: `get_spend_report()` aggregates per mode + call_type
+- [x] 106. Implement `get_spend_report`
+- [x] 107. Test: subprocess kind ingests tokens from a `cost.json`
+- [x] 108. Implement subprocess cost ingestion
+- [x] 109. Test: file-read kind records `files_read`/`units_read`
+- [x] 110. Implement file-read metering
+- [x] 111. Write `test_no_bypass.py`: grep `src/` for raw `subprocess.`/`anthropic.` outside gatekeeper [FR-GATE-003]
+- [x] 112. Ensure all external calls route via gatekeeper; pass test
+- [x] 113. Refactor gatekeeper/meter to ≤150 lines each
+- [x] 114. Coverage Phase 2 ≥85%
+- [x] 115. Commit gatekeeper + meter
 
 ## Phase 3 — Graphify models/loader/centrality (TDD) [FR-GRAPH-005..008, H2]
 - [ ] 116. Write `test_models.py`: `Confidence` enum EXTRACTED/INFERRED/AMBIGUOUS
