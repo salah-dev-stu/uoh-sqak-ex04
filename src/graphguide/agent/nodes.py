@@ -61,7 +61,7 @@ def read_code(ctx: AgentContext, state: AgentState) -> dict[str, Any]:
 
 
 def diagnose(ctx: AgentContext, state: AgentState) -> dict[str, Any]:
-    context = "\n".join(state.get("context", []))[:6000]
+    context = "\n".join(state.get("context", []))
     return {
         "phase": "diagnose",
         "root_cause": ctx.llm.complete(ctx.prompt("diagnose", context=context)),

@@ -21,10 +21,11 @@ def run_naive(ctx: AgentContext, task: str, files: list[str]) -> AgentState:
             read.append(path)
         except FileBudgetExceededError:
             break
-    context = "\n".join(snippets)[:6000]
+    # Feed everything it read (no read-then-discard): metered tokens == ingested context.
+    context = "\n".join(snippets)
     state["files_read"] = read
     state["context"] = snippets
     state["root_cause"] = ctx.llm.complete(ctx.prompt("diagnose", context=context))
     state["phase"] = "diagnose"
-    state["iterations"] = 1
+    state["iterations"] = 1  # single-pass by construction (not presented as a savings metric)
     return state
