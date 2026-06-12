@@ -276,35 +276,35 @@
 - [x] 238. Commit agent core
 
 ## Phase 9 — Agent nodes + graphs (TDD) [FR-AGENT-002/004/005/006/009, H4]
-- [ ] 239. Write `test_nodes.py`: `read_index` loads index.md into state
-- [ ] 240. Implement `agent/nodes.py` `read_index` [FR-AGENT-002]
-- [ ] 241. Test: `read_hot` loads hot.md
-- [ ] 242. Implement `read_hot`
-- [ ] 243. Test: `query_graph` calls graph tool, updates nodes_visited
-- [ ] 244. Implement `query_graph`
-- [ ] 245. Test: `read_code` reads only ranked suspects
-- [ ] 246. Implement `read_code` node
-- [ ] 247. Test: `diagnose` produces root-cause finding (MockLLM)
-- [ ] 248. Implement `diagnose`
-- [ ] 249. Test: `propose_fix` emits the fix proposal
-- [ ] 250. Implement `propose_fix`
-- [ ] 251. Write `test_graph_guided.py`: StateGraph order index→hot→query→code→diagnose
-- [ ] 252. Implement `agent/graph_guided.py` StateGraph [FR-AGENT-001]
-- [ ] 253. Test: conditional loop respects max_iterations [FR-AGENT-004]
-- [ ] 254. Implement iteration/budget guard + graceful stop
-- [ ] 255. Test: raw code only after graph/vault (order enforced) [FR-AGENT-002]
-- [ ] 256. Implement order enforcement
-- [ ] 257. Write `test_naive.py`: naive reads many files (capped), no graph
-- [ ] 258. Implement `agent/naive.py` [FR-AGENT-005]
-- [ ] 259. Test: both modes share `investigate()` signature + success bar
-- [ ] 260. Unify the interface in SDK-facing entry
-- [ ] 261. Write `test_trace.py`: trace records steps/files/tokens/step
-- [ ] 262. Implement `agent/trace.py` `InvestigationTrace` [FR-AGENT-006]
-- [ ] 263. Test: trace serializes to JSON
-- [ ] 264. Implement trace serialization
-- [ ] 265. Refactor agent files ≤150 lines
-- [ ] 266. Coverage Phase 9 ≥85%
-- [ ] 267. Commit agent nodes + graphs
+- [x] 239. Write `test_nodes.py`: `read_index` loads index.md into state
+- [x] 240. Implement `agent/nodes.py` `read_index` [FR-AGENT-002]
+- [x] 241. Test: `read_hot` loads hot.md
+- [x] 242. Implement `read_hot`
+- [x] 243. Test: `query_graph` calls graph tool, updates nodes_visited
+- [x] 244. Implement `query_graph`
+- [x] 245. Test: `read_code` reads only ranked suspects
+- [x] 246. Implement `read_code` node
+- [x] 247. Test: `diagnose` produces root-cause finding (MockLLM)
+- [x] 248. Implement `diagnose`
+- [x] 249. Test: `propose_fix` emits the fix proposal
+- [x] 250. Implement `propose_fix`
+- [x] 251. Write `test_graph_guided.py`: StateGraph order index→hot→query→code→diagnose
+- [x] 252. Implement `agent/graph_guided.py` StateGraph [FR-AGENT-001]
+- [x] 253. Test: conditional loop respects max_iterations [FR-AGENT-004]
+- [x] 254. Implement iteration/budget guard + graceful stop
+- [x] 255. Test: raw code only after graph/vault (order enforced) [FR-AGENT-002]
+- [x] 256. Implement order enforcement
+- [x] 257. Write `test_naive.py`: naive reads many files (capped), no graph
+- [x] 258. Implement `agent/naive.py` [FR-AGENT-005]
+- [x] 259. Test: both modes share `investigate()` signature + success bar
+- [x] 260. Unify the interface in SDK-facing entry
+- [x] 261. Write `test_trace.py`: trace records steps/files/tokens/step
+- [x] 262. Implement `agent/trace.py` `InvestigationTrace` [FR-AGENT-006]
+- [x] 263. Test: trace serializes to JSON
+- [x] 264. Implement trace serialization
+- [x] 265. Refactor agent files ≤150 lines
+- [x] 266. Coverage Phase 9 ≥85%
+- [x] 267. Commit agent nodes + graphs
 
 ## Phase 10 — Agent integration (TDD) [FR-AGENT-008]
 - [ ] 268. Build committed MockLLM script for the luigi bug investigation
