@@ -189,55 +189,55 @@
 - [x] 159. Commit graphify runner + queries
 
 ## Phase 5 — Vendor luigi + run real extraction [FR-FIX-001, FR-GRAPH-004/007, H2]
-- [ ] 160. Clone upstream `spotify/luigi` (blobless) to a scratch dir
-- [ ] 161. Checkout buggy commit `b958140c2ec838e590a5be02dbac7414d5d0bf17`
-- [ ] 162. Copy luigi source tree into `target_repo/luigi` (no `.git`)
-- [ ] 163. Apply fixed-commit regression test to `target_repo/luigi/test/task_test.py`
-- [ ] 164. Write `target_repo/PROVENANCE.md` (URL, buggy+fixed hashes, license, python 3.8.3)
-- [ ] 165. Create isolated venv (py3.8.3) for luigi repro
-- [ ] 166. Install luigi core + pytest in that venv
-- [ ] 167. Run failing test; capture output → `reports/repro_fail.txt` [FR-FIX-002]
-- [ ] 168. Confirm `KeyError: 'insignificant_param'` present
-- [ ] 169. Run `graphify update target_repo/luigi` (AST/offline) via runner
-- [ ] 170. Verify `graphify-out/graph.json` produced
-- [ ] 171. Run deep Graphify once (LLM, metered) on luigi core [OQ1]
-- [ ] 172. Copy graph.json → `reports/graph/graph.json` and commit
-- [ ] 173. Copy graph.html → `reports/graph/graph.html` and commit
-- [ ] 174. Copy cost.json → `reports/graph/cost.json` and commit
-- [ ] 175. Copy GRAPH_REPORT.md → `reports/GRAPH_REPORT.md` and commit
-- [ ] 176. Run `god_nodes()` on real graph.json
-- [ ] 177. Write `reports/graph_report_annotated.md` (God Nodes + risk + fix) [FR-GRAPH-007]
-- [ ] 178. Confirm `Task`/`Scheduler`/`Worker`/`Register` central (RQ2/RQ3)
-- [ ] 179. Note surprising edges (RQ1) in the annotated report
-- [ ] 180. Commit extraction artifacts + annotated report
+- [x] 160. Clone upstream `spotify/luigi` (blobless) to a scratch dir
+- [x] 161. Checkout buggy commit `b958140c2ec838e590a5be02dbac7414d5d0bf17`
+- [x] 162. Copy luigi source tree into `target_repo/luigi` (no `.git`)
+- [x] 163. Apply fixed-commit regression test to `target_repo/luigi/test/task_test.py`
+- [x] 164. Write `target_repo/PROVENANCE.md` (URL, buggy+fixed hashes, license, python 3.8.3)
+- [x] 165. Create isolated venv (py3.8.3) for luigi repro
+- [x] 166. Install luigi core + pytest in that venv
+- [x] 167. Run failing test; capture output → `reports/repro_fail.txt` [FR-FIX-002]
+- [x] 168. Confirm `KeyError: 'insignificant_param'` present
+- [x] 169. Run `graphify update target_repo/luigi` (AST/offline) via runner
+- [x] 170. Verify `graphify-out/graph.json` produced
+- [-] 171. Run deep Graphify (LLM) on luigi core [OQ1] — SKIPPED: no API key in env; AST extraction chosen (free, offline, grader-reproducible; already yields EXTRACTED+INFERRED). See ADR-0004.
+- [x] 172. Copy graph.json → `reports/graph/graph.json` and commit
+- [x] 173. Copy graph.html → `reports/graph/graph.html` and commit
+- [x] 174. Copy cost.json → `reports/graph/cost.json` and commit
+- [x] 175. Copy GRAPH_REPORT.md → `reports/GRAPH_REPORT.md` and commit
+- [x] 176. Run `god_nodes()` on real graph.json
+- [x] 177. Write `reports/graph_report_annotated.md` (God Nodes + risk + fix) [FR-GRAPH-007]
+- [x] 178. Confirm `Task`/`Scheduler`/`Worker`/`Register` central (RQ2/RQ3)
+- [x] 179. Note surprising edges (RQ1) in the annotated report
+- [x] 180. Commit extraction artifacts + annotated report
 
 ## Phase 6 — Obsidian Vault (TDD + authoring) [FR-VAULT-*, H3]
-- [ ] 181. Write `test_vault_builder.py`: `curate(obsidian_dir)` writes `vault/index.md`
-- [ ] 182. Implement `vault_builder/builder.py` curate [FR-VAULT-001]
-- [ ] 183. Test: `index.md` contains nav paths + wikilinks
-- [ ] 184. Implement `index.md` generation (Portfolio→Domains→Components) [FR-VAULT-002]
-- [ ] 185. Test: `pages.hot_md()` renders Task/Parameter focus
-- [ ] 186. Implement `vault_builder/pages.py` `hot_md` [FR-VAULT-003]
-- [ ] 187. Test: `pages.log_md()` scaffold
-- [ ] 188. Implement `log_md` [FR-VAULT-004]
-- [ ] 189. Test: component/test/finding/suspect/fix templates render with wikilinks+tags
-- [ ] 190. Implement those templates [FR-VAULT-005]
-- [ ] 191. Test: `check_links()` finds no dangling wikilinks
-- [ ] 192. Implement `check_links` [FR-VAULT-007]
-- [ ] 193. Refactor vault_builder ≤150 lines
-- [ ] 194. Build real `vault/index.md` from graphify obsidian output
-- [ ] 195. Build real `vault/hot.md` (bug-critical area)
-- [ ] 196. Build real `vault/log.md`
-- [ ] 197. Author `vault/components/Task.md`
-- [ ] 198. Author `vault/components/Parameter.md`
-- [ ] 199. Author `vault/components/Scheduler.md`
-- [ ] 200. Author `vault/components/Worker.md`
-- [ ] 201. Author `vault/components/Target.md`
-- [ ] 202. Author `vault/tests/test_task_to_str_to_task.md`
-- [ ] 203. Run `test_vault_links.py` over real vault; fix links
-- [ ] 204. Snapshot vault BEFORE → `reports/vault_before/` [FR-VAULT-006]
-- [ ] 205. Coverage Phase 6 ≥85%
-- [ ] 206. Commit base vault + before-snapshot
+- [x] 181. Write `test_vault_builder.py`: `curate(obsidian_dir)` writes `vault/index.md`
+- [x] 182. Implement `vault_builder/builder.py` curate [FR-VAULT-001]
+- [x] 183. Test: `index.md` contains nav paths + wikilinks
+- [x] 184. Implement `index.md` generation (Portfolio→Domains→Components) [FR-VAULT-002]
+- [x] 185. Test: `pages.hot_md()` renders Task/Parameter focus
+- [x] 186. Implement `vault_builder/pages.py` `hot_md` [FR-VAULT-003]
+- [x] 187. Test: `pages.log_md()` scaffold
+- [x] 188. Implement `log_md` [FR-VAULT-004]
+- [x] 189. Test: component/test/finding/suspect/fix templates render with wikilinks+tags
+- [x] 190. Implement those templates [FR-VAULT-005]
+- [x] 191. Test: `check_links()` finds no dangling wikilinks
+- [x] 192. Implement `check_links` [FR-VAULT-007]
+- [x] 193. Refactor vault_builder ≤150 lines
+- [x] 194. Build real `vault/index.md` from graphify obsidian output
+- [x] 195. Build real `vault/hot.md` (bug-critical area)
+- [x] 196. Build real `vault/log.md`
+- [x] 197. Author `vault/components/Task.md`
+- [x] 198. Author `vault/components/Parameter.md`
+- [x] 199. Author `vault/components/Scheduler.md`
+- [x] 200. Author `vault/components/Worker.md`
+- [x] 201. Author `vault/components/Target.md`
+- [x] 202. Author `vault/tests/test_task_to_str_to_task.md`
+- [x] 203. Run `test_vault_links.py` over real vault; fix links
+- [x] 204. Snapshot vault BEFORE → `reports/vault_before/` [FR-VAULT-006]
+- [x] 205. Coverage Phase 6 ≥85%
+- [x] 206. Commit base vault + before-snapshot
 
 ## Phase 7 — Reverse-engineering diagrams [FR-REV-*, H7,H8]
 - [ ] 207. Draft `diagrams/block_diagram.mmd` (components + data flow) [FR-REV-001]
