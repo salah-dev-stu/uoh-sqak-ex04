@@ -1,0 +1,11 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "nodes": [
+    {"id": "a", "label": "A", "file_type": "code", "source_file": "a.py"},
+    {"id": "b", "label": "B", "file_type": "code", "source_file": "b.py"}
+  ],
+  "links": [
+    {"source": "a", "target": "b", "relation": "calls", "confidence": "INFERRED", "weight": 1.0}
+  ]
+}

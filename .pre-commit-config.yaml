@@ -1,3 +1,6 @@
+# Never modify vendored target code or large generated graph artifacts.
+exclude: '^(target_repo/|reports/graph/)'
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0

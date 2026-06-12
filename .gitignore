@@ -29,3 +29,6 @@ build/
 *.swp
 .idea/
 .vscode/
+
+# Graphify working dir (regenerable; curated copy lives in reports/graph/)
+**/graphify-out/

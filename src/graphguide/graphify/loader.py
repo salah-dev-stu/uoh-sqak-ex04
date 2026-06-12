@@ -42,5 +42,9 @@ class GraphLoader:
     def load(path: str | Path) -> CodeGraph:
         data = json.loads(Path(path).read_text(encoding="utf-8"))
         nodes = [Node.from_dict(d) for d in data.get("nodes", [])]
-        edges = [Edge.from_dict(d) for d in data.get("edges", [])]
+        # Graphify exports NetworkX node-link JSON ("links"); accept "edges" too.
+        edges_raw = data.get("edges")
+        if edges_raw is None:
+            edges_raw = data.get("links", [])
+        edges = [Edge.from_dict(d) for d in edges_raw]
         return CodeGraph(nodes, edges)

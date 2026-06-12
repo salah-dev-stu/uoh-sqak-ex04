@@ -41,6 +41,8 @@ packages = ["src/graphguide"]
 [tool.ruff]
 line-length = 100
 target-version = "py313"
+# Never lint/format the vendored target repo (third-party; altering it would change the bug).
+extend-exclude = ["target_repo", "tests/fixtures"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "N", "UP", "B", "C4", "SIM"]

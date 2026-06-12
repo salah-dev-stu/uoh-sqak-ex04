@@ -33,3 +33,11 @@ def test_to_networkx_filtered_drops_ambiguous():
     g = GraphLoader.load(FIXTURE)
     nxg = g.to_networkx(min_confidence=Confidence.EXTRACTED)
     assert not nxg.has_edge("from_str_params", "parameter")  # AMBIGUOUS dropped
+
+
+def test_load_nodelink_format():
+    """Graphify exports NetworkX node-link JSON ('links', not 'edges')."""
+    g = GraphLoader.load(Path("tests/fixtures/graph_nodelink.json"))
+    assert len(g.edges) == 1
+    assert g.edges[0].confidence is Confidence.INFERRED
+    assert g.to_networkx().has_edge("a", "b")

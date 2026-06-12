@@ -4,5 +4,11 @@
   "out_dir": "reports/graph",
   "deep_run": true,
   "query_budget": 2000,
-  "target_path": "target_repo/luigi"
+  "target_path": "target_repo/luigi",
+  "god_nodes": {
+    "degree_warning": 30,
+    "degree_critical": 60,
+    "betweenness_warning": 0.02,
+    "betweenness_critical": 0.05
+  }
 }

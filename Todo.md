@@ -167,26 +167,26 @@
 - [x] 139. Commit graphify read-side
 
 ## Phase 4 — Graphify runner + query wrappers (TDD) [FR-GRAPH-001..006]
-- [ ] 140. Write `test_runner.py`: `GraphifyRunner.extract` builds command from config
-- [ ] 141. Implement `graphify/runner.py` `extract(mode)` [FR-GRAPH-001/002]
-- [ ] 142. Test: runner routes subprocess via injected gatekeeper (mock) [FR-GRAPH-003]
-- [ ] 143. Implement gatekeeper-wrapped subprocess
-- [ ] 144. Test: runner collects outputs into `reports/graph/`
-- [ ] 145. Implement output collection [FR-GRAPH-004]
-- [ ] 146. Test: AST mode uses `graphify update` (no LLM)
-- [ ] 147. Implement AST-mode command branch
-- [ ] 148. Test: deep mode adds `--mode deep`
-- [ ] 149. Implement deep-mode branch
-- [ ] 150. Write `test_queries.py`: `query()` wrapper calls CLI (mock) + honors `--budget`
-- [ ] 151. Implement `graphify/queries.py` `query` [FR-GRAPH-006]
-- [ ] 152. Test+implement `explain(node)`
-- [ ] 153. Test+implement `path(a,b)`
-- [ ] 154. Test+implement `affected(node)` (impact)
-- [ ] 155. Test: query wrappers are metered (file/text units)
-- [ ] 156. Wire query metering through gatekeeper
-- [ ] 157. Refactor runner/queries ≤150 lines
-- [ ] 158. Coverage Phase 4 ≥85%
-- [ ] 159. Commit graphify runner + queries
+- [x] 140. Write `test_runner.py`: `GraphifyRunner.extract` builds command from config
+- [x] 141. Implement `graphify/runner.py` `extract(mode)` [FR-GRAPH-001/002]
+- [x] 142. Test: runner routes subprocess via injected gatekeeper (mock) [FR-GRAPH-003]
+- [x] 143. Implement gatekeeper-wrapped subprocess
+- [x] 144. Test: runner collects outputs into `reports/graph/`
+- [x] 145. Implement output collection [FR-GRAPH-004]
+- [x] 146. Test: AST mode uses `graphify update` (no LLM)
+- [x] 147. Implement AST-mode command branch
+- [x] 148. Test: deep mode adds `--mode deep`
+- [x] 149. Implement deep-mode branch
+- [x] 150. Write `test_queries.py`: `query()` wrapper calls CLI (mock) + honors `--budget`
+- [x] 151. Implement `graphify/queries.py` `query` [FR-GRAPH-006]
+- [x] 152. Test+implement `explain(node)`
+- [x] 153. Test+implement `path(a,b)`
+- [x] 154. Test+implement `affected(node)` (impact)
+- [x] 155. Test: query wrappers are metered (file/text units)
+- [x] 156. Wire query metering through gatekeeper
+- [x] 157. Refactor runner/queries ≤150 lines
+- [x] 158. Coverage Phase 4 ≥85%
+- [x] 159. Commit graphify runner + queries
 
 ## Phase 5 — Vendor luigi + run real extraction [FR-FIX-001, FR-GRAPH-004/007, H2]
 - [ ] 160. Clone upstream `spotify/luigi` (blobless) to a scratch dir
