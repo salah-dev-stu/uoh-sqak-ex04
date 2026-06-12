@@ -1,0 +1,58 @@
+[project]
+name = "graphguide"
+description = "Graph-guided, token-efficient reverse-engineering & debugging agent (EX04, uoh-sqak)"
+authors = [
+    { name = "Salah Qadah" },
+    { name = "Andalus Kalash" },
+]
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dynamic = ["version"]
+dependencies = [
+    "langgraph>=0.2",
+    "langchain-core>=0.3",
+    "networkx>=3.3",
+    "anthropic>=0.40",
+    "tiktoken>=0.8",
+    "matplotlib>=3.9",
+]
+
+[project.scripts]
+graphguide = "graphguide.main:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "pytest-cov>=5.0",
+    "ruff>=0.7",
+    "pre-commit>=4.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "src/graphguide/shared/version.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/graphguide"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "C4", "SIM"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=graphguide --cov-report=term-missing"
+
+[tool.coverage.run]
+source = ["graphguide"]
+omit = ["tests/*", "*/fixtures/*"]
+
+[tool.coverage.report]
+fail_under = 85

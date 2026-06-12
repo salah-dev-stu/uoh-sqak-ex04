@@ -1,0 +1,8 @@
+{
+  "cli_path": "graphify",
+  "mode": "deep",
+  "out_dir": "reports/graph",
+  "deep_run": true,
+  "query_budget": 2000,
+  "target_path": "target_repo/luigi"
+}

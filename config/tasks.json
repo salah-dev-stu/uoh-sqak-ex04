@@ -1,0 +1,8 @@
+{
+  "investigation_task": "Find, explain, and fix the bug that makes test_task_to_str_to_task fail.",
+  "failing_test_node": "task_to_str_params",
+  "suspect_weights": {
+    "centrality": 0.5,
+    "proximity": 0.5
+  }
+}

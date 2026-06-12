@@ -63,21 +63,21 @@ def main() -> int:
     d = Document(intermediate)
     p = d.paragraphs
 
-    append_value(p[0], EXERCISE_NUMBER)               # exercise number
-    append_value(p[2], GROUP_CODE)                    # group ID code
-    append_value(p[4], SELF_GRADE)                    # self-grade
-    append_value(p[7], STUDENT_1["id"])               # S1 ID
+    append_value(p[0], EXERCISE_NUMBER)  # exercise number
+    append_value(p[2], GROUP_CODE)  # group ID code
+    append_value(p[4], SELF_GRADE)  # self-grade
+    append_value(p[7], STUDENT_1["id"])  # S1 ID
     append_value(p[8], STUDENT_1["first_en"])
     append_value(p[9], STUDENT_1["last_en"])
     append_value(p[10], STUDENT_1["first_he"])
     append_value(p[11], STUDENT_1["last_he"])
-    append_value(p[14], STUDENT_2["id"])              # S2 ID
+    append_value(p[14], STUDENT_2["id"])  # S2 ID
     append_value(p[15], STUDENT_2["first_en"])
     append_value(p[16], STUDENT_2["last_en"])
     append_value(p[17], STUDENT_2["first_he"])
     append_value(p[18], STUDENT_2["last_he"])
-    append_value(p[20], GITHUB_URL)                   # GitHub link
-    append_value(p[21], LATE)                         # late yes/no
+    append_value(p[20], GITHUB_URL)  # GitHub link
+    append_value(p[21], LATE)  # late yes/no
 
     d.save(intermediate)
     print(f"  filled docx: {intermediate}")
@@ -89,12 +89,18 @@ def main() -> int:
     # Unicode MS also has full Hebrew coverage (no missing-character warnings).
     rc = subprocess.run(
         [
-            "pandoc", str(intermediate), "-o", str(pdf),
+            "pandoc",
+            str(intermediate),
+            "-o",
+            str(pdf),
             "--pdf-engine=xelatex",
-            "-V", "mainfont=Arial Unicode MS",
-            "-V", "geometry:margin=1in",
+            "-V",
+            "mainfont=Arial Unicode MS",
+            "-V",
+            "geometry:margin=1in",
         ],
-        capture_output=True, text=True,
+        capture_output=True,
+        text=True,
     )
     if rc.returncode != 0:
         print("pandoc xelatex failed; STDERR:")

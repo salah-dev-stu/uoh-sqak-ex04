@@ -1,0 +1,12 @@
+{
+  "requests_per_minute": 60,
+  "token_budget": {
+    "naive": 200000,
+    "graph": 60000
+  },
+  "max_iterations": 8,
+  "max_files": {
+    "naive": 40,
+    "graph": 8
+  }
+}
