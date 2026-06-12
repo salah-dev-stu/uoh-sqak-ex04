@@ -257,23 +257,23 @@
 - [x] 221. Commit diagrams + architecture.md
 
 ## Phase 8 — Agent core: state, LLM, tools (TDD) [FR-AGENT-001/003/007, NFR-TEST-002]
-- [ ] 222. Write `test_state.py`: `AgentState` fields present
-- [ ] 223. Implement `agent/state.py` `AgentState`
-- [ ] 224. Write `test_llm.py`: `LLMClient.complete` routes via gatekeeper
-- [ ] 225. Implement `agent/llm.py` real anthropic client behind gatekeeper [FR-AGENT-003]
-- [ ] 226. Test: `MockLLM.complete` returns scripted response by prompt key
-- [ ] 227. Implement `MockLLM` (injectable) [NFR-TEST-002]
-- [ ] 228. Test: client selection (real vs mock) from env/config
-- [ ] 229. Implement client factory
-- [ ] 230. Write `test_tools.py`: `read_code(node)` returns only that node's source span
-- [ ] 231. Implement `agent/tools.py` budgeted `read_code` (metered) [FR-AGENT-007]
-- [ ] 232. Test: refuses to read over file cap
-- [ ] 233. Implement cap enforcement from config
-- [ ] 234. Test: `graph_query_tool` wraps `queries` for the agent
-- [ ] 235. Implement graph-query tool
-- [ ] 236. Refactor agent core ≤150 lines/file
-- [ ] 237. Coverage Phase 8 ≥85%
-- [ ] 238. Commit agent core
+- [x] 222. Write `test_state.py`: `AgentState` fields present
+- [x] 223. Implement `agent/state.py` `AgentState`
+- [x] 224. Write `test_llm.py`: `LLMClient.complete` routes via gatekeeper
+- [x] 225. Implement `agent/llm.py` real anthropic client behind gatekeeper [FR-AGENT-003]
+- [x] 226. Test: `MockLLM.complete` returns scripted response by prompt key
+- [x] 227. Implement `MockLLM` (injectable) [NFR-TEST-002]
+- [x] 228. Test: client selection (real vs mock) from env/config
+- [x] 229. Implement client factory
+- [x] 230. Write `test_tools.py`: `read_code(node)` returns only that node's source span
+- [x] 231. Implement `agent/tools.py` budgeted `read_code` (metered) [FR-AGENT-007]
+- [x] 232. Test: refuses to read over file cap
+- [x] 233. Implement cap enforcement from config
+- [x] 234. Test: `graph_query_tool` wraps `queries` for the agent
+- [x] 235. Implement graph-query tool
+- [x] 236. Refactor agent core ≤150 lines/file
+- [x] 237. Coverage Phase 8 ≥85%
+- [x] 238. Commit agent core
 
 ## Phase 9 — Agent nodes + graphs (TDD) [FR-AGENT-002/004/005/006/009, H4]
 - [ ] 239. Write `test_nodes.py`: `read_index` loads index.md into state

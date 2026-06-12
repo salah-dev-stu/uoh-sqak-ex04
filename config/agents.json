@@ -5,5 +5,9 @@
   "max_tokens": 1024,
   "token_encoding": "cl100k_base",
   "prompt_keys": ["diagnose", "propose_fix"],
-  "success_criteria": "Locate the buggy function and explain its root cause."
+  "success_criteria": "Locate the buggy function and explain its root cause.",
+  "prompts": {
+    "diagnose": "Debug luigi. Focused context:\n{context}\n\nIn one paragraph, state the root cause of the failing test.",
+    "fix": "Root cause:\n{root_cause}\n\nPropose the minimal code change to fix it."
+  }
 }

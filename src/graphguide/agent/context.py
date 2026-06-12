@@ -22,6 +22,7 @@ class AgentContext:
     failing_test_node: str
     max_files: int
     prompts: dict[str, str]
+    max_iterations: int = 8
     _nx: Any = field(init=False, default=None)
     _files: dict[str, str] = field(init=False, default_factory=dict)
 
