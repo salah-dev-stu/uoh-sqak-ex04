@@ -141,30 +141,30 @@
 - [x] 115. Commit gatekeeper + meter
 
 ## Phase 3 — Graphify models/loader/centrality (TDD) [FR-GRAPH-005..008, H2]
-- [ ] 116. Write `test_models.py`: `Confidence` enum EXTRACTED/INFERRED/AMBIGUOUS
-- [ ] 117. Implement `graphify/models.py` `Confidence`
-- [ ] 118. Test: `Node` dataclass parses sample dict
-- [ ] 119. Implement `Node`
-- [ ] 120. Test: `Edge` dataclass parses sample dict incl. confidence
-- [ ] 121. Implement `Edge`
-- [ ] 122. Create `tests/fixtures/graph_sample.json` (small luigi-like graph)
-- [ ] 123. Write `test_loader.py`: `GraphLoader.load(path)` returns nodes+edges
-- [ ] 124. Implement `graphify/loader.py` `load`
-- [ ] 125. Test: loader filters edges by min confidence
-- [ ] 126. Implement confidence filter
-- [ ] 127. Test: `to_networkx()` builds a graph with right node/edge counts
-- [ ] 128. Implement `to_networkx`
-- [ ] 129. Write `test_centrality.py`: degree centrality values
-- [ ] 130. Implement `graphify/centrality.py` degree
-- [ ] 131. Test: betweenness centrality values
-- [ ] 132. Implement betweenness
-- [ ] 133. Test: `god_nodes()` flags over config thresholds w/ tiers
-- [ ] 134. Implement `god_nodes()` `[CRITICAL]`/`[WARNING]` [FR-GRAPH-007]
-- [ ] 135. Test: `centrality_table()` sorted desc
-- [ ] 136. Implement `centrality_table` [FR-GRAPH-008]
-- [ ] 137. Refactor centrality/loader ≤150 lines
-- [ ] 138. Coverage Phase 3 ≥85%
-- [ ] 139. Commit graphify read-side
+- [x] 116. Write `test_models.py`: `Confidence` enum EXTRACTED/INFERRED/AMBIGUOUS
+- [x] 117. Implement `graphify/models.py` `Confidence`
+- [x] 118. Test: `Node` dataclass parses sample dict
+- [x] 119. Implement `Node`
+- [x] 120. Test: `Edge` dataclass parses sample dict incl. confidence
+- [x] 121. Implement `Edge`
+- [x] 122. Create `tests/fixtures/graph_sample.json` (small luigi-like graph)
+- [x] 123. Write `test_loader.py`: `GraphLoader.load(path)` returns nodes+edges
+- [x] 124. Implement `graphify/loader.py` `load`
+- [x] 125. Test: loader filters edges by min confidence
+- [x] 126. Implement confidence filter
+- [x] 127. Test: `to_networkx()` builds a graph with right node/edge counts
+- [x] 128. Implement `to_networkx`
+- [x] 129. Write `test_centrality.py`: degree centrality values
+- [x] 130. Implement `graphify/centrality.py` degree
+- [x] 131. Test: betweenness centrality values
+- [x] 132. Implement betweenness
+- [x] 133. Test: `god_nodes()` flags over config thresholds w/ tiers
+- [x] 134. Implement `god_nodes()` `[CRITICAL]`/`[WARNING]` [FR-GRAPH-007]
+- [x] 135. Test: `centrality_table()` sorted desc
+- [x] 136. Implement `centrality_table` [FR-GRAPH-008]
+- [x] 137. Refactor centrality/loader ≤150 lines
+- [x] 138. Coverage Phase 3 ≥85%
+- [x] 139. Commit graphify read-side
 
 ## Phase 4 — Graphify runner + query wrappers (TDD) [FR-GRAPH-001..006]
 - [ ] 140. Write `test_runner.py`: `GraphifyRunner.extract` builds command from config
