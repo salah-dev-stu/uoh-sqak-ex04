@@ -1,9 +1,9 @@
 # Lecture 07 Digest: Spoken Session — Reverse Engineering, Debugging & Token-Efficient Agentic AI
 
-**Course:** University of Haifa, 203.3763 — "Orchestration of AI Agents"  
-**Lecture:** 07 (Delivered on campus, recorded + partial whisper.cpp transcript)  
-**Instructor:** Dr. Yoram Segal  
-**Date:** June 2026  
+**Course:** University of Haifa, 203.3763 — "Orchestration of AI Agents"
+**Lecture:** 07 (Delivered on campus, recorded + partial whisper.cpp transcript)
+**Instructor:** Dr. Yoram Segal
+**Date:** June 2026
 
 ---
 
@@ -217,22 +217,22 @@ These are graded as part of **reverse engineering** evidence (Requirement 5.2).
 
 ### On HW4 Repo Choice & Significant Enough Size
 
-**Q:** "Can I use my own repo instead of BugsInPy?"  
+**Q:** "Can I use my own repo instead of BugsInPy?"
 **A:** "Yes, if it's ≥10,000 LoC and ≥70 code files. But if it's YOUR code with YOUR documentation, זה לא עשינו בזה כלום (we didn't learn anything). Pick UNFAMILIAR code."
 
 ### On Token Savings — What Counts?
 
-**Q:** "What if I don't see token reduction?"  
+**Q:** "What if I don't see token reduction?"
 **A:** "Explain why. Honest analysis is acceptable. But measure it — zero measurement = failure."
 
 ### On Submission & Timing
 
-**Q:** "Can I submit early / ahead of the two-week window?"  
+**Q:** "Can I submit early / ahead of the two-week window?"
 **A:** "I grade everyone at the deadline. Don't wait; start immediately. But I won't grade early submissions individually."
 
 ### On Extension Work & Differentiators
 
-**Q (implied):** "What makes my submission stand out?"  
+**Q (implied):** "What makes my submission stand out?"
 **A:** "אמור להיות עכשיו איזשהו שלב שבו אתם מסתכלים על ההמלצות" = "There should be a step where you look at [graph-generated] recommendations and think about how to improve further." Add something creative: ranking by centrality, dynamic hot.md, impact analysis, organizational graph (if you extend the idea to teams).
 
 ---
@@ -333,4 +333,3 @@ He said: "מה הבנתם מהגרף? מה הבנתם, איך תכננו את ה
 - **Part D (Summary):** Lecture emphasizes integration; adds concrete examples of how index.md + hot.md + graph guide agent queries.
 
 **No contradictions found.** Lecture amplifies and clarifies the written spec; all deliverables align.
-

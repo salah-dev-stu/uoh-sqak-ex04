@@ -1,9 +1,9 @@
 # Lecture 07 Digest: Reverse Engineering & Token-Efficient Agentic AI with Graphify & Obsidian
 
-**Course:** University of Haifa, "Orchestration of AI Agents" (203.3763)  
-**Lecture:** 07 (4-part series)  
-**Date:** June 2026  
-**Instructor:** Dr. Yoram Segal  
+**Course:** University of Haifa, "Orchestration of AI Agents" (203.3763)
+**Lecture:** 07 (4-part series)
+**Date:** June 2026
+**Instructor:** Dr. Yoram Segal
 
 ---
 
@@ -34,12 +34,12 @@ Recap of all four components: Graphify (code graph extraction), LLM Wiki (Markdo
 ### Graph Representation & Schema
 
 **Node Types:**
-- `File` (e.g., `checkout_service.py`) – code file  
-- `Code` (e.g., `AuthController.py`) – deterministic from AST  
-- `Module` – Python module or package  
-- `Class` – OOP abstraction  
-- `Function` – callable definition  
-- `PRD`, `Docs`, `Rationale` – documentation artifacts  
+- `File` (e.g., `checkout_service.py`) – code file
+- `Code` (e.g., `AuthController.py`) – deterministic from AST
+- `Module` – Python module or package
+- `Class` – OOP abstraction
+- `Function` – callable definition
+- `PRD`, `Docs`, `Rationale` – documentation artifacts
 
 **Edge Types (Three Categories):**
 
@@ -50,9 +50,9 @@ Recap of all four components: Graphify (code graph extraction), LLM Wiki (Markdo
 | **AMBIGUOUS** | Ambiguous or uncertain relation—dashed edge in graph, requires manual check | Symbol not found, unclear reference, multiple candidates |
 
 **Example Edge Semantics:**
-- `LoginPage.txt` —(calls)→ `AuthController.py` = extracted  
-- `PRD_auth.md` —(rationale_for: CONFIDENCE 88%)→ `AuthController.py` = inferred  
-- `Module C` —(ambiguous: "maybe depends on Service E?")→ `Service E` = ambiguous (dotted line)  
+- `LoginPage.txt` —(calls)→ `AuthController.py` = extracted
+- `PRD_auth.md` —(rationale_for: CONFIDENCE 88%)→ `AuthController.py` = inferred
+- `Module C` —(ambiguous: "maybe depends on Service E?")→ `Service E` = ambiguous (dotted line)
 
 ### Graphify Pipeline Output
 
@@ -75,11 +75,11 @@ Recap of all four components: Graphify (code graph extraction), LLM Wiki (Markdo
 
 ### Key Graphify Outputs
 
-- **Detect phase:** scan raw folder for code, docs, PDFs  
-- **Extract phase:** AST parse + semantic layer inference (Claude-7)  
-- **Build phase:** construct graph with evidence labels  
-- **Cluster phase:** community detection via modularity (louvain); identify hubs  
-- **Export phase:** write graph.json, GRAPH_REPORT.md, graph.html  
+- **Detect phase:** scan raw folder for code, docs, PDFs
+- **Extract phase:** AST parse + semantic layer inference (Claude-7)
+- **Build phase:** construct graph with evidence labels
+- **Cluster phase:** community detection via modularity (louvain); identify hubs
+- **Export phase:** write graph.json, GRAPH_REPORT.md, graph.html
 
 **Token efficiency benefit:** Graphify reduces ~71.5% of irrelevant file reads vs. naive chunking by using structural + semantic clustering.
 
@@ -121,35 +121,35 @@ Vault/
 ```
 
 **Levels of Vault Organization:**
-- **Portfolio** (top): All work represented in vault; linked via index.md  
-- **Domain** (middle): Thematic grouping (Python, LaTeX, etc.); contains domains within wiki/  
-- **Project** (bottom): Specific codebase or document set; PRD, PLAN, TODO, Code references  
+- **Portfolio** (top): All work represented in vault; linked via index.md
+- **Domain** (middle): Thematic grouping (Python, LaTeX, etc.); contains domains within wiki/
+- **Project** (bottom): Specific codebase or document set; PRD, PLAN, TODO, Code references
 
 ### Pages to Create
 
 **Mandatory:**
-1. **index.md** – Portfolio hub; list all 10 domains + 20 projects; wikilinks to domain READMEs  
-2. **hot.md** – Actively queried concepts; refreshed during agent runs  
-3. **log.md** – Decision log; trace of query → finding → action  
+1. **index.md** – Portfolio hub; list all 10 domains + 20 projects; wikilinks to domain READMEs
+2. **hot.md** – Actively queried concepts; refreshed during agent runs
+3. **log.md** – Decision log; trace of query → finding → action
 
 **Per Domain:**
-4. **wiki/[DomainName]/README.md** – Domain intro; list projects in this domain  
+4. **wiki/[DomainName]/README.md** – Domain intro; list projects in this domain
 
 **Per Project (within domain):**
-5. **wiki/[DomainName]/[ProjectName].md** – Project overview; link to PRD, PLAN, Code, architecture diagram  
+5. **wiki/[DomainName]/[ProjectName].md** – Project overview; link to PRD, PLAN, Code, architecture diagram
 
 **Linking Conventions:**
 - **Wikilinks:** `[[index.md]]`, `[[hot.md]]`, `[[wiki/Python/AuthFlow.md]]`
-- **Transclusion:** `![[wiki/Python/AuthFlow.md]]` embeds full page  
-- **Backlinks:** Obsidian auto-indexes; allows reverse navigation  
-- **Tags:** Use `#prd`, `#code`, `#decision` for filtering in searches  
+- **Transclusion:** `![[wiki/Python/AuthFlow.md]]` embeds full page
+- **Backlinks:** Obsidian auto-indexes; allows reverse navigation
+- **Tags:** Use `#prd`, `#code`, `#decision` for filtering in searches
 
 ### Obsidian as Navigation Vault
 
 Obsidian's role is **not to store all code**, but to:
 - Provide **semantic memory** (Markdown-based, human-readable)
 - Enable **guided retrieval** (index.md as entry; wikilinks guide agent queries)
-- Reduce **"Lost in the Middle"** via Parallel Depth Scan (PDS) in Obsidian fetch: read index.md first, then choose which wiki pages to load based on query relevance  
+- Reduce **"Lost in the Middle"** via Parallel Depth Scan (PDS) in Obsidian fetch: read index.md first, then choose which wiki pages to load based on query relevance
 - Track **decisions & rationale** (wiki pages annotate WHY code exists, not just WHAT it does)
 
 ---
@@ -297,32 +297,32 @@ Agent workflow:
      - Load graph.json
      - Load index.md, hot.md
      - Store query ("find the bug causing X")
-  
+
   2. QUERY ROUTER
      - Parse query
      - Identify "bug symptoms" (e.g., "table overflow")
      - Route to relevant hot.md section
-  
+
   3. GRAPH NAVIGATION
      - Start from hot.md nodes
      - Follow EXTRACTED edges only (confidence > 0.8)
      - Build subgraph of reachable nodes within K hops
-  
+
   4. CODE READING
      - For each node in subgraph:
        - Read code snippet (vs. entire file)
        - Check for match with bug symptoms
        - Update hypothesis
-  
+
   5. HYPOTHESIS REFINEMENT
      - If no match: backtrack to graph, try INFERRED edges
      - If match found: inspect related nodes (callers, called-by)
-  
+
   6. VALIDATION
      - Run unit tests on suspected code
      - Confirm root cause
      - Generate explanation
-  
+
   7. OUTPUT
      - Bug location + line number
      - Root cause explanation
@@ -472,4 +472,3 @@ The lecture materials expand on and validate the spec; they do not contradict it
 - **Obsidian anatomy:** lecture-07-graph-architecture-part-b.pdf, p. ~12
 - **Token efficiency comparison:** lecture-07-summary.pdf, p. ~8
 - **Agent workflow pseudocode:** lecture-07-summary.pdf, p. ~10
-
