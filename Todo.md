@@ -1,0 +1,500 @@
+# Todo — EX04 Graphify + Obsidian + Token-Efficient Agent
+
+> Execute one-by-one; mark `- [x]` done, `- [-]` skipped (+reason). Tags `[FR-…]/[NFR-…]/[R…/H…]` trace to `prd.md`/`RULES.md`. New features append here (per-feature workflow). This global list is the authoritative progress tracker.
+
+## Phase 0 — Scaffold & Tooling [NFR-PKG, NFR-CI, NFR-SEC, R5,R12,R13]
+- [ ] 1. Create `src/graphguide/` package dir
+- [ ] 2. Create `src/graphguide/sdk/` dir
+- [ ] 3. Create `src/graphguide/graphify/` dir
+- [ ] 4. Create `src/graphguide/agent/` dir
+- [ ] 5. Create `src/graphguide/extensions/` dir
+- [ ] 6. Create `src/graphguide/shared/` dir
+- [ ] 7. Create `src/graphguide/vault_builder/` dir
+- [ ] 8. Create `tests/unit/` and `tests/integration/` dirs
+- [ ] 9. Create `tests/fixtures/` dir
+- [ ] 10. Create `config/`, `docs/prd/`, `docs/adr/` dirs
+- [ ] 11. Create `reports/graph/`, `reports/metrics/` dirs with `.gitkeep`
+- [ ] 12. Create `diagrams/`, `vault/`, `target_repo/`, `scripts/` dirs
+- [ ] 13. `git init`; set default branch `main`
+- [ ] 14. Verify `.gitignore` excludes `.blender-toolkit/`/`.claude/`/`SKILL.md`; keeps prd/Plan/Todo
+- [ ] 15. Create `pyproject.toml` `[project]` table (name=graphguide, description, authors)
+- [ ] 16. Set `requires-python = ">=3.13,<3.14"`
+- [ ] 17. Add `[build-system]` = hatchling
+- [ ] 18. Add `[tool.hatch.version]` path=`src/graphguide/shared/version.py`
+- [ ] 19. Add `[tool.hatch.build.targets.wheel] packages=["src/graphguide"]`
+- [ ] 20. Add runtime dep `langgraph`
+- [ ] 21. Add runtime dep `langchain-core`
+- [ ] 22. Add runtime dep `networkx`
+- [ ] 23. Add runtime dep `anthropic`
+- [ ] 24. Add runtime dep `tiktoken`
+- [ ] 25. Add runtime dep `matplotlib` (token chart)
+- [ ] 26. Add dev deps group: `pytest`, `pytest-cov`, `ruff`, `pre-commit`
+- [ ] 27. Configure `[tool.ruff] line-length=100`, `target-version=py313`
+- [ ] 28. Configure `[tool.ruff.lint] select=[E,F,W,I,N,UP,B,C4,SIM]`, `ignore=[E501]`
+- [ ] 29. Configure `[tool.pytest.ini_options] testpaths`, `addopts=--cov=graphguide --cov-report=term-missing`
+- [ ] 30. Configure `[tool.coverage.report] fail_under=85`, omit tests/fixtures
+- [ ] 31. Add `[project.scripts] graphguide = "graphguide.main:main"`
+- [ ] 32. `uv sync`; confirm `.venv` created
+- [ ] 33. Commit `uv.lock`
+- [ ] 34. Create `.env-example` with `ANTHROPIC_API_KEY=` + comment (never commit real key)
+- [ ] 35. Confirm `.env` is gitignored (add if missing)
+- [ ] 36. Create `src/graphguide/shared/version.py` → `VERSION = "1.00"`
+- [ ] 37. Create `src/graphguide/__init__.py` importing `VERSION` from `shared.version`
+- [ ] 38. Create `src/graphguide/constants.py` (output filenames, enum string keys; NO tunables)
+- [ ] 39. Create `src/graphguide/sdk/__init__.py`
+- [ ] 40. Create `src/graphguide/graphify/__init__.py`
+- [ ] 41. Create `src/graphguide/agent/__init__.py`
+- [ ] 42. Create `src/graphguide/extensions/__init__.py`
+- [ ] 43. Create `src/graphguide/shared/__init__.py`
+- [ ] 44. Create `src/graphguide/vault_builder/__init__.py`
+- [ ] 45. Create `config/graphify.json` (cli_path, mode, out_dir, deep_run, budget)
+- [ ] 46. Create `config/rate_limits.json` (rpm, token_budget.naive, token_budget.graph, max_iterations, max_files)
+- [ ] 47. Create `config/agents.json` (model_id, temperature, prompt_keys, success_criteria)
+- [ ] 48. Create `config/tasks.json` (task text, naive_file_cap, suspect_weights)
+- [ ] 49. Create `config/logging.json` (handlers, format, level)
+- [ ] 50. Copy `scripts/check_file_lines.py` (HW3 pattern)
+- [ ] 51. Adapt `check_file_lines.py` limit=150 + target=`src/graphguide`
+- [ ] 52. Run `check_file_lines.py`; confirm passes on skeleton
+- [ ] 53. Create `.pre-commit-config.yaml` (ruff)
+- [ ] 54. Add pre-commit hook: ruff-format
+- [ ] 55. Add pre-commit hook: trailing-whitespace + end-of-file-fixer
+- [ ] 56. Add pre-commit local hook: check_file_lines
+- [ ] 57. `pre-commit install`
+- [ ] 58. `pre-commit run --all-files`; fix issues
+- [ ] 59. Create `.github/workflows/ci.yml` name+triggers (push/PR)
+- [ ] 60. CI job step: `actions/checkout@v4`
+- [ ] 61. CI step: `actions/setup-python@v5` with `python-version: '3.13'` [NFR-CI-001]
+- [ ] 62. CI step: install uv (`astral-sh/setup-uv@v5`)
+- [ ] 63. CI step: `uv sync --all-extras --dev`
+- [ ] 64. CI step: `uv run ruff check`
+- [ ] 65. CI step: `uv run ruff format --check`
+- [ ] 66. CI step: `uv run python scripts/check_file_lines.py`
+- [ ] 67. CI step: `uv run pytest --cov --cov-fail-under=85`
+- [ ] 68. Add CI badge placeholder to README header
+- [ ] 69. Create `docs/PROMPTS.md` stub
+- [ ] 70. Commit Phase 0 scaffold (meaningful message)
+
+## Phase 0.5 — Gate-2 docs package (authored during planning) [FR-DOC-003, R2]
+- [x] 70a. Author `prd.md` (master PRD, all FR/NFR) [FR-DOC-003]
+- [x] 70b. Author `Plan.md` (architecture + phase plan) [FR-DOC-003]
+- [x] 70c. Author `Todo.md` (this list, ≥300 atomic tasks) [FR-DOC-003]
+- [x] 70d. Author `docs/prd/graphify.md` [FR-DOC-003]
+- [x] 70e. Author `docs/prd/vault.md` [FR-DOC-003]
+- [x] 70f. Author `docs/prd/agent.md` [FR-DOC-003]
+- [x] 70g. Author `docs/prd/gatekeeper-token-meter.md` [FR-DOC-003]
+- [x] 70h. Author `docs/prd/extensions.md` [FR-DOC-003]
+- [x] 70i. Author `docs/adr/0001-use-real-graphify-tool.md` [FR-DOC-003]
+- [x] 70j. Author `docs/adr/0002-langgraph-over-crewai.md` [FR-DOC-003]
+- [x] 70k. Author `docs/adr/0003-pin-python-3.13-ci.md` [FR-DOC-003]
+- [x] 70l. Author `docs/adr/0004-ast-fallback.md` [FR-GRAPH-009, FR-DOC-003]
+- [x] 70m. Author `docs/adr/0005-gatekeeper-wraps-all-calls.md` [FR-DOC-003]
+- [ ] 70n. Commit Gate-2 docs package
+- [ ] 70o. Write `diagrams/oop_plan.md` — planned class structure (base classes/mixins/Template Method, no duplication) [R2]
+
+## Phase 1 — Config, Version, Logging (TDD) [FR-CONFIG, FR-VERSION, FR-LOG, R4,R5,R10]
+- [ ] 71. Write failing `tests/unit/test_version.py`: `graphguide.VERSION == "1.00"`
+- [ ] 72. Make version test pass
+- [ ] 73. Write `test_version.py`: config version mirror == code VERSION [FR-VERSION-001]
+- [ ] 74. Add version mirror into a config + loader accessor; pass test
+- [ ] 75. Write failing `test_config.py`: `config.load("graphify")` returns dict
+- [ ] 76. Implement `shared/config.py` JSON loader
+- [ ] 77. Add typed accessors (`get_rate_limits()`, `get_graphify_cfg()`, etc.)
+- [ ] 78. Test: each config file loads + required keys present
+- [ ] 79. Make required-keys test pass
+- [ ] 80. Test: `test_no_hardcoded_model` greps `src/` for model-id literal → none [R10]
+- [ ] 81. Ensure model id only in config; pass grep test
+- [ ] 82. Implement `shared/logging_config.py` from `config/logging.json`
+- [ ] 83. Write `test_logging_config.py` (configures without error)
+- [ ] 84. Refactor any >150-line file
+- [ ] 85. Coverage Phase 1 ≥85%
+- [ ] 86. Commit config/version/logging
+
+## Phase 2 — Gatekeeper + Token Meter (TDD) [FR-GATE, FR-TOKEN-001, R3]
+- [ ] 87. Write failing `test_token_meter.py`: `TokenRecord` dataclass fields
+- [ ] 88. Implement `shared/token_meter.py` `TokenRecord`
+- [ ] 89. Test: `TokenMeter.add()` accumulates totals
+- [ ] 90. Implement `TokenMeter.add` + internal store
+- [ ] 91. Test: `totals(mode)` returns per-mode aggregates
+- [ ] 92. Implement `totals`
+- [ ] 93. Test: `to_json(path)` / `from_json(path)` round-trips records
+- [ ] 94. Implement persistence
+- [ ] 95. Test: `estimate_tokens(text)` via tiktoken > 0
+- [ ] 96. Implement `estimate_tokens` (encoding from config)
+- [ ] 97. Write failing `test_gatekeeper.py`: `ApiGatekeeper.call(kind, fn)` returns fn result
+- [ ] 98. Implement `shared/gatekeeper.py` skeleton + `call`
+- [ ] 99. Test: records a TokenRecord per call
+- [ ] 100. Implement metering hook
+- [ ] 101. Test: raises when token budget exceeded
+- [ ] 102. Implement budget check from `rate_limits.json`
+- [ ] 103. Test: enforces rate limit (max calls/window)
+- [ ] 104. Implement rate-limit counter
+- [ ] 105. Test: `get_spend_report()` aggregates per mode + call_type
+- [ ] 106. Implement `get_spend_report`
+- [ ] 107. Test: subprocess kind ingests tokens from a `cost.json`
+- [ ] 108. Implement subprocess cost ingestion
+- [ ] 109. Test: file-read kind records `files_read`/`units_read`
+- [ ] 110. Implement file-read metering
+- [ ] 111. Write `test_no_bypass.py`: grep `src/` for raw `subprocess.`/`anthropic.` outside gatekeeper [FR-GATE-003]
+- [ ] 112. Ensure all external calls route via gatekeeper; pass test
+- [ ] 113. Refactor gatekeeper/meter to ≤150 lines each
+- [ ] 114. Coverage Phase 2 ≥85%
+- [ ] 115. Commit gatekeeper + meter
+
+## Phase 3 — Graphify models/loader/centrality (TDD) [FR-GRAPH-005..008, H2]
+- [ ] 116. Write `test_models.py`: `Confidence` enum EXTRACTED/INFERRED/AMBIGUOUS
+- [ ] 117. Implement `graphify/models.py` `Confidence`
+- [ ] 118. Test: `Node` dataclass parses sample dict
+- [ ] 119. Implement `Node`
+- [ ] 120. Test: `Edge` dataclass parses sample dict incl. confidence
+- [ ] 121. Implement `Edge`
+- [ ] 122. Create `tests/fixtures/graph_sample.json` (small luigi-like graph)
+- [ ] 123. Write `test_loader.py`: `GraphLoader.load(path)` returns nodes+edges
+- [ ] 124. Implement `graphify/loader.py` `load`
+- [ ] 125. Test: loader filters edges by min confidence
+- [ ] 126. Implement confidence filter
+- [ ] 127. Test: `to_networkx()` builds a graph with right node/edge counts
+- [ ] 128. Implement `to_networkx`
+- [ ] 129. Write `test_centrality.py`: degree centrality values
+- [ ] 130. Implement `graphify/centrality.py` degree
+- [ ] 131. Test: betweenness centrality values
+- [ ] 132. Implement betweenness
+- [ ] 133. Test: `god_nodes()` flags over config thresholds w/ tiers
+- [ ] 134. Implement `god_nodes()` `[CRITICAL]`/`[WARNING]` [FR-GRAPH-007]
+- [ ] 135. Test: `centrality_table()` sorted desc
+- [ ] 136. Implement `centrality_table` [FR-GRAPH-008]
+- [ ] 137. Refactor centrality/loader ≤150 lines
+- [ ] 138. Coverage Phase 3 ≥85%
+- [ ] 139. Commit graphify read-side
+
+## Phase 4 — Graphify runner + query wrappers (TDD) [FR-GRAPH-001..006]
+- [ ] 140. Write `test_runner.py`: `GraphifyRunner.extract` builds command from config
+- [ ] 141. Implement `graphify/runner.py` `extract(mode)` [FR-GRAPH-001/002]
+- [ ] 142. Test: runner routes subprocess via injected gatekeeper (mock) [FR-GRAPH-003]
+- [ ] 143. Implement gatekeeper-wrapped subprocess
+- [ ] 144. Test: runner collects outputs into `reports/graph/`
+- [ ] 145. Implement output collection [FR-GRAPH-004]
+- [ ] 146. Test: AST mode uses `graphify update` (no LLM)
+- [ ] 147. Implement AST-mode command branch
+- [ ] 148. Test: deep mode adds `--mode deep`
+- [ ] 149. Implement deep-mode branch
+- [ ] 150. Write `test_queries.py`: `query()` wrapper calls CLI (mock) + honors `--budget`
+- [ ] 151. Implement `graphify/queries.py` `query` [FR-GRAPH-006]
+- [ ] 152. Test+implement `explain(node)`
+- [ ] 153. Test+implement `path(a,b)`
+- [ ] 154. Test+implement `affected(node)` (impact)
+- [ ] 155. Test: query wrappers are metered (file/text units)
+- [ ] 156. Wire query metering through gatekeeper
+- [ ] 157. Refactor runner/queries ≤150 lines
+- [ ] 158. Coverage Phase 4 ≥85%
+- [ ] 159. Commit graphify runner + queries
+
+## Phase 5 — Vendor luigi + run real extraction [FR-FIX-001, FR-GRAPH-004/007, H2]
+- [ ] 160. Clone upstream `spotify/luigi` (blobless) to a scratch dir
+- [ ] 161. Checkout buggy commit `b958140c2ec838e590a5be02dbac7414d5d0bf17`
+- [ ] 162. Copy luigi source tree into `target_repo/luigi` (no `.git`)
+- [ ] 163. Apply fixed-commit regression test to `target_repo/luigi/test/task_test.py`
+- [ ] 164. Write `target_repo/PROVENANCE.md` (URL, buggy+fixed hashes, license, python 3.8.3)
+- [ ] 165. Create isolated venv (py3.8.3) for luigi repro
+- [ ] 166. Install luigi core + pytest in that venv
+- [ ] 167. Run failing test; capture output → `reports/repro_fail.txt` [FR-FIX-002]
+- [ ] 168. Confirm `KeyError: 'insignificant_param'` present
+- [ ] 169. Run `graphify update target_repo/luigi` (AST/offline) via runner
+- [ ] 170. Verify `graphify-out/graph.json` produced
+- [ ] 171. Run deep Graphify once (LLM, metered) on luigi core [OQ1]
+- [ ] 172. Copy graph.json → `reports/graph/graph.json` and commit
+- [ ] 173. Copy graph.html → `reports/graph/graph.html` and commit
+- [ ] 174. Copy cost.json → `reports/graph/cost.json` and commit
+- [ ] 175. Copy GRAPH_REPORT.md → `reports/GRAPH_REPORT.md` and commit
+- [ ] 176. Run `god_nodes()` on real graph.json
+- [ ] 177. Write `reports/graph_report_annotated.md` (God Nodes + risk + fix) [FR-GRAPH-007]
+- [ ] 178. Confirm `Task`/`Scheduler`/`Worker`/`Register` central (RQ2/RQ3)
+- [ ] 179. Note surprising edges (RQ1) in the annotated report
+- [ ] 180. Commit extraction artifacts + annotated report
+
+## Phase 6 — Obsidian Vault (TDD + authoring) [FR-VAULT-*, H3]
+- [ ] 181. Write `test_vault_builder.py`: `curate(obsidian_dir)` writes `vault/index.md`
+- [ ] 182. Implement `vault_builder/builder.py` curate [FR-VAULT-001]
+- [ ] 183. Test: `index.md` contains nav paths + wikilinks
+- [ ] 184. Implement `index.md` generation (Portfolio→Domains→Components) [FR-VAULT-002]
+- [ ] 185. Test: `pages.hot_md()` renders Task/Parameter focus
+- [ ] 186. Implement `vault_builder/pages.py` `hot_md` [FR-VAULT-003]
+- [ ] 187. Test: `pages.log_md()` scaffold
+- [ ] 188. Implement `log_md` [FR-VAULT-004]
+- [ ] 189. Test: component/test/finding/suspect/fix templates render with wikilinks+tags
+- [ ] 190. Implement those templates [FR-VAULT-005]
+- [ ] 191. Test: `check_links()` finds no dangling wikilinks
+- [ ] 192. Implement `check_links` [FR-VAULT-007]
+- [ ] 193. Refactor vault_builder ≤150 lines
+- [ ] 194. Build real `vault/index.md` from graphify obsidian output
+- [ ] 195. Build real `vault/hot.md` (bug-critical area)
+- [ ] 196. Build real `vault/log.md`
+- [ ] 197. Author `vault/components/Task.md`
+- [ ] 198. Author `vault/components/Parameter.md`
+- [ ] 199. Author `vault/components/Scheduler.md`
+- [ ] 200. Author `vault/components/Worker.md`
+- [ ] 201. Author `vault/components/Target.md`
+- [ ] 202. Author `vault/tests/test_task_to_str_to_task.md`
+- [ ] 203. Run `test_vault_links.py` over real vault; fix links
+- [ ] 204. Snapshot vault BEFORE → `reports/vault_before/` [FR-VAULT-006]
+- [ ] 205. Coverage Phase 6 ≥85%
+- [ ] 206. Commit base vault + before-snapshot
+
+## Phase 7 — Reverse-engineering diagrams [FR-REV-*, H7,H8]
+- [ ] 207. Draft `diagrams/block_diagram.mmd` (components + data flow) [FR-REV-001]
+- [ ] 208. List the luigi tiers: interface/CLI, Register/Task, Scheduler, Worker, Target/FS, Parameter
+- [ ] 209. Add data-flow arrows (build → schedule → run → complete)
+- [ ] 210. Render `block_diagram.svg`
+- [ ] 211. Render `block_diagram.png`
+- [ ] 212. Draft `diagrams/oop_diagram.mmd` (classes) [FR-REV-002]
+- [ ] 213. Add `Task` + `Register` metaclass relationship
+- [ ] 214. Add `Parameter` hierarchy (Parameter, IntParameter, DateParameter, TupleParameter…)
+- [ ] 215. Add `Target`/`FileSystem`/`LocalTarget` hierarchy
+- [ ] 216. Add `Scheduler`/`Worker` associations
+- [ ] 217. Render `oop_diagram.svg`
+- [ ] 218. Render `oop_diagram.png`
+- [ ] 219. Cross-check diagram edges against real graph.json
+- [ ] 220. Write `reports/architecture.md` walkthrough [FR-REV-004, RQ4]
+- [ ] 221. Commit diagrams + architecture.md
+
+## Phase 8 — Agent core: state, LLM, tools (TDD) [FR-AGENT-001/003/007, NFR-TEST-002]
+- [ ] 222. Write `test_state.py`: `AgentState` fields present
+- [ ] 223. Implement `agent/state.py` `AgentState`
+- [ ] 224. Write `test_llm.py`: `LLMClient.complete` routes via gatekeeper
+- [ ] 225. Implement `agent/llm.py` real anthropic client behind gatekeeper [FR-AGENT-003]
+- [ ] 226. Test: `MockLLM.complete` returns scripted response by prompt key
+- [ ] 227. Implement `MockLLM` (injectable) [NFR-TEST-002]
+- [ ] 228. Test: client selection (real vs mock) from env/config
+- [ ] 229. Implement client factory
+- [ ] 230. Write `test_tools.py`: `read_code(node)` returns only that node's source span
+- [ ] 231. Implement `agent/tools.py` budgeted `read_code` (metered) [FR-AGENT-007]
+- [ ] 232. Test: refuses to read over file cap
+- [ ] 233. Implement cap enforcement from config
+- [ ] 234. Test: `graph_query_tool` wraps `queries` for the agent
+- [ ] 235. Implement graph-query tool
+- [ ] 236. Refactor agent core ≤150 lines/file
+- [ ] 237. Coverage Phase 8 ≥85%
+- [ ] 238. Commit agent core
+
+## Phase 9 — Agent nodes + graphs (TDD) [FR-AGENT-002/004/005/006/009, H4]
+- [ ] 239. Write `test_nodes.py`: `read_index` loads index.md into state
+- [ ] 240. Implement `agent/nodes.py` `read_index` [FR-AGENT-002]
+- [ ] 241. Test: `read_hot` loads hot.md
+- [ ] 242. Implement `read_hot`
+- [ ] 243. Test: `query_graph` calls graph tool, updates nodes_visited
+- [ ] 244. Implement `query_graph`
+- [ ] 245. Test: `read_code` reads only ranked suspects
+- [ ] 246. Implement `read_code` node
+- [ ] 247. Test: `diagnose` produces root-cause finding (MockLLM)
+- [ ] 248. Implement `diagnose`
+- [ ] 249. Test: `propose_fix` emits the fix proposal
+- [ ] 250. Implement `propose_fix`
+- [ ] 251. Write `test_graph_guided.py`: StateGraph order index→hot→query→code→diagnose
+- [ ] 252. Implement `agent/graph_guided.py` StateGraph [FR-AGENT-001]
+- [ ] 253. Test: conditional loop respects max_iterations [FR-AGENT-004]
+- [ ] 254. Implement iteration/budget guard + graceful stop
+- [ ] 255. Test: raw code only after graph/vault (order enforced) [FR-AGENT-002]
+- [ ] 256. Implement order enforcement
+- [ ] 257. Write `test_naive.py`: naive reads many files (capped), no graph
+- [ ] 258. Implement `agent/naive.py` [FR-AGENT-005]
+- [ ] 259. Test: both modes share `investigate()` signature + success bar
+- [ ] 260. Unify the interface in SDK-facing entry
+- [ ] 261. Write `test_trace.py`: trace records steps/files/tokens/step
+- [ ] 262. Implement `agent/trace.py` `InvestigationTrace` [FR-AGENT-006]
+- [ ] 263. Test: trace serializes to JSON
+- [ ] 264. Implement trace serialization
+- [ ] 265. Refactor agent files ≤150 lines
+- [ ] 266. Coverage Phase 9 ≥85%
+- [ ] 267. Commit agent nodes + graphs
+
+## Phase 10 — Agent integration (TDD) [FR-AGENT-008]
+- [ ] 268. Build committed MockLLM script for the luigi bug investigation
+- [ ] 269. Write `test_investigate_graph_mode.py`: locates buggy `to_str_params` node
+- [ ] 270. Make graph-mode integration pass
+- [ ] 271. Assert graph mode reads ≤ N files (config)
+- [ ] 272. Write `test_investigate_naive_mode.py`: also locates bug, reads more files
+- [ ] 273. Make naive-mode integration pass
+- [ ] 274. Assert graph mode tokens < naive tokens in the test
+- [ ] 275. Document each node role + context-reduction in `docs/prd/agent.md` [FR-AGENT-009]
+- [ ] 276. Coverage Phase 10 ≥85%
+- [ ] 277. Commit agent integration
+
+## Phase 11 — The Bug Fix [FR-FIX-*, H5, H9]
+- [ ] 278. Reconfirm vendored buggy test fails (`KeyError`) [FR-FIX-002]
+- [ ] 279. Apply 3-line fix to `target_repo/luigi/luigi/task.py` (drop `significant` guard) [FR-FIX-003]
+- [ ] 280. Run test → passes; capture → `reports/repro_pass.txt` [FR-FIX-004]
+- [ ] 281. Capture unified diff → `reports/fix.diff`
+- [ ] 282. Write `reports/bug_analysis.md`: problem statement
+- [ ] 283. bug_analysis: root cause (serialize/deserialize asymmetry) [RQ5]
+- [ ] 284. bug_analysis: investigation path (graph-guided steps)
+- [ ] 285. bug_analysis: the change + how verified
+- [ ] 286. bug_analysis: code before/after snippets [H9]
+- [ ] 287. Author `vault/findings/serialization-asymmetry.md`
+- [ ] 288. Author `vault/fix/to_str_params-fix.md`
+- [ ] 289. Update `vault/hot.md` + `vault/log.md` with resolution
+- [ ] 290. Snapshot vault AFTER → `reports/vault_after/` [FR-VAULT-006]
+- [ ] 291. Write `test_fix_behavior.py`: round-trip preserves insignificant params [FR-FIX-006]
+- [ ] 292. Make fix-behavior test pass (vendored/extracted luigi)
+- [ ] 293. Commit fix + analysis + after-snapshot
+
+## Phase 12 — Token-Savings Proof [FR-TOKEN-*, H6]
+- [ ] 294. Add SDK hook to run both modes + persist metrics
+- [ ] 295. Run graph-guided investigation; persist `reports/metrics/graph.json` [FR-TOKEN-002]
+- [ ] 296. Run naive investigation (capped); persist `reports/metrics/naive.json`
+- [ ] 297. Compute delta: tokens consumed
+- [ ] 298. Compute delta: files/text-units read
+- [ ] 299. Compute delta: iterations/rounds
+- [ ] 300. Compute delta: time-to-root-cause [FR-TOKEN-003]
+- [ ] 301. Compute efficiency `%` = (T_naive−T_graph)/T_naive [FR-TOKEN-004]
+- [ ] 302. Write `reports/token_comparison.md` table [RQ6,RQ7]
+- [ ] 303. token_comparison: narrative on why graph saves tokens (Lost-in-the-Middle)
+- [ ] 304. Generate `reports/metrics/comparison.png` (matplotlib) [FR-TOKEN-005]
+- [ ] 305. Honest note if savings < target with reasons [FR-TOKEN-004]
+- [ ] 306. Write `test_token_report.py`: regenerates from committed metrics JSON [FR-TOKEN-006]
+- [ ] 307. Commit token proof
+
+## Phase 13 — Extensions [FR-EXT-*, H10]
+- [ ] 308. Write `test_suspect_ranker.py`: ranks by centrality + dist-to-failing-test
+- [ ] 309. Implement `extensions/suspect_ranker.py` scoring (weights from config) [FR-EXT-101]
+- [ ] 310. Test: dist computed via NetworkX shortest path from failing-test node
+- [ ] 311. Implement distance computation
+- [ ] 312. Test: top suspect is the `Task.to_str_params` region
+- [ ] 313. Verify ranking surfaces the real suspect
+- [ ] 314. Write `vault/suspects/ranked.md` from ranker [FR-EXT-102]
+- [ ] 315. Wire ranker as agent seed (graph mode) → fewer iterations
+- [ ] 316. Re-run graph mode; confirm iteration reduction recorded
+- [ ] 317. Write `test_knowledge_diff.py`: diffs nodes/links/pages before vs after
+- [ ] 318. Implement `extensions/knowledge_diff.py` [FR-EXT-201]
+- [ ] 319. Generate `reports/knowledge_diff.md` from snapshots [H9]
+- [ ] 320. Test: knowledge_diff lists added pages + insights
+- [ ] 320a. Document both extensions WITH rationale + concrete example output (sample ranked-suspect list, sample knowledge-diff) in `docs/prd/extensions.md` + README [FR-EXT-301]
+- [ ] 321. Refactor extensions ≤150 lines
+- [ ] 322. Coverage Phase 13 ≥85%
+- [ ] 323. Commit extensions + artifacts
+
+## Phase 14 — SDK façade + CLI [FR-SDK-*, FR-CLI-*, R1]
+- [ ] 324. Write `test_facade.py`: `GraphGuide.graphify()` delegates to runner
+- [ ] 325. Implement `sdk/facade.py` `graphify()` [FR-SDK-001]
+- [ ] 326. Test+implement `build_vault()`
+- [ ] 327. Test+implement `investigate(mode)`
+- [ ] 328. Test+implement `rank_suspects()`
+- [ ] 329. Test+implement `knowledge_diff()`
+- [ ] 330. Test+implement `token_report()`
+- [ ] 330a. Add type hints + docstrings to every `GraphGuide` public method; `test_facade_typed.py` asserts signatures + non-empty docstrings [FR-SDK-003]
+- [ ] 331. Review: no business logic outside SDK [FR-SDK-002]
+- [ ] 332. Write `test_main_cli.py`: subcommand `version` prints VERSION
+- [ ] 333. Implement `main.py` arg parser + dispatch
+- [ ] 334. Implement CLI `graphify` subcommand → SDK
+- [ ] 335. Implement CLI `vault` subcommand
+- [ ] 336. Implement CLI `investigate --mode {naive,graph}`
+- [ ] 337. Implement CLI `suspects`
+- [ ] 338. Implement CLI `knowledge-diff`
+- [ ] 339. Implement CLI `token-report`
+- [ ] 339a. Implement CLI `version` subcommand → prints VERSION via SDK [FR-CLI-001]
+- [ ] 340. Test: each subcommand calls the SDK (mock)
+- [ ] 341. Write `test_e2e_mock.py`: full pipeline with MockLLM + fixtures [NFR-TEST-003]
+- [ ] 342. Make e2e smoke pass
+- [ ] 343. Refactor facade/main ≤150 lines
+- [ ] 344. Coverage Phase 14 ≥85%
+- [ ] 345. Commit SDK + CLI
+
+## Phase 15 — README [FR-DOC-001/002, H11, H12]
+- [ ] 346. README: title + badges + one-paragraph pitch
+- [ ] 347. README: chosen repo (luigi/BugsInPy) + why [§8]
+- [ ] 348. README: the bug studied + one-line root cause
+- [ ] 349. README: research questions §4 intro
+- [ ] 350. README: RQ1 actual architecture + surprises [H12]
+- [ ] 351. README: RQ2 most-central components
+- [ ] 352. README: RQ3 God Nodes / hotspots
+- [ ] 353. README: RQ4 how block+OOP schemas were extracted
+- [ ] 354. README: RQ5 how the bug was found + root cause
+- [ ] 355. README: RQ6 graph+Obsidian vs linear reading
+- [ ] 356. README: RQ7 how graph-guided saved tokens
+- [ ] 357. README: RQ8 future agent mechanisms
+- [ ] 358. README: extracted architecture section
+- [ ] 359. README: the agent workflow (+ node roles)
+- [ ] 360. README: how Graphify was used
+- [ ] 361. README: how the Obsidian vault was used
+- [ ] 362. README: reverse-engineering walkthrough
+- [ ] 363. README: bug + root cause + fix (before/after code) [H9]
+- [ ] 364. README: knowledge-level before/after (vault diff) [H9]
+- [ ] 365. README: token-efficiency comparison (table + chart) [H6]
+- [ ] 366. README: the original extensions [H10]
+- [ ] 367. README: run instructions (uv) + grader paths A–D
+- [ ] 368. README: embed block diagram [H7]
+- [ ] 369. README: embed OOP diagram [H8]
+- [ ] 370. README: embed graph.html screenshot
+- [ ] 371. README: embed vault screenshot
+- [ ] 372. README: embed token comparison chart
+- [ ] 373. README: license + acknowledgements (graphify MIT, luigi)
+- [ ] 374. Commit README
+
+## Phase 16 — Per-mechanism PRDs + ADRs finalize [FR-DOC-003, R2]
+- [ ] 375. Review `docs/prd/graphify.md` matches implementation
+- [ ] 376. Review `docs/prd/vault.md`
+- [ ] 377. Review `docs/prd/agent.md`
+- [ ] 378. Review `docs/prd/gatekeeper-token-meter.md`
+- [ ] 379. Review `docs/prd/extensions.md`
+- [ ] 380. Review `docs/adr/0001-use-real-graphify-tool.md`
+- [ ] 381. Review `docs/adr/0002-langgraph-over-crewai.md`
+- [ ] 382. Review `docs/adr/0003-pin-python-3.13-ci.md`
+- [ ] 383. Review `docs/adr/0004-ast-fallback.md`
+- [ ] 384. Review `docs/adr/0005-gatekeeper-wraps-all-calls.md`
+- [ ] 385. Fill `docs/PROMPTS.md` with the agent prompts used
+- [ ] 386. Generate class diagram from code → `diagrams/oop_diagram` confirms R2
+- [ ] 387. Cross-check all §4 questions answered in README+reports+vault [FR-DOC-004]
+- [ ] 388. Commit docs finalize
+- [ ] 388a. OOP no-duplication audit: confirm shared behavior factored into base classes/mixins/Template Method (agent modes, page templates, query wrappers); document in `reports/architecture.md` [NFR-OOP-001, R2]
+
+## Phase 17 — Quality Gate [NFR-QUALITY-*, R6–R13]
+- [ ] 389. `uv run ruff check` → 0 [R8]
+- [ ] 390. `uv run ruff format --check` clean
+- [ ] 391. `python scripts/check_file_lines.py` → all ≤150 [R7]
+- [ ] 392. `uv run pytest` → all green [R6]
+- [ ] 393. `uv run pytest --cov` ≥85% [R9]
+- [ ] 394. `test_no_bypass` green [R3]
+- [ ] 395. `test_version` sync green [R5]
+- [ ] 396. Confirm no secrets committed; `.env` ignored [R11]
+- [ ] 397. Confirm `uv.lock` tracked; no pip/requirements.txt [R12]
+- [ ] 398. Confirm no hardcoded values (config audit) [R10]
+- [ ] 399. Push branch; watch GitHub Actions
+- [ ] 400. Confirm CI GREEN on Python 3.13 [R13]
+- [ ] 401. Fix any CI failure; re-push until green
+- [ ] 402. Self-review: every FR has a test/artifact
+- [ ] 403. Self-review: every NFR satisfied
+- [ ] 404. Self-review: every H-gate has a deliverable
+- [ ] 405. Commit quality-gate fixes
+
+## Phase 18 — Submission [spec §§1,4,5; FR-DOC-005]
+- [ ] 406. Set self-grade 85 in submission notes
+- [ ] 407. Run `scripts/fill_submission_pdf.py` → `uoh-sqak-ex04.pdf`
+- [ ] 408. Verify PDF fields unaltered + filename correct
+- [ ] 409. Confirm git history is continuous (no single big-bang) [NFR-VCS-001]
+- [ ] 410. Create public GitHub repo `uoh-sqak-ex04`
+- [ ] 411. Push `main`
+- [ ] 412. Confirm repo PUBLIC (or shared w/ rmisegal@gmail.com)
+- [ ] 413. Confirm CI badge green on public repo
+- [ ] 414. Fresh clone + `uv run pytest` passes with NO API key (grader Path D)
+- [ ] 415. Final README link/visual sanity pass
+- [ ] 416. Produce paste-back summary for Moodle (both pair members)
+
+## Verification Checklist (all must be true before submit)
+- [ ] V1. graph.json + GRAPH_REPORT.md committed; God Nodes flagged [H2]
+- [ ] V2. vault/ has index.md + hot.md + log.md + linked pages, no dangling links [H3]
+- [ ] V3. LangGraph agent consults graph/vault before raw code; both modes run [H4]
+- [ ] V4. Real bug fixed; failing→passing logged; root-cause report [H5]
+- [ ] V5. token_comparison.md ≥4 metrics from the meter [H6]
+- [ ] V6. Architectural block diagram present + embedded [H7]
+- [ ] V7. OOP/class diagram present + embedded [H8]
+- [ ] V8. Before/after at code + knowledge level [H9]
+- [ ] V9. ≥2 original extensions documented [H10]
+- [ ] V10. README has full §8 list + visuals [H11]
+- [ ] V11. All §4 research questions answered [H12]
+- [ ] V12. SDK-only business logic [R1]; class diagram [R2]
+- [ ] V13. Gatekeeper wraps every external call, wired+metered [R3]
+- [ ] V14. Rate limits/budgets in JSON [R4]; zero hardcoded [R10]
+- [ ] V15. Version single-source 1.00, code==config [R5]
+- [ ] V16. pytest GREEN [R6]; ≤150 lines/file [R7]; ruff 0 [R8]; cov ≥85% [R9]
+- [ ] V17. No secrets [R11]; uv only [R12]; CI green 3.13 + continuous commits [R13]
+- [ ] V18. Repo public/accessible; grader runs pytest with no key [Path D]
+- [ ] V19. Target repo vendored + pinned + provenance [H1, NFR-REPRO]
+- [ ] V20. Self-grade 85; submission PDF correct [§5]
