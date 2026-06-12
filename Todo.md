@@ -240,21 +240,21 @@
 - [x] 206. Commit base vault + before-snapshot
 
 ## Phase 7 — Reverse-engineering diagrams [FR-REV-*, H7,H8]
-- [ ] 207. Draft `diagrams/block_diagram.mmd` (components + data flow) [FR-REV-001]
-- [ ] 208. List the luigi tiers: interface/CLI, Register/Task, Scheduler, Worker, Target/FS, Parameter
-- [ ] 209. Add data-flow arrows (build → schedule → run → complete)
-- [ ] 210. Render `block_diagram.svg`
-- [ ] 211. Render `block_diagram.png`
-- [ ] 212. Draft `diagrams/oop_diagram.mmd` (classes) [FR-REV-002]
-- [ ] 213. Add `Task` + `Register` metaclass relationship
-- [ ] 214. Add `Parameter` hierarchy (Parameter, IntParameter, DateParameter, TupleParameter…)
-- [ ] 215. Add `Target`/`FileSystem`/`LocalTarget` hierarchy
-- [ ] 216. Add `Scheduler`/`Worker` associations
-- [ ] 217. Render `oop_diagram.svg`
-- [ ] 218. Render `oop_diagram.png`
-- [ ] 219. Cross-check diagram edges against real graph.json
-- [ ] 220. Write `reports/architecture.md` walkthrough [FR-REV-004, RQ4]
-- [ ] 221. Commit diagrams + architecture.md
+- [x] 207. Draft `diagrams/block_diagram.mmd` (components + data flow) [FR-REV-001]
+- [x] 208. List the luigi tiers: interface/CLI, Register/Task, Scheduler, Worker, Target/FS, Parameter
+- [x] 209. Add data-flow arrows (build → schedule → run → complete)
+- [x] 210. Render `block_diagram.svg`
+- [x] 211. Render `block_diagram.png`
+- [x] 212. Draft `diagrams/oop_diagram.mmd` (classes) [FR-REV-002]
+- [x] 213. Add `Task` + `Register` metaclass relationship
+- [x] 214. Add `Parameter` hierarchy (Parameter, IntParameter, DateParameter, TupleParameter…)
+- [x] 215. Add `Target`/`FileSystem`/`LocalTarget` hierarchy
+- [x] 216. Add `Scheduler`/`Worker` associations
+- [x] 217. Render `oop_diagram.svg`
+- [x] 218. Render `oop_diagram.png`
+- [x] 219. Cross-check diagram edges against real graph.json
+- [x] 220. Write `reports/architecture.md` walkthrough [FR-REV-004, RQ4]
+- [x] 221. Commit diagrams + architecture.md
 
 ## Phase 8 — Agent core: state, LLM, tools (TDD) [FR-AGENT-001/003/007, NFR-TEST-002]
 - [ ] 222. Write `test_state.py`: `AgentState` fields present
