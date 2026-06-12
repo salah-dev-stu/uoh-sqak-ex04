@@ -32,3 +32,11 @@ build/
 
 # Graphify working dir (regenerable; curated copy lives in reports/graph/)
 **/graphify-out/
+
+# Internal orientation / strategy notes (kept local, not in the public repo)
+CLAUDE.md
+CONTEXT-*.md
+IDEA.md
+IDEA-raw.txt
+RULES.md
+*.docx

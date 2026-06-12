@@ -398,52 +398,52 @@
 - [x] 345. Commit SDK + CLI
 
 ## Phase 15 — README [FR-DOC-001/002, H11, H12]
-- [ ] 346. README: title + badges + one-paragraph pitch
-- [ ] 347. README: chosen repo (luigi/BugsInPy) + why [§8]
-- [ ] 348. README: the bug studied + one-line root cause
-- [ ] 349. README: research questions §4 intro
-- [ ] 350. README: RQ1 actual architecture + surprises [H12]
-- [ ] 351. README: RQ2 most-central components
-- [ ] 352. README: RQ3 God Nodes / hotspots
-- [ ] 353. README: RQ4 how block+OOP schemas were extracted
-- [ ] 354. README: RQ5 how the bug was found + root cause
-- [ ] 355. README: RQ6 graph+Obsidian vs linear reading
-- [ ] 356. README: RQ7 how graph-guided saved tokens
-- [ ] 357. README: RQ8 future agent mechanisms
-- [ ] 358. README: extracted architecture section
-- [ ] 359. README: the agent workflow (+ node roles)
-- [ ] 360. README: how Graphify was used
-- [ ] 361. README: how the Obsidian vault was used
-- [ ] 362. README: reverse-engineering walkthrough
-- [ ] 363. README: bug + root cause + fix (before/after code) [H9]
-- [ ] 364. README: knowledge-level before/after (vault diff) [H9]
-- [ ] 365. README: token-efficiency comparison (table + chart) [H6]
-- [ ] 366. README: the original extensions [H10]
-- [ ] 367. README: run instructions (uv) + grader paths A–D
-- [ ] 368. README: embed block diagram [H7]
-- [ ] 369. README: embed OOP diagram [H8]
-- [ ] 370. README: embed graph.html screenshot
-- [ ] 371. README: embed vault screenshot
-- [ ] 372. README: embed token comparison chart
-- [ ] 373. README: license + acknowledgements (graphify MIT, luigi)
-- [ ] 374. Commit README
+- [x] 346. README: title + badges + one-paragraph pitch
+- [x] 347. README: chosen repo (luigi/BugsInPy) + why [§8]
+- [x] 348. README: the bug studied + one-line root cause
+- [x] 349. README: research questions §4 intro
+- [x] 350. README: RQ1 actual architecture + surprises [H12]
+- [x] 351. README: RQ2 most-central components
+- [x] 352. README: RQ3 God Nodes / hotspots
+- [x] 353. README: RQ4 how block+OOP schemas were extracted
+- [x] 354. README: RQ5 how the bug was found + root cause
+- [x] 355. README: RQ6 graph+Obsidian vs linear reading
+- [x] 356. README: RQ7 how graph-guided saved tokens
+- [x] 357. README: RQ8 future agent mechanisms
+- [x] 358. README: extracted architecture section
+- [x] 359. README: the agent workflow (+ node roles)
+- [x] 360. README: how Graphify was used
+- [x] 361. README: how the Obsidian vault was used
+- [x] 362. README: reverse-engineering walkthrough
+- [x] 363. README: bug + root cause + fix (before/after code) [H9]
+- [x] 364. README: knowledge-level before/after (vault diff) [H9]
+- [x] 365. README: token-efficiency comparison (table + chart) [H6]
+- [x] 366. README: the original extensions [H10]
+- [x] 367. README: run instructions (uv) + grader paths A–D
+- [x] 368. README: embed block diagram [H7]
+- [x] 369. README: embed OOP diagram [H8]
+- [x] 370. README: embed graph.html screenshot
+- [x] 371. README: embed vault screenshot
+- [x] 372. README: embed token comparison chart
+- [x] 373. README: license + acknowledgements (graphify MIT, luigi)
+- [x] 374. Commit README
 
 ## Phase 16 — Per-mechanism PRDs + ADRs finalize [FR-DOC-003, R2]
-- [ ] 375. Review `docs/prd/graphify.md` matches implementation
-- [ ] 376. Review `docs/prd/vault.md`
-- [ ] 377. Review `docs/prd/agent.md`
-- [ ] 378. Review `docs/prd/gatekeeper-token-meter.md`
-- [ ] 379. Review `docs/prd/extensions.md`
-- [ ] 380. Review `docs/adr/0001-use-real-graphify-tool.md`
-- [ ] 381. Review `docs/adr/0002-langgraph-over-crewai.md`
-- [ ] 382. Review `docs/adr/0003-pin-python-3.13-ci.md`
-- [ ] 383. Review `docs/adr/0004-ast-fallback.md`
-- [ ] 384. Review `docs/adr/0005-gatekeeper-wraps-all-calls.md`
-- [ ] 385. Fill `docs/PROMPTS.md` with the agent prompts used
-- [ ] 386. Generate class diagram from code → `diagrams/oop_diagram` confirms R2
-- [ ] 387. Cross-check all §4 questions answered in README+reports+vault [FR-DOC-004]
-- [ ] 388. Commit docs finalize
-- [ ] 388a. OOP no-duplication audit: confirm shared behavior factored into base classes/mixins/Template Method (agent modes, page templates, query wrappers); document in `reports/architecture.md` [NFR-OOP-001, R2]
+- [x] 375. Review `docs/prd/graphify.md` matches implementation
+- [x] 376. Review `docs/prd/vault.md`
+- [x] 377. Review `docs/prd/agent.md`
+- [x] 378. Review `docs/prd/gatekeeper-token-meter.md`
+- [x] 379. Review `docs/prd/extensions.md`
+- [x] 380. Review `docs/adr/0001-use-real-graphify-tool.md`
+- [x] 381. Review `docs/adr/0002-langgraph-over-crewai.md`
+- [x] 382. Review `docs/adr/0003-pin-python-3.13-ci.md`
+- [x] 383. Review `docs/adr/0004-ast-fallback.md`
+- [x] 384. Review `docs/adr/0005-gatekeeper-wraps-all-calls.md`
+- [x] 385. Fill `docs/PROMPTS.md` with the agent prompts used
+- [x] 386. Generate class diagram from code → `diagrams/oop_diagram` confirms R2
+- [x] 387. Cross-check all §4 questions answered in README+reports+vault [FR-DOC-004]
+- [x] 388. Commit docs finalize
+- [x] 388a. OOP no-duplication audit: confirm shared behavior factored into base classes/mixins/Template Method (agent modes, page templates, query wrappers); document in `reports/architecture.md` [NFR-OOP-001, R2]
 
 ## Phase 17 — Quality Gate [NFR-QUALITY-*, R6–R13]
 - [ ] 389. `uv run ruff check` → 0 [R8]
