@@ -1,0 +1,44 @@
+%% OOP / class diagram of luigi (FR-REV-002, H8)
+%% Inheritance + composition extracted from Graphify "inherits"/"method"/"uses" edges.
+classDiagram
+    class Task {
+        +dict param_kwargs
+        +requires()
+        +run()
+        +output()
+        +to_str_params() dict
+        +from_str_params(dict) Task
+    }
+    class Register {
+        <<metaclass>>
+        +__call__()
+    }
+    class Parameter {
+        +bool significant
+        +serialize(value) str
+        +parse_from_input(name, value)
+    }
+    class IntParameter
+    class DateParameter
+    class TupleParameter
+    class Target {
+        <<abstract>>
+        +exists() bool
+    }
+    class FileSystemTarget
+    class LocalTarget
+    class Scheduler
+    class Worker
+
+    Parameter <|-- IntParameter
+    Parameter <|-- DateParameter
+    Parameter <|-- TupleParameter
+    Target <|-- FileSystemTarget
+    FileSystemTarget <|-- LocalTarget
+
+    Register ..> Task : instantiates
+    Task "1" *-- "many" Parameter : has params
+    Task ..> Target : output()
+    Worker ..> Task : runs
+    Worker ..> Scheduler : RPC
+    Scheduler ..> Task : tracks state
