@@ -82,6 +82,12 @@ classDiagram
 ```
 Sources: [`diagrams/block_diagram.mmd`](diagrams/block_diagram.mmd), [`diagrams/oop_diagram.mmd`](diagrams/oop_diagram.mmd).
 
+**The architecture as a navigable knowledge graph** — Obsidian Graph View of the auto-generated vault
+(89 notes, one per central/bug-adjacent node; node size = connectivity, so the God Nodes are the big
+hubs). Colour groups: 🔴 `#bug` · 🟠 `#suspect` · 🟣 `#god-node`.
+
+![Obsidian Graph View — full](assets/graph_full.png)
+
 ## 5. The agent workflow (spec §5.3, H4)
 A **LangGraph** state machine that enforces *graph/vault before raw code*:
 ```mermaid
@@ -107,7 +113,18 @@ whole graph **reproducible by the grader with no API key** (see [`docs/adr/0004-
 ## 7. How the Obsidian vault was used (spec §5.1, H3)
 [`vault/`](vault) is a real linked knowledge space: `index.md` (system map + nav paths), `hot.md`
 (Task/Parameter serialization focus), `log.md` (decision trace), plus `components/`, `tests/`,
-`findings/`, `suspects/`, `fix/`. The agent reads `index.md` → `hot.md` first, every time.
+`findings/`, `suspects/`, `fix/`, and **`nodes/` — 89 auto-generated notes** (one per central/bug-adjacent
+graph node, wikilinks mirroring real `graph.json` edges, tagged by community/role). The agent reads
+`index.md` → `hot.md` first, every time. Open `vault/` in Obsidian → **Graph View** to explore it.
+
+**Local graph centred on the bug node** (red), with its neighbours and the note's tags + wikilinks:
+
+![Obsidian local graph — bug node](assets/graph_bug_local.png)
+
+**Knowledge before → after** the investigation: the vault grew from a sparse 9-note map to a dense
+89-note knowledge graph (+80 pages / +72 links — see [`reports/knowledge_diff.md`](reports/knowledge_diff.md)):
+
+![Obsidian Graph View — before vs after](assets/graph_before_after.png)
 
 ## 8. Reverse-engineering walkthrough (spec §5.2)
 See [`reports/architecture.md`](reports/architecture.md): rank by centrality → the architectural God

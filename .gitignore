@@ -40,3 +40,8 @@ IDEA.md
 IDEA-raw.txt
 RULES.md
 *.docx
+
+# Obsidian: machine state + snapshot app-config (keep only vault graph color config)
+**/.obsidian/workspace*.json
+reports/vault_before/.obsidian/
+reports/vault_after/.obsidian/
