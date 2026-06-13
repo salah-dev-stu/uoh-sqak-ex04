@@ -530,13 +530,13 @@
 - [x] 528. STOP — present Upgrade 1 for user review
 
 ## Phase 20 — Upgrade 2: Iterative graph-guided agent [FR-UPG2-*]
-- [ ] 529. Add `max_rounds` to `config/rate_limits.json`
-- [ ] 530. Test: `query_graph` expands frontier by 1 hop per round; re-ranks suspects
-- [ ] 531. Implement round-aware frontier expansion in nodes/graph_guided
-- [ ] 532. Test: mock scripted -> graph-guided converges in 2-3 rounds, naive in 1 (real iterations)
-- [ ] 533. Record real `iterations` in trace; remove any literal constant [FR-UPG2-002]
-- [ ] 534. Restore Iterations row in `reporting.py`; update `token_comparison.md` (remove "omitted" note) [FR-UPG2-004]
-- [ ] 535. Regenerate metrics + token_comparison; tests green; commit/push/CI; bump 1.02
+- [x] 529. Add `max_rounds` to `config/rate_limits.json`
+- [x] 530. Test: `query_graph` expands frontier by 1 hop per round; re-ranks suspects
+- [x] 531. Implement round-aware frontier expansion in nodes/graph_guided
+- [x] 532. Test: mock scripted -> graph-guided converges in 2-3 rounds, naive in 1 (real iterations)
+- [x] 533. Record real `iterations` in trace; remove any literal constant [FR-UPG2-002]
+- [x] 534. Restore Iterations row in `reporting.py`; update `token_comparison.md` (remove "omitted" note) [FR-UPG2-004]
+- [x] 535. Regenerate metrics + token_comparison; tests green; commit/push/CI; bump 1.02
 
 ## Phase 21 — Upgrade 3: Real-LLM demonstration run [FR-UPG3-*]
 - [ ] 536. Implement a Claude-CLI-backed LLMClient variant routed via the Gatekeeper (tokens via tiktoken)
