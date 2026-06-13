@@ -7,7 +7,7 @@ from graphguide.main import main
 
 class _FakeGG:
     def version(self):
-        return "1.05"
+        return "1.06"
 
     def graphify(self):
         return ["graph.json"]
@@ -56,4 +56,4 @@ def test_subcommands_dispatch(argv, capsys):
 
 def test_version_prints_version(capsys):
     main(["version"], gg=_FakeGG())
-    assert "1.05" in capsys.readouterr().out
+    assert "1.06" in capsys.readouterr().out

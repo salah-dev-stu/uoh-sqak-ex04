@@ -13,6 +13,36 @@ def efficiency_pct(naive: float, graph: float) -> float:
     return round((naive - graph) / naive * 100, 1) if naive else 0.0
 
 
+def identifies_root_cause(text: str) -> bool:
+    """True if the model's answer names the serialize/deserialize asymmetry root cause."""
+    t = text.lower()
+    return "significant" in t and any(
+        k in t for k in ("from_str_params", "asymmetr", "keyerror", "insignificant")
+    )
+
+
+def lim_markdown(results: list[dict[str, Any]], verdict: str) -> str:
+    """Render the 'Lost in the Middle' experiment report (FR-UPG5)."""
+    lines = [
+        "# Lost in the Middle — demonstrated (Upgrade 5, FR-UPG5)",
+        "",
+        "Does burying the bug-relevant code in the **middle** of a large naive context degrade the "
+        "model's diagnosis, versus the small **focused** graph-guided context? Real run "
+        "(`claude -p`, routed through the Gatekeeper).",
+        "",
+        "| Condition | Context tokens | Bug position | Found root cause? |",
+        "| --- | ---: | --- | :---: |",
+    ]
+    for r in results:
+        mark = "yes" if r["found"] else "NO"
+        lines.append(f"| {r['condition']} | {r['tokens']} | {r['position']} | {mark} |")
+    lines += ["", "## Verdict", "", verdict, "", "## What each run answered"]
+    for r in results:
+        excerpt = " ".join(r["excerpt"].split())[:400]
+        lines += ["", f"**{r['condition']}:**", "", f"> {excerpt}"]
+    return "\n".join(lines) + "\n"
+
+
 def comparison(graph_trace: dict[str, Any], naive_trace: dict[str, Any]) -> dict[str, Any]:
     return {
         "graph": graph_trace,

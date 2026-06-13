@@ -162,6 +162,12 @@ exact root cause (the serialize/deserialize asymmetry) in **7,922 real tokens** 
 see [`reports/real_run.md`](reports/real_run.md). The mock proves the *reduction* deterministically;
 the real run proves *genuine success*.
 
+**"Lost in the Middle" experiment (Upgrade 5):** we buried the bug-relevant code at the start / middle /
+end of a ~50K-token naive dump and asked the real Claude CLI to diagnose it, vs the focused context.
+Honest result: at 50K the model was *robust* (found it in every position), but the focused context
+reached the **same correct diagnosis on 375 vs ~50,026 tokens — ~133× fewer**. Focusing wins regardless
+of whether the model degrades — see [`reports/lost_in_the_middle.md`](reports/lost_in_the_middle.md).
+
 > **What this measures (honestly):** the metric is *code tokens read into context* — the spec's
 > "needless code reads" — while the vault (`index.md`/`hot.md`) is the cheap navigation layer (not
 > charged as code). Both modes use a **deterministic mock LLM**, so this isolates and proves the

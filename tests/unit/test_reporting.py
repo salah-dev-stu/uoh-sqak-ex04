@@ -13,6 +13,37 @@ def test_efficiency_pct():
     assert efficiency_pct(0, 0) == 0.0
 
 
+def test_identifies_root_cause():
+    from graphguide.reporting import identifies_root_cause
+
+    assert identifies_root_cause("The significant guard drops it; from_str_params then KeyErrors")
+    assert identifies_root_cause("insignificant params are skipped (significant=False)")
+    assert not identifies_root_cause("Looks like a parsing issue in the CLI")
+
+
+def test_lim_markdown():
+    from graphguide.reporting import lim_markdown
+
+    results = [
+        {
+            "condition": "focused",
+            "tokens": 900,
+            "position": "n/a",
+            "found": True,
+            "excerpt": "significant guard",
+        },
+        {
+            "condition": "buried-middle",
+            "tokens": 50000,
+            "position": "middle",
+            "found": False,
+            "excerpt": "not sure",
+        },
+    ]
+    md = lim_markdown(results, "Middle degraded.")
+    assert "Lost in the Middle" in md and "buried-middle" in md and "Middle degraded." in md
+
+
 def test_comparison_and_markdown():
     g = {
         "tokens": 1000,

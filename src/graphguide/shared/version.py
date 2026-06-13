@@ -5,5 +5,5 @@ backend (hatchling) reads ``__version__``; ``config`` mirrors it and a test
 asserts they all agree. Bump ``+0.01`` per change.
 """
 
-__version__ = "1.05"
+__version__ = "1.06"
 VERSION = __version__

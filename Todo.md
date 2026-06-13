@@ -553,5 +553,5 @@
 - [x] 545. Tests green; commit/push/CI; bump 1.04
 
 ## Phase 23 — Upgrade 5 (OPTIONAL): Lost in the Middle [FR-UPG5-*]
-- [ ] 546. Design the buried-context experiment (only if U1-U4 land with time)
-- [ ] 547. Run it (real LLM); write `reports/lost_in_the_middle.md`; README link; commit
+- [x] 546. Design the buried-context experiment (only if U1-U4 land with time)
+- [x] 547. Run it (real LLM); write `reports/lost_in_the_middle.md`; README link; commit
