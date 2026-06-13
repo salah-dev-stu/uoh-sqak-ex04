@@ -13,7 +13,7 @@ from typing import Any
 
 from graphguide.agent.context import AgentContext
 from graphguide.agent.graph_guided import run_graph_guided
-from graphguide.agent.llm import LLMClient
+from graphguide.agent.llm import CliLLMClient, LLMClient
 from graphguide.agent.naive import run_naive
 from graphguide.agent.tools import CodeReader
 from graphguide.agent.trace import build_trace
@@ -32,9 +32,17 @@ from graphguide.vault_builder.graph_pages import generate as generate_graph_note
 
 
 class GraphGuide:
-    def __init__(self, llm: Any = None, subprocess_runner: Any = None) -> None:
+    def __init__(
+        self,
+        llm: Any = None,
+        subprocess_runner: Any = None,
+        read_chars: int | None = None,
+        llm_kind: str = "anthropic",
+    ) -> None:
         self._llm = llm
         self._sub = subprocess_runner
+        self._read_chars = read_chars
+        self._llm_kind = llm_kind
         self._gcfg = config.get_graphify()
         self._tasks = config.get_tasks()
         self._agents = config.get_agents()
@@ -115,8 +123,9 @@ class GraphGuide:
 
     def _context(self, mode: str, gk: ApiGatekeeper) -> AgentContext:
         max_files = int(self._rl["max_files"][mode])
-        reader = CodeReader(gk, self._gcfg["target_path"], max_files)
-        llm = self._llm or LLMClient(gk, self._agents)
+        read_chars = self._read_chars or int(self._rl.get("read_chars", 4000))
+        reader = CodeReader(gk, self._gcfg["target_path"], max_files, read_chars=read_chars)
+        llm = self._llm or self._build_llm(gk)
         return AgentContext(
             llm=llm,
             reader=reader,
@@ -129,6 +138,11 @@ class GraphGuide:
             max_iterations=int(self._rl["max_iterations"]),
             max_rounds=int(self._rl.get("max_rounds", 5)),
         )
+
+    def _build_llm(self, gk: ApiGatekeeper) -> Any:
+        if self._llm_kind == "cli":
+            return CliLLMClient(gk, self._agents)
+        return LLMClient(gk, self._agents)
 
     def _repo_files(self) -> list[str]:
         root = Path(self._gcfg["target_path"])

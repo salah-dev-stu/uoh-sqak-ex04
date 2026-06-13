@@ -1,0 +1,17 @@
+{
+  "mode": "graph",
+  "nodes_visited": [
+    "index.md",
+    "hot.md",
+    "luigi_task_task"
+  ],
+  "files_read": [
+    "luigi/task.py"
+  ],
+  "files_count": 1,
+  "iterations": 1,
+  "tokens": 7922,
+  "metered_files": 1,
+  "root_cause": "The failing test (`test_task_to_str_to_task`) breaks on the serialization round-trip because `Task.to_str_params` and `Task.from_str_params` disagree about which parameters are present. `to_str_params` builds its `str\u2192str` dict selectively \u2014 it omits insignificant (`significant=False`) parameters \u2014 whereas `from_str_params` does the opposite: it loops over *every* declared parameter from `cls.get_params()` and reads each one with a direct, unguarded dictionary lookup (`params_str[param_name]`). So when a task carries an insignificant parameter, that key never makes it into the serialized dict, and reconstructing the task raises a `KeyError` on the missing name. The root cause is this asymmetry in the (de)serialization contract \u2014 one side skips parameters the other side unconditionally requires \u2014 not anything in the parameter parsing or the test itself.\n",
+  "found_bug": true
+}

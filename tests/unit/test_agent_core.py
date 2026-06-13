@@ -56,6 +56,22 @@ def test_llmclient_completes_and_meters():
     assert gk.meter.totals("graph")["tokens"] == 70
 
 
+def test_cli_llm_client_routes_via_gatekeeper_and_meters():
+    from graphguide.agent.llm import CliLLMClient
+
+    gk = _gk()
+    calls: list = []
+
+    def fake_run(args, **kw):
+        calls.append(args)
+        return type("R", (), {"stdout": "root cause: the significant guard"})()
+
+    out = CliLLMClient(gk, cfg={"model_id": "m"}, runner=fake_run).complete("diagnose this")
+    assert "root cause" in out
+    assert calls[0][:2] == ["claude", "-p"]
+    assert gk.meter.totals("graph")["tokens"] > 0  # estimated prompt+completion tokens
+
+
 def test_mockllm_dict_and_callable():
     m = MockLLM({"diagnose": "the significant guard"})
     assert "significant" in m.complete("please diagnose the bug")

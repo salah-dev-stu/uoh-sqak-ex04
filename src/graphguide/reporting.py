@@ -66,5 +66,8 @@ def comparison_markdown(graph_trace: dict[str, Any], naive_trace: dict[str, Any]
         "",
         "Numbers come from the Gatekeeper token meter; reproducible from "
         "`reports/metrics/naive.json` + `reports/metrics/graph.json`.",
+        "",
+        "A **real-LLM run** (no mock, `claude -p` via the Gatekeeper) confirms the model genuinely "
+        "finds this bug graph-guided — see `reports/real_run.md`.",
     ]
     return "\n".join(lines) + "\n"

@@ -150,6 +150,12 @@ class, so the agent reaches it immediately.
 
 ![comparison](reports/metrics/comparison.png)
 
+**Real-LLM confirmation (beyond the mock):** a genuine run against the **Claude CLI** (`claude -p`,
+routed through the Gatekeeper) navigated the graph to `luigi/task.py` and the model identified the
+exact root cause (the serialize/deserialize asymmetry) in **7,922 real tokens** —
+see [`reports/real_run.md`](reports/real_run.md). The mock proves the *reduction* deterministically;
+the real run proves *genuine success*.
+
 > **What this measures (honestly):** the metric is *code tokens read into context* — the spec's
 > "needless code reads" — while the vault (`index.md`/`hot.md`) is the cheap navigation layer (not
 > charged as code). Both modes use a **deterministic mock LLM**, so this isolates and proves the

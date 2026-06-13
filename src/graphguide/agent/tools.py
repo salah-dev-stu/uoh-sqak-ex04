@@ -19,10 +19,13 @@ class FileBudgetExceededError(RuntimeError):
 
 
 class CodeReader:
-    def __init__(self, gatekeeper: ApiGatekeeper, root: str, max_files: int) -> None:
+    def __init__(
+        self, gatekeeper: ApiGatekeeper, root: str, max_files: int, read_chars: int = 4000
+    ) -> None:
         self._gk = gatekeeper
         self._root = Path(root)
         self._max = int(max_files)
+        self._read_chars = int(read_chars)
         self._count = 0
         self._cache: dict[str, str] = {}
 
@@ -30,7 +33,8 @@ class CodeReader:
     def count(self) -> int:
         return self._count
 
-    def read(self, rel_path: str, max_chars: int = 4000) -> str:
+    def read(self, rel_path: str, max_chars: int | None = None) -> str:
+        max_chars = max_chars or self._read_chars
         if rel_path in self._cache:
             return self._cache[rel_path]  # already paid for; no re-meter, no budget hit
         if self._count >= self._max:

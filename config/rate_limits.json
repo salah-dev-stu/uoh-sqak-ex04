@@ -6,6 +6,7 @@
   },
   "max_iterations": 8,
   "max_rounds": 5,
+  "read_chars": 4000,
   "max_files": {
     "naive": 40,
     "graph": 8

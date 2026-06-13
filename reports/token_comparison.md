@@ -20,3 +20,5 @@
 The graph routes the agent `index.md` -> `hot.md` -> the failing-test node's neighbourhood, so it reads only that neighbourhood. Focused context also avoids 'Lost in the Middle'.
 
 Numbers come from the Gatekeeper token meter; reproducible from `reports/metrics/naive.json` + `reports/metrics/graph.json`.
+
+A **real-LLM run** (no mock, `claude -p` via the Gatekeeper) confirms the model genuinely finds this bug graph-guided — see `reports/real_run.md`.

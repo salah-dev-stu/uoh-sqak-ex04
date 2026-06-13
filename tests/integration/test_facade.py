@@ -15,7 +15,16 @@ def _reply(prompt: str) -> str:
 
 
 def test_version():
-    assert GraphGuide.version() == "1.02"
+    assert GraphGuide.version() == "1.03"
+
+
+def test_build_llm_backend_selection():
+    from graphguide.agent.llm import CliLLMClient, LLMClient
+    from graphguide.shared.gatekeeper import ApiGatekeeper
+
+    gk = ApiGatekeeper("graph")
+    assert isinstance(GraphGuide()._build_llm(gk), LLMClient)
+    assert isinstance(GraphGuide(llm_kind="cli")._build_llm(gk), CliLLMClient)
 
 
 def test_graphify_invokes_runner():
