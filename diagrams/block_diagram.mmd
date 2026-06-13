@@ -22,8 +22,8 @@ flowchart TD
     IFACE --> RETCODES
     REGISTER -.->|metaclass| TASK
     TASK -->|declares| PARAM
-    TASK -->|output()| TARGET
-    TASK -->|requires()| TASK
+    TASK -->|output| TARGET
+    TASK -->|requires| TASK
     WORKER -->|runs| TASK
     WORKER <-->|RPC| SCHED
     SCHED -->|tracks state| TASK

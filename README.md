@@ -51,13 +51,13 @@ Built from the **real graph** (`reports/graph/graph.json`: 2253 nodes, 3957 edge
 **Architectural block diagram:**
 ```mermaid
 flowchart TD
-    IFACE["interface.py (run/build)"] -->|builds| TASK["Task (Hub Node, deg 43)"]
-    REGISTER["Register (metaclass)"] -.->|instantiates| TASK
-    TASK -->|declares| PARAM["Parameter (significant, serialize)"]
-    TASK -->|output()| TARGET["Target / LocalTarget"]
-    TASK -->|requires()| TASK
+    IFACE["interface.py run/build"] -->|builds| TASK["Task — Hub Node deg 43"]
+    REGISTER["Register metaclass"] -.->|instantiates| TASK
+    TASK -->|declares| PARAM["Parameter — significant, serialize"]
+    TASK -->|output| TARGET["Target / LocalTarget"]
+    TASK -->|requires| TASK
     WORKER["Worker"] -->|runs| TASK
-    WORKER <-->|RPC| SCHED["CentralPlannerScheduler (Hub Node, deg 55)"]
+    WORKER <-->|RPC| SCHED["CentralPlannerScheduler — Hub Node deg 55"]
     SCHED -->|tracks state| TASK
 ```
 
@@ -98,10 +98,10 @@ community, 🟣 Hub Nodes and 🔴 the bug node highlighted.
 A **LangGraph** state machine that enforces *graph/vault before raw code*:
 ```mermaid
 flowchart LR
-    A[read index.md] --> B[read hot.md] --> C[query graph<br/>neighbours of bug node]
-    C --> D[read ONLY suspect files<br/>budgeted + metered] --> E[diagnose] --> F{found?}
-    F -->|yes| G[propose fix]
-    F -->|no, < max_iter| C
+    A["read index.md"] --> B["read hot.md"] --> C["query graph: neighbours of bug node"]
+    C --> D["read ONLY suspect files: budgeted, metered"] --> E["diagnose"] --> F{found}
+    F -->|yes| G["propose fix"]
+    F -->|no, under cap| C
 ```
 - **read_index → read_hot**: the vault's nav hub + bug-critical focus page (strong start, per "Lost in the Middle").
 - **query_graph**: from the failing-test node it pulls the graph neighbourhood → resolves to *source files*.

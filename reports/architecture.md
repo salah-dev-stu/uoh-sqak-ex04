@@ -25,13 +25,13 @@ We did **not** read 82 files linearly. Instead:
 ## Architectural block diagram (H7)
 ```mermaid
 flowchart TD
-    IFACE["interface.py (run/build)"] -->|builds| TASK["Task (Hub Node)"]
-    REGISTER["Register (metaclass)"] -.->|metaclass| TASK
-    TASK -->|declares| PARAM["Parameter (significant, serialize)"]
-    TASK -->|output()| TARGET["Target / LocalTarget"]
-    TASK -->|requires()| TASK
+    IFACE["interface.py run/build"] -->|builds| TASK["Task — Hub Node"]
+    REGISTER["Register metaclass"] -.->|metaclass| TASK
+    TASK -->|declares| PARAM["Parameter — significant, serialize"]
+    TASK -->|output| TARGET["Target / LocalTarget"]
+    TASK -->|requires| TASK
     WORKER["Worker"] -->|runs| TASK
-    WORKER <-->|RPC| SCHED["CentralPlannerScheduler (Hub Node)"]
+    WORKER <-->|RPC| SCHED["CentralPlannerScheduler — Hub Node"]
     SCHED -->|tracks state| TASK
 ```
 Source: [`diagrams/block_diagram.mmd`](../diagrams/block_diagram.mmd).
