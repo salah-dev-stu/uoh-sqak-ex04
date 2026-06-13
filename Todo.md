@@ -500,34 +500,34 @@
 - [x] V20. Self-grade 85; submission PDF correct [§5]
 
 ## Phase 19 — Upgrade 1: Dense Obsidian knowledge graph + real screenshots [FR-UPG1-*] (STOP after for review)
-- [ ] 501. Create `config/vault.json` (top_n, hops, max_notes, communities toggle)
-- [ ] 502. Write failing `test_graph_pages.py`: `select_nodes` = top-N centrality ∪ K-hop-of-bug, capped
-- [ ] 503. Implement `vault_builder/graph_pages.py` `select_nodes(graph, bug, top_n, hops, cap)` [FR-UPG1-002]
-- [ ] 504. Test: `render_note` emits wikilinks ONLY to in-set neighbors (no dangling) [FR-UPG1-003]
-- [ ] 505. Implement `render_note(node, in_set_neighbors, tags, community)` [FR-UPG1-001]
-- [ ] 506. Test: note carries tags #god-node/#suspect/#bug/#fixed/#community/<id> [FR-UPG1-004]
-- [ ] 507. Implement tag assignment from god-nodes + suspect-rank + bug node + community field
-- [ ] 508. Test: note embeds a Mermaid neighborhood diagram + a Dataview query [FR-UPG1-005]
-- [ ] 509. Implement Mermaid + Dataview block rendering
-- [ ] 510. Test: `generate()` writes ≥30 notes whose wikilinks match graph edges (restricted to S) [FR-UPG1-007]
-- [ ] 511. Implement `generate(graph, out_dir, cfg)` -> list of written notes
-- [ ] 512. Refactor graph_pages.py to ≤150 logical lines (split select vs render if needed)
-- [ ] 513. Add SDK `build_graph_vault()` to facade; wire into CLI `vault --graph`
-- [ ] 514. Generate real notes into `vault/nodes/` from `reports/graph/graph.json`
-- [ ] 515. Update `index.md` + `hot.md` to link into the dense graph [FR-UPG1-006]
-- [ ] 516. Run `check_links` over the full vault -> zero dangling [FR-UPG1-008]
-- [ ] 517. Regenerate `reports/vault_before` (dense base) + `reports/vault_after` (dense + investigation)
-- [ ] 518. Update `tests/integration/test_vault_real_links.py` for the dense vault (still no dangling)
-- [ ] 519. `uv run ruff check` + `ruff format` + `check_file_lines` clean
-- [ ] 520. `uv run pytest` green, coverage >=85% (all prior tests still pass)
-- [ ] 521. Bump version 1.00 -> 1.01 (code + config mirror); version test green [R5]
-- [ ] 522. Open the vendored vault in the **real Obsidian app**; enable Graph View
-- [ ] 523. Capture `assets/graph_full.png` — full Graph View, clusters + God Node highlighted [FR-UPG1-009a]
-- [ ] 524. Capture `assets/graph_bug_local.png` — local graph centered on the bug node + suspects [FR-UPG1-009b]
-- [ ] 525. Capture `assets/graph_before_after.png` — sparse (before) vs dense (after) [FR-UPG1-009c]
-- [ ] 526. Embed the 3 screenshots in README §4/§7 [FR-UPG1-010]
-- [ ] 527. Commit Upgrade 1; push origin; confirm CI green
-- [ ] 528. STOP — present Upgrade 1 for user review
+- [x] 501. Create `config/vault.json` (top_n, hops, max_notes, communities toggle)
+- [x] 502. Write failing `test_graph_pages.py`: `select_nodes` = top-N centrality ∪ K-hop-of-bug, capped
+- [x] 503. Implement `vault_builder/graph_pages.py` `select_nodes(graph, bug, top_n, hops, cap)` [FR-UPG1-002]
+- [x] 504. Test: `render_note` emits wikilinks ONLY to in-set neighbors (no dangling) [FR-UPG1-003]
+- [x] 505. Implement `render_note(node, in_set_neighbors, tags, community)` [FR-UPG1-001]
+- [x] 506. Test: note carries tags #god-node/#suspect/#bug/#fixed/#community/<id> [FR-UPG1-004]
+- [x] 507. Implement tag assignment from god-nodes + suspect-rank + bug node + community field
+- [x] 508. Test: note embeds a Mermaid neighborhood diagram + a Dataview query [FR-UPG1-005]
+- [x] 509. Implement Mermaid + Dataview block rendering
+- [x] 510. Test: `generate()` writes ≥30 notes whose wikilinks match graph edges (restricted to S) [FR-UPG1-007]
+- [x] 511. Implement `generate(graph, out_dir, cfg)` -> list of written notes
+- [x] 512. Refactor graph_pages.py to ≤150 logical lines (split select vs render if needed)
+- [x] 513. Add SDK `build_graph_vault()` to facade; wire into CLI `vault --graph`
+- [x] 514. Generate real notes into `vault/nodes/` from `reports/graph/graph.json`
+- [x] 515. Update `index.md` + `hot.md` to link into the dense graph [FR-UPG1-006]
+- [x] 516. Run `check_links` over the full vault -> zero dangling [FR-UPG1-008]
+- [x] 517. Regenerate `reports/vault_before` (dense base) + `reports/vault_after` (dense + investigation)
+- [x] 518. Update `tests/integration/test_vault_real_links.py` for the dense vault (still no dangling)
+- [x] 519. `uv run ruff check` + `ruff format` + `check_file_lines` clean
+- [x] 520. `uv run pytest` green, coverage >=85% (all prior tests still pass)
+- [x] 521. Bump version 1.00 -> 1.01 (code + config mirror); version test green [R5]
+- [x] 522. Open the vendored vault in the **real Obsidian app**; enable Graph View
+- [x] 523. Capture `assets/graph_full.png` — full Graph View, clusters + God Node highlighted [FR-UPG1-009a]
+- [x] 524. Capture `assets/graph_bug_local.png` — local graph centered on the bug node + suspects [FR-UPG1-009b]
+- [x] 525. Capture `assets/graph_before_after.png` — sparse (before) vs dense (after) [FR-UPG1-009c]
+- [x] 526. Embed the 3 screenshots in README §4/§7 [FR-UPG1-010]
+- [x] 527. Commit Upgrade 1; push origin; confirm CI green
+- [x] 528. STOP — present Upgrade 1 for user review
 
 ## Phase 20 — Upgrade 2: Iterative graph-guided agent [FR-UPG2-*]
 - [ ] 529. Add `max_rounds` to `config/rate_limits.json`
