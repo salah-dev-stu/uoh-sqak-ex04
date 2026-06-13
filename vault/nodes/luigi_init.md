@@ -1,7 +1,7 @@
 ---
 node: luigi_init
 label: __init__.py
-tags: [god-node, suspect, community/6]
+tags: [hub, suspect, community/6]
 ---
 
 # __init__.py

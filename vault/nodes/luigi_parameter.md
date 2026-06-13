@@ -1,7 +1,7 @@
 ---
 node: luigi_parameter
 label: parameter.py
-tags: [god-node, community/2]
+tags: [hub, community/2]
 ---
 
 # parameter.py

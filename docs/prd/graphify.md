@@ -8,7 +8,7 @@
 
 ## 1. Purpose
 
-Turn the unfamiliar buggy target codebase (`target_repo/luigi/`) into a navigable **knowledge graph** (`graph.json` + `GRAPH_REPORT.md` + `graph.html`) so the agent and the reverse-engineering work consult the graph *first* and read raw code *only* for the few nodes that matter. This layer owns **every** interaction with the `graphify` CLI and with `graph.json`: it runs extraction, loads the graph into typed Python objects, exposes offline query primitives, computes centrality, and flags **God Nodes**. It is the engine behind RQ2 (most central components), RQ3 (complexity hotspots / God Nodes), and RQ6/RQ7 (graph navigation saves tokens vs linear reading).
+Turn the unfamiliar buggy target codebase (`target_repo/luigi/`) into a navigable **knowledge graph** (`graph.json` + `GRAPH_REPORT.md` + `graph.html`) so the agent and the reverse-engineering work consult the graph *first* and read raw code *only* for the few nodes that matter. This layer owns **every** interaction with the `graphify` CLI and with `graph.json`: it runs extraction, loads the graph into typed Python objects, exposes offline query primitives, computes centrality, and flags **Hub Nodes**. It is the engine behind RQ2 (most central components), RQ3 (complexity hotspots / Hub Nodes), and RQ6/RQ7 (graph navigation saves tokens vs linear reading).
 
 This mechanism does **not** make decisions about the bug (that is `agent/`) and does **not** curate the vault (that is `vault_builder/`). It produces the graph substrate they both consume.
 
@@ -41,7 +41,7 @@ Each file ≤150 logical lines (R7); split when a file does two jobs.
 | `runner.py` | **`GraphifyRunner`** — invokes the `graphify` CLI as a subprocess (offline AST or deep mode) **via the Gatekeeper**; copies outputs into `reports/graph/`. |
 | `loader.py` | **`GraphLoader`** — reads `graph.json` into `Node`/`Edge` objects for the agent and extensions. |
 | `queries.py` | **Query primitives** — `query`, `explain`, `path`, `affected` wrappers; offline, budgeted, metered. |
-| `centrality.py` | **NetworkX** degree + betweenness over `graph.json`; **God-Node detection** with `[CRITICAL]`/`[WARNING]` tiers; emits the annotated report. |
+| `centrality.py` | **NetworkX** degree + betweenness over `graph.json`; **Hub-Node detection** with `[CRITICAL]`/`[WARNING]` tiers; emits the annotated report. |
 
 Dependency direction: `runner` writes; `loader` + `queries` + `centrality` read. Nothing in `graphify/` depends on `agent/` or the CLI. The only LLM use is deep extraction, and it is metered.
 
@@ -72,13 +72,13 @@ Dependency direction: `runner` writes; `loader` + `queries` + `centrality` read.
 
 `GraphLoader` maps `confidence` onto the `Confidence` enum in `models.py` so downstream code never string-compares.
 
-## 5. God-Node Detection
+## 5. Hub-Node Detection
 
 `centrality.py` loads `graph.json` into a NetworkX graph and computes:
 - **degree centrality** — how many things connect to a node (fan-in + fan-out).
 - **betweenness centrality** — how often a node sits on shortest paths between other nodes (a bottleneck / broker).
 
-Nodes are flagged as **God Nodes** when degree **and/or** betweenness exceed configured thresholds (thresholds in `config/graphify.json`, R10):
+Nodes are flagged as **Hub Nodes** when degree **and/or** betweenness exceed configured thresholds (thresholds in `config/graphify.json`, R10):
 - **`[CRITICAL]`** — top tier; very high centrality, a true architectural bottleneck (expected: luigi's central `Task` class).
 - **`[WARNING]`** — elevated centrality; mixed responsibilities worth noting.
 
@@ -112,7 +112,7 @@ So the grader reproduces everything **without** an API key or a live tool run (N
 
 ```
 reports/GRAPH_REPORT.md            # graphify's own report
-reports/graph_report_annotated.md  # our God-Node augmentation (centrality + tiers)
+reports/graph_report_annotated.md  # our Hub-Node augmentation (centrality + tiers)
 reports/graph/graph.json           # the graph (committed)
 reports/graph/graph.html           # interactive view (screenshot embedded in README)
 reports/graph/cost.json            # graphify cost emission (deep run)
@@ -128,7 +128,7 @@ reports/graph/cost.json            # graphify cost emission (deep run)
 | **FR-GRAPH-004** | Outputs persisted to `reports/graph/{graph.json,graph.html,cost.json}` + `reports/GRAPH_REPORT.md`. |
 | **FR-GRAPH-005** | `loader.py` `GraphLoader` → typed `Node`/`Edge` with `Confidence ∈ {EXTRACTED,INFERRED,AMBIGUOUS}`. |
 | **FR-GRAPH-006** | `queries.py` `query --budget` / `explain` / `path` / `affected`, offline + metered, via SDK. |
-| **FR-GRAPH-007** | `graph_report_annotated.md` flags God Nodes with degree/betweenness + `[CRITICAL]`/`[WARNING]` + why/risk/fix. |
+| **FR-GRAPH-007** | `graph_report_annotated.md` flags Hub Nodes with degree/betweenness + `[CRITICAL]`/`[WARNING]` + why/risk/fix. |
 | **FR-GRAPH-008** | `centrality.py` computes degree + betweenness via NetworkX; ranked centrality table. |
 | **FR-GRAPH-009** | AST-only fallback documented in `docs/adr/0004-ast-fallback.md` (real tool is primary). |
 
@@ -137,7 +137,7 @@ reports/graph/cost.json            # graphify cost emission (deep run)
 - AC1 `uv tool install graphifyy` succeeds; `graphify --version` reports `0.8.39`.
 - AC2 `GraphifyRunner` produces `reports/graph/graph.json` for `target_repo/luigi/` in **offline AST mode with no API key**.
 - AC3 `GraphLoader` parses the committed `graph.json` into typed `Node`/`Edge`; every edge's `confidence` maps onto the `Confidence` enum; unit-tested against a committed fixture graph.
-- AC4 `centrality.py` flags ≥1 `[CRITICAL]` God Node (expected: `Task`) with degree + betweenness values and a why/risk/fix note in `reports/graph_report_annotated.md`.
+- AC4 `centrality.py` flags ≥1 `[CRITICAL]` Hub Node (expected: `Task`) with degree + betweenness values and a why/risk/fix note in `reports/graph_report_annotated.md`.
 - AC5 `query/explain/path/affected` run offline against the fixture graph; `query --budget N` returns ≤ N items.
 - AC6 A grep test confirms no raw `subprocess.` invocation of `graphify` bypasses the Gatekeeper.
 - AC7 All five committed artifacts (§8) are present in the repo and consumed by tests without a live tool run.

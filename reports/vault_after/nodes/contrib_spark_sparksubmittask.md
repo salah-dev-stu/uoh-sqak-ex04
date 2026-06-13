@@ -1,7 +1,7 @@
 ---
 node: contrib_spark_sparksubmittask
 label: SparkSubmitTask
-tags: [god-node, community/16]
+tags: [hub, community/16]
 ---
 
 # SparkSubmitTask

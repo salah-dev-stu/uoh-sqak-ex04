@@ -1,7 +1,7 @@
 ---
 node: lib_jquery_1_10_0_min
 label: $()
-tags: [god-node, community/20]
+tags: [hub, community/20]
 ---
 
 # $()

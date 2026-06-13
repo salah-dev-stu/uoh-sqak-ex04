@@ -1,7 +1,7 @@
 ---
 node: object
 label: object
-tags: [god-node, suspect, community/53]
+tags: [hub, suspect, community/53]
 ---
 
 # object

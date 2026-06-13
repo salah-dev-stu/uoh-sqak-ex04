@@ -1,7 +1,7 @@
 ---
 node: luigi_worker_worker
 label: worker
-tags: [god-node, suspect, community/10]
+tags: [hub, suspect, community/10]
 ---
 
 # worker

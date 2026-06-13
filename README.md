@@ -19,7 +19,7 @@ graph + an **Obsidian** vault, run a **graph-guided LangGraph agent** that consu
 [`target_repo/luigi`](target_repo/luigi) (provenance: [`target_repo/PROVENANCE.md`](target_repo/PROVENANCE.md)).
 
 - **Realistic & substantial** — ~21.7k LOC / 82 files, a genuine task-orchestration framework with a
-  rich class hierarchy (great for a God-Node + OOP story).
+  rich class hierarchy (great for a Hub-Node + OOP story).
 - **Installs cleanly** — pure-Python core with light deps, defusing the lecturer's "BugsInPy env is
   acutely hard" warning. We reproduced the bug in an isolated `uv` venv (Python 3.8.3).
 - **Small, well-scoped bug** — a 3-line fix in the central `Task` class: ideal for a clear before/after.
@@ -36,9 +36,9 @@ param is missing on the way back. Full analysis: [`reports/bug_analysis.md`](rep
 ## 3. Research questions (spec §4)
 | # | Question | Answer (where) |
 |---|---|---|
-| RQ1 | Actual architecture & surprises | §4 below + [`reports/architecture.md`](reports/architecture.md) — a `Register` metaclass instantiates every Task; `six`/jQuery are *noise* God Nodes |
+| RQ1 | Actual architecture & surprises | §4 below + [`reports/architecture.md`](reports/architecture.md) — a `Register` metaclass instantiates every Task; `six`/jQuery are *noise* Hub Nodes |
 | RQ2 | Most central components | `Task`, `CentralPlannerScheduler`, `Parameter`, `Worker` — [`reports/graph_report_annotated.md`](reports/graph_report_annotated.md) |
-| RQ3 | Complexity hotspots / God Nodes | degree/betweenness tiers in the annotated report; `Task` mixes identity + scheduling + (de)serialization |
+| RQ3 | Complexity hotspots / Hub Nodes | degree/betweenness tiers in the annotated report; `Task` mixes identity + scheduling + (de)serialization |
 | RQ4 | Extract block + OOP schemas from thin docs | from `graph.json` edges, not prose — [`reports/architecture.md`](reports/architecture.md) |
 | RQ5 | How the bug was found + root cause | graph-guided path in [`reports/bug_analysis.md`](reports/bug_analysis.md) |
 | RQ6 | Graph + Obsidian vs linear reading | [`reports/token_comparison.md`](reports/token_comparison.md) |
@@ -51,13 +51,13 @@ Built from the **real graph** (`reports/graph/graph.json`: 2253 nodes, 3957 edge
 **Architectural block diagram:**
 ```mermaid
 flowchart TD
-    IFACE["interface.py (run/build)"] -->|builds| TASK["Task (God Node, deg 43)"]
+    IFACE["interface.py (run/build)"] -->|builds| TASK["Task (Hub Node, deg 43)"]
     REGISTER["Register (metaclass)"] -.->|instantiates| TASK
     TASK -->|declares| PARAM["Parameter (significant, serialize)"]
     TASK -->|output()| TARGET["Target / LocalTarget"]
     TASK -->|requires()| TASK
     WORKER["Worker"] -->|runs| TASK
-    WORKER <-->|RPC| SCHED["CentralPlannerScheduler (God Node, deg 55)"]
+    WORKER <-->|RPC| SCHED["CentralPlannerScheduler (Hub Node, deg 55)"]
     SCHED -->|tracks state| TASK
 ```
 
@@ -83,14 +83,14 @@ classDiagram
 Sources: [`diagrams/block_diagram.mmd`](diagrams/block_diagram.mmd), [`diagrams/oop_diagram.mmd`](diagrams/oop_diagram.mmd).
 
 **The architecture as a navigable knowledge graph** — Obsidian Graph View of the auto-generated vault
-(89 notes, one per central/bug-adjacent node; node size = connectivity, so the God Nodes are the big
-hubs). Colour groups: 🔴 `#bug` · 🟠 `#suspect` · 🟣 `#god-node`.
+(89 notes, one per central/bug-adjacent node; node size = connectivity, so the Hub Nodes are the big
+hubs). Colour groups: 🔴 `#bug` · 🟠 `#suspect` · 🟣 `#hub`.
 
 ![Obsidian Graph View — full](assets/graph_full.png)
 
 **Interactive graph** — open [`reports/graph/graph_interactive.html`](reports/graph/graph_interactive.html)
 in a browser (self-contained, offline) to click through the graph: node size = centrality, colour =
-community, 🟣 God Nodes and 🔴 the bug node highlighted.
+community, 🟣 Hub Nodes and 🔴 the bug node highlighted.
 
 ![Interactive graph.html](assets/graph_html.png)
 
@@ -113,7 +113,7 @@ Each external call (LLM, graphify subprocess, file read) routes through one **Ga
 The **real** `graphify` tool (`pip install graphifyy`, MIT). We ran `graphify update target_repo/luigi`
 (AST extraction, **no LLM, offline, free**) → `graph.json` (EXTRACTED + INFERRED evidence layers),
 `GRAPH_REPORT.md`, `graph.html`. Our `src/graphguide/graphify/` wraps the CLI behind the Gatekeeper,
-loads the graph, computes centrality, and flags **God Nodes**. Choosing AST (shallow) extraction makes the
+loads the graph, computes centrality, and flags **Hub Nodes**. Choosing AST (shallow) extraction makes the
 whole graph **reproducible by the grader with no API key** (see [`docs/adr/0004-ast-fallback.md`](docs/adr/0004-ast-fallback.md)).
 
 ## 7. How the Obsidian vault was used (spec §5.1, H3)
@@ -133,7 +133,7 @@ graph node, wikilinks mirroring real `graph.json` edges, tagged by community/rol
 ![Obsidian Graph View — before vs after](assets/graph_before_after.png)
 
 ## 8. Reverse-engineering walkthrough (spec §5.2)
-See [`reports/architecture.md`](reports/architecture.md): rank by centrality → the architectural God
+See [`reports/architecture.md`](reports/architecture.md): rank by centrality → the architectural Hub
 Nodes emerge (`Task`, `Scheduler`, `Parameter`, `Worker`); the bug sits one hop from the most central
 class, so the agent reaches it immediately.
 

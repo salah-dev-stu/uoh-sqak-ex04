@@ -15,7 +15,7 @@ def _reply(prompt: str) -> str:
 
 
 def test_version():
-    assert GraphGuide.version() == "1.04"
+    assert GraphGuide.version() == "1.05"
 
 
 def test_build_llm_backend_selection():

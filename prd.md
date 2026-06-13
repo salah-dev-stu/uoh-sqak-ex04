@@ -14,14 +14,14 @@ This is the master PRD. Per-mechanism PRDs (one per major component) live under 
 
 Large codebases overflow an LLM's context window. Dumping raw files wastes tokens and triggers **"Lost in the Middle"** — information buried mid-context is effectively ignored. This project proves a better way: convert an **unfamiliar buggy Python codebase** into a navigable **knowledge graph** (via the real **Graphify** tool) plus an **Obsidian** knowledge vault, then drive a **graph-guided LangGraph agent** that consults the graph/vault *first* and reads raw code *only* for the few nodes that matter — and we **measure** that this consumes far fewer tokens than naive raw-file reading.
 
-**The concrete vehicle:** `spotify/luigi` (≈21.7k LOC, 82 files) carrying BugsInPy **bug 20** — `Task.to_str_params` silently drops parameters declared `significant=False`, while `Task.from_str_params` indexes *all* params, so a `task → str → task` round-trip raises `KeyError: 'insignificant_param'`. A 3-line fix in the central `Task` class. Small bug, rich architecture — ideal for reverse engineering, God-Node analysis, and a clean before/after.
+**The concrete vehicle:** `spotify/luigi` (≈21.7k LOC, 82 files) carrying BugsInPy **bug 20** — `Task.to_str_params` silently drops parameters declared `significant=False`, while `Task.from_str_params` indexes *all* params, so a `task → str → task` round-trip raises `KeyError: 'insignificant_param'`. A 3-line fix in the central `Task` class. Small bug, rich architecture — ideal for reverse engineering, Hub-Node analysis, and a clean before/after.
 
 **Validated before this PRD:** Graphify (`graphifyy`, MIT) installs and runs AST extraction offline; the luigi bug reproduces (failing test) and the fix passes — both confirmed in an isolated uv venv (Python 3.8.3).
 
 ## 2. Goals / Non-Goals
 
 **Goals**
-- G1 Represent luigi as a Graphify graph (`graph.json` + `GRAPH_REPORT.md` + `graph.html`) with God Nodes flagged.
+- G1 Represent luigi as a Graphify graph (`graph.json` + `GRAPH_REPORT.md` + `graph.html`) with Hub Nodes flagged.
 - G2 Build a real Obsidian vault (`index.md`, `hot.md`, `log.md`, linked component/test/suspect/finding/fix pages).
 - G3 Reverse-engineer luigi into an **architectural block diagram** + an **OOP/class diagram**.
 - G4 Build a **graph-guided LangGraph agent** that consults graph/vault before raw code, with hard step/token budgets.
@@ -45,8 +45,8 @@ Large codebases overflow an LLM's context window. Dumping raw files wastes token
 
 ## 4. Background — Lecture Themes the Build Must Embody (spec §4 research questions)
 - **RQ1** What is luigi's *actual* architecture and what's non-obvious? → README + `reports/architecture.md` + diagrams + vault.
-- **RQ2** Which components/classes/functions are most central? → God Nodes in `GRAPH_REPORT.md` + centrality table.
-- **RQ3** Where are complexity hotspots / mixed responsibilities / **God Nodes**? → graph metrics + report.
+- **RQ2** Which components/classes/functions are most central? → Hub Nodes in `GRAPH_REPORT.md` + centrality table.
+- **RQ3** Where are complexity hotspots / mixed responsibilities / **Hub Nodes**? → graph metrics + report.
 - **RQ4** How to extract block + OOP schemas from thin docs? → reverse-engineering walkthrough.
 - **RQ5** How was the bug found, root cause, the steps? → `reports/bug_analysis.md` + agent trace.
 - **RQ6** Advantage of graph + Obsidian vs linear reading? → token report + narrative.
@@ -64,7 +64,7 @@ Large codebases overflow an LLM's context window. Dumping raw files wastes token
 - **FR-GRAPH-004** Persist Graphify outputs into the repo: `reports/graph/graph.json`, `reports/GRAPH_REPORT.md`, `reports/graph/graph.html`, `reports/graph/cost.json` (committed artifacts).
 - **FR-GRAPH-005** Provide a typed `GraphLoader` that reads `graph.json` into Python objects (nodes, edges with `confidence ∈ {EXTRACTED, INFERRED, AMBIGUOUS}`) for the agent and extensions.
 - **FR-GRAPH-006** Provide graph-query wrappers (`query --budget N`, `explain`, `path`, `affected`) exposed through the SDK, all offline, all metered.
-- **FR-GRAPH-007** `GRAPH_REPORT.md` (or our augmentation `reports/graph_report_annotated.md`) must flag **God Nodes** with degree/betweenness centrality, mark `[CRITICAL]`/`[WARNING]`, and for each give why-it's-a-bottleneck + risk + fix option.
+- **FR-GRAPH-007** `GRAPH_REPORT.md` (or our augmentation `reports/graph_report_annotated.md`) must flag **Hub Nodes** with degree/betweenness centrality, mark `[CRITICAL]`/`[WARNING]`, and for each give why-it's-a-bottleneck + risk + fix option.
 - **FR-GRAPH-008** Compute centrality (degree, betweenness) for nodes via NetworkX over `graph.json`; expose as a ranked table.
 - **FR-GRAPH-009** Document the AST-only fallback (if the real tool were unavailable) in an ADR — but the real tool is the primary path.
 

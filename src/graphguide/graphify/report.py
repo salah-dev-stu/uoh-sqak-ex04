@@ -1,4 +1,4 @@
-"""Annotated God-Node report generator (FR-GRAPH-007).
+"""Annotated Hub-Node report generator (FR-GRAPH-007).
 
 Renders a Markdown report flagging bottleneck nodes (degree/betweenness) with a
 ``CRITICAL``/``WARNING`` tier, plus a top-centrality table. Thresholds come from
@@ -11,15 +11,15 @@ from typing import Any
 
 import networkx as nx
 
-from graphguide.graphify.centrality import centrality_table, god_nodes
+from graphguide.graphify.centrality import centrality_table, hub_nodes
 from graphguide.shared import config
 
 
-def god_node_report(
+def hub_node_report(
     graph: nx.DiGraph, thresholds: dict[str, Any] | None = None, top: int = 15
 ) -> str:
-    th = thresholds or config.get_graphify()["god_nodes"]
-    flagged = god_nodes(
+    th = thresholds or config.get_graphify()["hub_nodes"]
+    flagged = hub_nodes(
         graph,
         degree_warning=int(th["degree_warning"]),
         degree_critical=int(th["degree_critical"]),
@@ -28,11 +28,11 @@ def god_node_report(
     )
     table = centrality_table(graph)[:top]
     lines = [
-        "# Annotated Graph Report — God Nodes & Centrality",
+        "# Annotated Graph Report — Hub Nodes & Centrality",
         "",
         f"Graph: **{graph.number_of_nodes()} nodes**, **{graph.number_of_edges()} edges**.",
         "",
-        "## God Nodes (bottlenecks)",
+        "## Hub Nodes (bottlenecks)",
         "",
         f"Flagged **{len(flagged)}** node(s) "
         f"(degree >= {th['degree_critical']} or betweenness >= {th['betweenness_critical']} = CRITICAL).",

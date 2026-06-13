@@ -1,8 +1,8 @@
-# Annotated Graph Report — God Nodes & Centrality
+# Annotated Graph Report — Hub Nodes & Centrality
 
 Graph: **2253 nodes**, **3957 edges**.
 
-## God Nodes (bottlenecks)
+## Hub Nodes (bottlenecks)
 
 Flagged **15** node(s) (degree >= 60 or betweenness >= 0.05 = CRITICAL).
 

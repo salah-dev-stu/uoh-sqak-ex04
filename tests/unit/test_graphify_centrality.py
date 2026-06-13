@@ -1,4 +1,4 @@
-"""FR-GRAPH-007/008 — centrality table + God-Node detection."""
+"""FR-GRAPH-007/008 — centrality table + Hub-Node detection."""
 
 from pathlib import Path
 
@@ -6,7 +6,7 @@ from graphguide.graphify.centrality import (
     betweenness_centrality,
     centrality_table,
     degree_centrality,
-    god_nodes,
+    hub_nodes,
 )
 from graphguide.graphify.loader import GraphLoader
 
@@ -28,8 +28,8 @@ def test_task_is_most_central():
     assert rows[0]["node"] == "task"
 
 
-def test_god_nodes_flags_task():
-    flagged = god_nodes(
+def test_hub_nodes_flags_task():
+    flagged = hub_nodes(
         _graph(),
         degree_warning=4,
         degree_critical=6,
@@ -42,8 +42,8 @@ def test_god_nodes_flags_task():
     assert task_row["tier"] in {"CRITICAL", "WARNING"}
 
 
-def test_god_nodes_warning_tier():
-    flagged = god_nodes(
+def test_hub_nodes_warning_tier():
+    flagged = hub_nodes(
         _graph(),
         degree_warning=2,
         degree_critical=99,
@@ -53,8 +53,8 @@ def test_god_nodes_warning_tier():
     assert flagged and all(f["tier"] == "WARNING" for f in flagged)
 
 
-def test_god_nodes_empty_with_high_thresholds():
-    flagged = god_nodes(
+def test_hub_nodes_empty_with_high_thresholds():
+    flagged = hub_nodes(
         _graph(),
         degree_warning=999,
         degree_critical=9999,

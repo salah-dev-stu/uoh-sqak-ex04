@@ -78,7 +78,7 @@ Under `vault/`, a real linked tree (wikilinks + tags, not a dump):
   - `#suspect` — a node under suspicion (lives in `suspects/`, also tagged in `hot.md`/`findings/`).
   - `#fix` — the fix and its verification (`fix/`).
   - `#decision` — an investigation decision/turn (`log.md`).
-  - (supporting, consistent use): `#component`, `#test`, `#finding`, `#godnode`.
+  - (supporting, consistent use): `#component`, `#test`, `#finding`, `#hub`.
 - **Page front-matter (optional, consistent):** lightweight YAML (`title`, `tags`) where it aids Obsidian graph view; never a substitute for inline links.
 - Strong-info-first within every page: a one-line "what this is / where to go next" header and a "links" footer, focused middle between.
 

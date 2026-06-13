@@ -41,14 +41,14 @@ def test_select_khop_of_bug():
 
 def test_node_tags():
     assert set(node_tags("to_str_params", "to_str_params", {"task"}, set())) == {"bug", "fixed"}
-    assert "god-node" in node_tags("task", "to_str_params", {"task"}, set())
+    assert "hub" in node_tags("task", "to_str_params", {"task"}, set())
     assert "suspect" in node_tags("parameter", "to_str_params", set(), {"parameter"})
 
 
 def test_render_note_links_tags_mermaid_dataview():
-    md = render_note("task", "Task", ["parameter", "to_str_params"], ["god-node"], 6)
+    md = render_note("task", "Task", ["parameter", "to_str_params"], ["hub"], 6)
     assert "[[parameter]]" in md and "[[to_str_params]]" in md
-    assert "god-node" in md and "community/6" in md
+    assert "hub" in md and "community/6" in md
     assert "```mermaid" in md and "```dataview" in md
 
 
@@ -61,7 +61,7 @@ def test_generate_no_dangling_and_links_mirror_edges(tmp_path):
         top_n=9,
         hops=2,
         cap=99,
-        god={"task"},
+        hub={"task"},
         suspects={"parameter"},
     )
     assert len(written) >= 5

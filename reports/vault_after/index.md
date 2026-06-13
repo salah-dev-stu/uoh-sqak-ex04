@@ -27,7 +27,7 @@ System map for the **luigi** codebase (reverse-engineered from the Graphify grap
 
 ## Knowledge graph (dense, auto-generated)
 77 notes under `nodes/` — one per central / bug-adjacent graph node; wikilinks mirror real `graph.json` edges. Open in Obsidian -> Graph View. Hubs:
-- [[luigi_task_task]] — Task (God Node)
-- [[luigi_scheduler_centralplannerscheduler]] — Scheduler (God Node)
+- [[luigi_task_task]] — Task (Hub Node)
+- [[luigi_scheduler_centralplannerscheduler]] — Scheduler (Hub Node)
 - [[luigi_parameter_parameter]] — Parameter
 - [[luigi_task_task_to_str_params]] — the bug node (`#bug` `#fixed`)

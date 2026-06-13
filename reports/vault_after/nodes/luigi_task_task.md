@@ -1,7 +1,7 @@
 ---
 node: luigi_task_task
 label: Task
-tags: [god-node, suspect, community/4]
+tags: [hub, suspect, community/4]
 ---
 
 # Task

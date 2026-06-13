@@ -1,7 +1,7 @@
 ---
 node: luigi_worker
 label: worker.py
-tags: [god-node, suspect, community/6]
+tags: [hub, suspect, community/6]
 ---
 
 # worker.py

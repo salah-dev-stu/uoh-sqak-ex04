@@ -21,7 +21,7 @@ src/graphguide/
     runner.py            # GraphifyRunner — graphify CLI subprocess (via Gatekeeper)
     loader.py            # GraphLoader — graph.json -> models
     queries.py           # query/explain/path/affected wrappers (offline, metered)
-    centrality.py        # NetworkX degree/betweenness + God-Node detection
+    centrality.py        # NetworkX degree/betweenness + Hub-Node detection
   vault_builder/
     __init__.py
     builder.py           # curate graphify obsidian/ -> vault/
@@ -89,7 +89,7 @@ Keep every file ≤150 logical lines → split when a file does two jobs (e.g., 
 1. Vendor luigi → `target_repo/luigi`.
 2. `GraphifyRunner.extract(mode)` runs `graphify update target_repo/luigi` (AST, offline) and, once, deep mode (LLM, metered) — both via Gatekeeper.
 3. Copy outputs → `reports/graph/` + base `obsidian/`.
-4. `centrality.py` loads graph.json (NetworkX), computes degree+betweenness, flags God Nodes (`[CRITICAL]`/`[WARNING]`), writes `reports/graph_report_annotated.md`.
+4. `centrality.py` loads graph.json (NetworkX), computes degree+betweenness, flags Hub Nodes (`[CRITICAL]`/`[WARNING]`), writes `reports/graph_report_annotated.md`.
 5. ADR documents the AST-only fallback (real tool is primary).
 
 ## 7. Vault Workflow (§5.1)
@@ -123,7 +123,7 @@ Keep every file ≤150 logical lines → split when a file does two jobs (e.g., 
 ## 13. Implementation Phases (→ Todo.md task ranges)
 - **P0 Scaffold** (T001–T060): repo init, pyproject/uv, gitignore/env, pre-commit, CI, version, config skeleton, constants, logging, check_file_lines.
 - **P1 Shared/Gatekeeper** (T061–T120): config loader, gatekeeper, token_meter, tests (TDD).
-- **P2 Graphify layer** (T121–T200): models, runner, loader, queries, centrality, God-Node report, tests; vendor luigi; run extraction; commit artifacts.
+- **P2 Graphify layer** (T121–T200): models, runner, loader, queries, centrality, Hub-Node report, tests; vendor luigi; run extraction; commit artifacts.
 - **P3 Vault** (T201–T260): builder, pages, index/hot/log, linked pages, link-integrity test, before snapshot.
 - **P4 Reverse-eng diagrams** (T261–T300): block + OOP diagrams (source+render), architecture.md.
 - **P5 Agent** (T301–T400): state, llm+mock, tools (budgeted reader, graph tool), nodes, graph_guided, naive, trace, tests.
@@ -159,7 +159,7 @@ Post-audit enhancements (U1–U4, U5 optional). Same standards; STOP after U1 fo
   (config). Real iterations in trace; restore the Iterations row in `reporting.py` + `token_comparison.md`.
 - **U3 real run** — `scripts/real_run_demo.py`; a Claude-CLI-backed `LLMClient` variant (shell out via the
   Gatekeeper, tokens via tiktoken) so no key is needed; writes `reports/real_run.md` + trace json.
-- **U4 graph.html** — pyvis graph from `graph.json` (size=centrality, color=community, God/bug highlighted);
+- **U4 graph.html** — pyvis graph from `graph.json` (size=centrality, color=community, Hub/bug highlighted);
   Playwright headless screenshot → `assets/`; test asserts HTML produced with node/edge data.
 - **Versioning:** U1→1.01, U2→1.02, U3→1.03, U4→1.04 (single-source `version.py` + config mirror).
 - **Risks:** Obsidian GUI automation flakiness → settle layout before capture, retry; node-cap to keep

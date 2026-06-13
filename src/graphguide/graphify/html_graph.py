@@ -1,6 +1,6 @@
 """Interactive graph.html generator (FR-UPG4) — pyvis from graph.json.
 
-Nodes sized by degree centrality, coloured by community, God Nodes + suspects + the
+Nodes sized by degree centrality, coloured by community, Hub Nodes + suspects + the
 bug node highlighted. Self-contained (in-line vis-network) so it renders offline.
 """
 
@@ -32,7 +32,7 @@ def build_interactive_html(
     out_path: str | Path,
     *,
     selected: list[str],
-    god: set[str],
+    hub: set[str],
     suspects: set[str],
     bug_node: str,
 ) -> str:
@@ -57,9 +57,9 @@ def build_interactive_html(
             color = "#ff3b30"  # bug = red
         elif nid in suspects:
             color = "#ff9500"  # suspect = orange
-        elif nid in god:
-            color = "#af52de"  # god node = purple
-        border = 5 if (nid == bug_node or nid in god) else 1
+        elif nid in hub:
+            color = "#af52de"  # hub node = purple
+        border = 5 if (nid == bug_node or nid in hub) else 1
         net.add_node(
             nid,
             label=labels.get(nid, nid),

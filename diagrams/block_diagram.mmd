@@ -1,5 +1,5 @@
 %% Architectural block diagram of luigi (FR-REV-001, H7)
-%% Extracted from the Graphify graph: nodes = central God Nodes, edges = real calls/imports.
+%% Extracted from the Graphify graph: nodes = central Hub Nodes, edges = real calls/imports.
 flowchart TD
     subgraph Entry["Entry / CLI"]
         IFACE["interface.py<br/>(run / build)"]
@@ -7,12 +7,12 @@ flowchart TD
     end
     subgraph Model["Task model"]
         REGISTER["Register<br/>(metaclass)"]
-        TASK["Task<br/>(God Node, deg 43)"]
+        TASK["Task<br/>(Hub Node, deg 43)"]
         PARAM["Parameter<br/>(significant, serialize)"]
     end
     subgraph Exec["Execution"]
-        SCHED["CentralPlannerScheduler<br/>(God Node, deg 55)"]
-        WORKER["Worker<br/>(God Node, deg 35)"]
+        SCHED["CentralPlannerScheduler<br/>(Hub Node, deg 55)"]
+        WORKER["Worker<br/>(Hub Node, deg 35)"]
     end
     subgraph IO["Outputs"]
         TARGET["Target / LocalTarget<br/>(exists)"]

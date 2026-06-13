@@ -1,7 +1,7 @@
 ---
 node: luigi_task
 label: task.py
-tags: [god-node, suspect, community/7]
+tags: [hub, suspect, community/7]
 ---
 
 # task.py

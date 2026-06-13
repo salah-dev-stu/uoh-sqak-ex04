@@ -7,19 +7,19 @@
 ---
 
 ## Upgrade 1 (HEADLINE) — Rich, complex Obsidian knowledge graph + visuals
-**Goal:** turn the sparse curated vault into a dense, auto-generated knowledge graph so Obsidian's Graph View renders the real luigi architecture (hubs, clusters, the scheduler God Node). This is the visual centerpiece the assignment is about.
+**Goal:** turn the sparse curated vault into a dense, auto-generated knowledge graph so Obsidian's Graph View renders the real luigi architecture (hubs, clusters, the scheduler Hub Node). This is the visual centerpiece the assignment is about.
 
 **Build:**
 - Extend `VaultBuilder` (or a new `vault_builder/graph_pages.py`) to **auto-generate one Markdown note per node in `graph.json`** (module / class / key function). Each note:
   - has `[[wikilinks]]` to its graph neighbors (mirror every edge — calls/imports/inheritance),
-  - carries tags: `#god-node` (degree/centrality threshold from GRAPH_REPORT), `#suspect` (top suspect-rank), `#bug`, `#fixed`, and `#community/<id>` per detected community,
+  - carries tags: `#hub` (degree/centrality threshold from GRAPH_REPORT), `#suspect` (top suspect-rank), `#bug`, `#fixed`, and `#community/<id>` per detected community,
   - embeds a small Mermaid neighborhood diagram + one Dataview query (e.g. "nodes within 2 hops of the bug").
 - Keep `index.md` and `hot.md` as the curated entry/hub pages; they now link into the dense graph.
 - Idempotent + generated-from-data (no hand-faking edges). Cap note count sensibly (e.g. top-N by centrality + everything within K hops of the bug) so the graph is rich but not noise.
 
 **Acceptance:**
 - `vault/` has ≥30 interlinked notes generated from `graph.json` (assert count + that wikilinks match graph edges in a test).
-- 3 README screenshots committed to `assets/`: (a) full Graph View showing clusters + the highlighted God Node, (b) **local graph centered on the bug node** with suspects highlighted, (c) graph **before vs after** the investigation (knowledge grew).
+- 3 README screenshots committed to `assets/`: (a) full Graph View showing clusters + the highlighted Hub Node, (b) **local graph centered on the bug node** with suspects highlighted, (c) graph **before vs after** the investigation (knowledge grew).
 - A test verifies every generated wikilink target exists (no dangling links).
 
 ## Upgrade 2 — Genuinely iterative graph-guided agent (recover "iterations" honestly)
@@ -47,7 +47,7 @@
 **Goal:** a browser-openable interactive graph the grader can click through.
 
 **Build:**
-- Have the Graphify runner also emit `graph.html` (pyvis/vis-network or d3 from `graph.json`) — nodes sized by centrality, colored by community, God Nodes marked, the bug node highlighted.
+- Have the Graphify runner also emit `graph.html` (pyvis/vis-network or d3 from `graph.json`) — nodes sized by centrality, colored by community, Hub Nodes marked, the bug node highlighted.
 - Screenshot into `assets/`, embed/link in README.
 
 **Acceptance:** `graphify-out/graph.html` exists and renders the graph offline; README has the screenshot + a "open this file" pointer.

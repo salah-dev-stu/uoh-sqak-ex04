@@ -1,6 +1,6 @@
-"""Centrality + God-Node detection over the code graph (FR-GRAPH-007/008).
+"""Centrality + Hub-Node detection over the code graph (FR-GRAPH-007/008).
 
-God Nodes = bottlenecks: high degree or high betweenness centrality. Tiers
+Hub Nodes = bottlenecks: high degree or high betweenness centrality. Tiers
 ``CRITICAL``/``WARNING`` follow the lecture's degree/betweenness thresholds.
 """
 
@@ -36,7 +36,7 @@ def centrality_table(graph: nx.DiGraph) -> list[dict[str, Any]]:
     return rows
 
 
-def god_nodes(
+def hub_nodes(
     graph: nx.DiGraph,
     *,
     degree_warning: int,

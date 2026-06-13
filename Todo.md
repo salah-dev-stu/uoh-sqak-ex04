@@ -158,8 +158,8 @@
 - [x] 130. Implement `graphify/centrality.py` degree
 - [x] 131. Test: betweenness centrality values
 - [x] 132. Implement betweenness
-- [x] 133. Test: `god_nodes()` flags over config thresholds w/ tiers
-- [x] 134. Implement `god_nodes()` `[CRITICAL]`/`[WARNING]` [FR-GRAPH-007]
+- [x] 133. Test: `hub_nodes()` flags over config thresholds w/ tiers
+- [x] 134. Implement `hub_nodes()` `[CRITICAL]`/`[WARNING]` [FR-GRAPH-007]
 - [x] 135. Test: `centrality_table()` sorted desc
 - [x] 136. Implement `centrality_table` [FR-GRAPH-008]
 - [x] 137. Refactor centrality/loader ≤150 lines
@@ -205,8 +205,8 @@
 - [x] 173. Copy graph.html → `reports/graph/graph.html` and commit
 - [x] 174. Copy cost.json → `reports/graph/cost.json` and commit
 - [x] 175. Copy GRAPH_REPORT.md → `reports/GRAPH_REPORT.md` and commit
-- [x] 176. Run `god_nodes()` on real graph.json
-- [x] 177. Write `reports/graph_report_annotated.md` (God Nodes + risk + fix) [FR-GRAPH-007]
+- [x] 176. Run `hub_nodes()` on real graph.json
+- [x] 177. Write `reports/graph_report_annotated.md` (Hub Nodes + risk + fix) [FR-GRAPH-007]
 - [x] 178. Confirm `Task`/`Scheduler`/`Worker`/`Register` central (RQ2/RQ3)
 - [x] 179. Note surprising edges (RQ1) in the annotated report
 - [x] 180. Commit extraction artifacts + annotated report
@@ -404,7 +404,7 @@
 - [x] 349. README: research questions §4 intro
 - [x] 350. README: RQ1 actual architecture + surprises [H12]
 - [x] 351. README: RQ2 most-central components
-- [x] 352. README: RQ3 God Nodes / hotspots
+- [x] 352. README: RQ3 Hub Nodes / hotspots
 - [x] 353. README: RQ4 how block+OOP schemas were extracted
 - [x] 354. README: RQ5 how the bug was found + root cause
 - [x] 355. README: RQ6 graph+Obsidian vs linear reading
@@ -478,7 +478,7 @@
 - [x] 416. Produce paste-back summary for Moodle (both pair members)
 
 ## Verification Checklist (all must be true before submit)
-- [x] V1. graph.json + GRAPH_REPORT.md committed; God Nodes flagged [H2]
+- [x] V1. graph.json + GRAPH_REPORT.md committed; Hub Nodes flagged [H2]
 - [x] V2. vault/ has index.md + hot.md + log.md + linked pages, no dangling links [H3]
 - [x] V3. LangGraph agent consults graph/vault before raw code; both modes run [H4]
 - [x] V4. Real bug fixed; failing→passing logged; root-cause report [H5]
@@ -505,8 +505,8 @@
 - [x] 503. Implement `vault_builder/graph_pages.py` `select_nodes(graph, bug, top_n, hops, cap)` [FR-UPG1-002]
 - [x] 504. Test: `render_note` emits wikilinks ONLY to in-set neighbors (no dangling) [FR-UPG1-003]
 - [x] 505. Implement `render_note(node, in_set_neighbors, tags, community)` [FR-UPG1-001]
-- [x] 506. Test: note carries tags #god-node/#suspect/#bug/#fixed/#community/<id> [FR-UPG1-004]
-- [x] 507. Implement tag assignment from god-nodes + suspect-rank + bug node + community field
+- [x] 506. Test: note carries tags #hub/#suspect/#bug/#fixed/#community/<id> [FR-UPG1-004]
+- [x] 507. Implement tag assignment from hubs + suspect-rank + bug node + community field
 - [x] 508. Test: note embeds a Mermaid neighborhood diagram + a Dataview query [FR-UPG1-005]
 - [x] 509. Implement Mermaid + Dataview block rendering
 - [x] 510. Test: `generate()` writes ≥30 notes whose wikilinks match graph edges (restricted to S) [FR-UPG1-007]
@@ -522,7 +522,7 @@
 - [x] 520. `uv run pytest` green, coverage >=85% (all prior tests still pass)
 - [x] 521. Bump version 1.00 -> 1.01 (code + config mirror); version test green [R5]
 - [x] 522. Open the vendored vault in the **real Obsidian app**; enable Graph View
-- [x] 523. Capture `assets/graph_full.png` — full Graph View, clusters + God Node highlighted [FR-UPG1-009a]
+- [x] 523. Capture `assets/graph_full.png` — full Graph View, clusters + Hub Node highlighted [FR-UPG1-009a]
 - [x] 524. Capture `assets/graph_bug_local.png` — local graph centered on the bug node + suspects [FR-UPG1-009b]
 - [x] 525. Capture `assets/graph_before_after.png` — sparse (before) vs dense (after) [FR-UPG1-009c]
 - [x] 526. Embed the 3 screenshots in README §4/§7 [FR-UPG1-010]
@@ -546,7 +546,7 @@
 - [x] 540. Tests stay on MockLLM (grader Path D); commit/push/CI; bump 1.03
 
 ## Phase 22 — Upgrade 4: Interactive graph.html [FR-UPG4-*]
-- [x] 541. Add pyvis dep; implement `graphify/html_graph.py` (size=centrality, color=community, God/bug marked)
+- [x] 541. Add pyvis dep; implement `graphify/html_graph.py` (size=centrality, color=community, Hub/bug marked)
 - [x] 542. Test: HTML produced and contains node/edge data [FR-UPG4-003]
 - [x] 543. Generate `reports/graph/graph.html` (our styled version)
 - [x] 544. Playwright headless screenshot -> `assets/graph_html.png`; embed/link in README

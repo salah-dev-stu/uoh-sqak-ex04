@@ -22,7 +22,7 @@ def test_generate_30plus_interlinked_no_dangling(tmp_path):
         top_n=40,
         hops=2,
         cap=120,
-        god=set(),
+        hub=set(),
         suspects=set(),
     )
     assert len(written) >= 30

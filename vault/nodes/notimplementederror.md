@@ -1,7 +1,7 @@
 ---
 node: notimplementederror
 label: NotImplementedError
-tags: [god-node, community/28]
+tags: [hub, community/28]
 ---
 
 # NotImplementedError

@@ -34,12 +34,12 @@ def select_nodes(graph: CodeGraph, bug_node: str, top_n: int, hops: int, cap: in
     return ordered[:cap]
 
 
-def node_tags(node_id: str, bug_node: str, god: set[str], suspects: set[str]) -> list[str]:
+def node_tags(node_id: str, bug_node: str, hub: set[str], suspects: set[str]) -> list[str]:
     tags: list[str] = []
     if node_id == bug_node:
         tags += ["bug", "fixed"]
-    if node_id in god:
-        tags.append("god-node")
+    if node_id in hub:
+        tags.append("hub")
     if node_id in suspects:
         tags.append("suspect")
     return tags
@@ -60,7 +60,7 @@ def render_note(
     s = slug(node_id)
     mer += [f"    {s} --> {slug(n)}" for n in neighbours[:8]] or [f"    {s}"]
     mer.append("```")
-    comm = f"community/{community}" if community is not None else "god-node"
+    comm = f"community/{community}" if community is not None else "hub"
     dv = ["", "## Related (Dataview)", "", "```dataview", f"LIST FROM #{comm}", "```"]
     return "\n".join([*head, *body, *mer, *dv]) + "\n"
 
@@ -73,7 +73,7 @@ def generate(
     top_n: int,
     hops: int,
     cap: int,
-    god: set[str],
+    hub: set[str],
     suspects: set[str],
 ) -> list[str]:
     selected = select_nodes(graph, bug_node, top_n, hops, cap)
@@ -90,7 +90,7 @@ def generate(
             node_id,
             labels.get(node_id, node_id),
             neighbours,
-            node_tags(node_id, bug_node, god, suspects),
+            node_tags(node_id, bug_node, hub, suspects),
             communities.get(node_id),
         )
         (dest / f"{slug(node_id)}.md").write_text(note, encoding="utf-8")

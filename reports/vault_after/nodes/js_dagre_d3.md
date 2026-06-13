@@ -1,7 +1,7 @@
 ---
 node: js_dagre_d3
 label: dagre-d3.js
-tags: [god-node, community/3]
+tags: [hub, community/3]
 ---
 
 # dagre-d3.js

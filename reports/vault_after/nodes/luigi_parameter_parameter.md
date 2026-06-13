@@ -1,7 +1,7 @@
 ---
 node: luigi_parameter_parameter
 label: Parameter
-tags: [god-node, community/14]
+tags: [hub, community/14]
 ---
 
 # Parameter

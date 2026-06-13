@@ -20,7 +20,7 @@ from graphguide.agent.trace import build_trace
 from graphguide.constants import GRAPH_JSON, METRICS_DIR, VAULT_DIR
 from graphguide.extensions.knowledge_diff import knowledge_diff
 from graphguide.extensions.suspect_ranker import SuspectRanker
-from graphguide.graphify.centrality import god_nodes
+from graphguide.graphify.centrality import hub_nodes
 from graphguide.graphify.html_graph import build_interactive_html
 from graphguide.graphify.loader import GraphLoader
 from graphguide.graphify.runner import GraphifyRunner
@@ -69,11 +69,11 @@ class GraphGuide:
     ) -> list[str]:
         return VaultBuilder(vault_dir or VAULT_DIR).build(self._tasks["components"], extra_links)
 
-    def _god_and_suspects(self, graph) -> tuple[set[str], set[str]]:
-        th = self._gcfg["god_nodes"]
-        god = {
+    def _hub_and_suspects(self, graph) -> tuple[set[str], set[str]]:
+        th = self._gcfg["hub_nodes"]
+        hub = {
             x["node"]
-            for x in god_nodes(
+            for x in hub_nodes(
                 graph.to_networkx(),
                 degree_warning=int(th["degree_warning"]),
                 degree_critical=int(th["degree_critical"]),
@@ -81,12 +81,12 @@ class GraphGuide:
                 betweenness_critical=float(th["betweenness_critical"]),
             )
         }
-        return god, {r["node"] for r in self.rank_suspects(top=10)}
+        return hub, {r["node"] for r in self.rank_suspects(top=10)}
 
     def build_graph_vault(self, nodes_dir: str | None = None) -> list[str]:
         vcfg = config.load("vault")
         graph = self._load_graph()
-        god, suspects = self._god_and_suspects(graph)
+        hub, suspects = self._hub_and_suspects(graph)
         return generate_graph_notes(
             graph,
             nodes_dir or vcfg["nodes_dir"],
@@ -94,7 +94,7 @@ class GraphGuide:
             top_n=int(vcfg["top_n"]),
             hops=int(vcfg["hops"]),
             cap=int(vcfg["max_notes"]),
-            god=god,
+            hub=hub,
             suspects=suspects,
         )
 
@@ -105,10 +105,10 @@ class GraphGuide:
         selected = select_nodes(
             graph, bug, int(vcfg["top_n"]), int(vcfg["hops"]), int(vcfg["max_notes"])
         )
-        god, suspects = self._god_and_suspects(graph)
+        hub, suspects = self._hub_and_suspects(graph)
         out = out_path or f"{self._gcfg['out_dir']}/graph_interactive.html"
         return build_interactive_html(
-            graph, out, selected=selected, god=god, suspects=suspects, bug_node=bug
+            graph, out, selected=selected, hub=hub, suspects=suspects, bug_node=bug
         )
 
     def investigate(self, mode: str = "graph", files: list[str] | None = None) -> dict[str, Any]:

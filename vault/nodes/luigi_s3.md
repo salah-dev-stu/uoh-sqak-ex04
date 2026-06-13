@@ -1,7 +1,7 @@
 ---
 node: luigi_s3
 label: s3.py
-tags: [god-node, community/0]
+tags: [hub, community/0]
 ---
 
 # s3.py

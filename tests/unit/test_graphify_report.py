@@ -1,7 +1,7 @@
-"""FR-GRAPH-007 — annotated God-Node report renders."""
+"""FR-GRAPH-007 — annotated Hub-Node report renders."""
 
 from graphguide.graphify.loader import GraphLoader
-from graphguide.graphify.report import god_node_report
+from graphguide.graphify.report import hub_node_report
 
 LOW = {
     "degree_warning": 2,
@@ -13,9 +13,9 @@ LOW = {
 
 def test_report_renders_sections():
     g = GraphLoader.load("tests/fixtures/graph_sample.json").to_networkx()
-    md = god_node_report(g, thresholds=LOW)
+    md = hub_node_report(g, thresholds=LOW)
     assert "# Annotated Graph Report" in md
-    assert "## God Nodes" in md
+    assert "## Hub Nodes" in md
     assert "## Top centrality" in md
     assert "task" in md
     assert "2253" not in md  # uses the small fixture, not the real graph
@@ -23,5 +23,5 @@ def test_report_renders_sections():
 
 def test_report_uses_config_thresholds_by_default():
     g = GraphLoader.load("tests/fixtures/graph_sample.json").to_networkx()
-    md = god_node_report(g)  # thresholds from config/graphify.json
-    assert "God Nodes" in md
+    md = hub_node_report(g)  # thresholds from config/graphify.json
+    assert "Hub Nodes" in md

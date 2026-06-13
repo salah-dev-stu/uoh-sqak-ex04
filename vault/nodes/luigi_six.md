@@ -1,7 +1,7 @@
 ---
 node: luigi_six
 label: six.py
-tags: [god-node, community/9]
+tags: [hub, community/9]
 ---
 
 # six.py

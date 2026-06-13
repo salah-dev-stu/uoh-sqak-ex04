@@ -9,7 +9,7 @@
 
 ## Goals
 - G1 Make Obsidian's **Graph View render the real luigi architecture** from a dense, auto-generated,
-  data-faithful vault (hubs, communities, the scheduler/Task God Nodes, the bug + suspects).
+  data-faithful vault (hubs, communities, the scheduler/Task Hub Nodes, the bug + suspects).
 - G2 Recover **iterations** as a genuinely-measured, favorable metric via a real frontier-expansion loop.
 - G3 Add a **real-LLM demonstration run** proving the model finds the bug graph-guided (beyond the mock).
 - G4 Ship an **interactive `graph.html`** the grader can click through.
@@ -30,7 +30,7 @@ The real run + screenshots are committed artifacts, never CI dependencies.
   (N, K, and a hard `max_notes` cap from config). Rich but bounded — no 2253-node noise.
 - **FR-UPG1-003** Each note emits `[[wikilinks]]` mirroring its graph edges, **restricted to neighbors that
   are also in S** — guarantees zero dangling links while staying faithful to the real subgraph.
-- **FR-UPG1-004** Each note carries tags: `#god-node` (if flagged in the God-Node report), `#suspect` (top
+- **FR-UPG1-004** Each note carries tags: `#hub` (if flagged in the Hub-Node report), `#suspect` (top
   suspect-rank), `#bug` (the bug node), `#fixed` (post-fix), `#community/<id>` (from `graph.json`).
 - **FR-UPG1-005** Each note embeds a small **Mermaid neighborhood diagram** + one **Dataview** query
   (e.g. list nodes in the same community / within 2 hops of the bug).
@@ -39,7 +39,7 @@ The real run + screenshots are committed artifacts, never CI dependencies.
   wikilinks match `graph.json` edges (restricted to S).
 - **FR-UPG1-008** A test verifies **no dangling wikilinks** across the whole vault.
 - **FR-UPG1-009** Capture **3 real Obsidian Graph View screenshots** into `assets/`: (a) full graph showing
-  clusters + the highlighted God Node, (b) local graph centered on the bug node with suspects highlighted,
+  clusters + the highlighted Hub Node, (b) local graph centered on the bug node with suspects highlighted,
   (c) **before vs after** the investigation (sparse base → dense + investigation layer).
 - **FR-UPG1-010** README §4/§7 embed the 3 screenshots; the visuals *show*, not tell.
 
@@ -66,7 +66,7 @@ screenshots committed + embedded; all prior tests still pass; ruff clean; ≤150
 
 ## Upgrade 4 — Interactive `graph.html`
 - **FR-UPG4-001** Emit an interactive `graph.html` (pyvis/vis-network from `graph.json`): node size =
-  centrality, color = community, God Nodes marked, bug node highlighted.
+  centrality, color = community, Hub Nodes marked, bug node highlighted.
 - **FR-UPG4-002** Screenshot via headless **Playwright** into `assets/`; embed/link in README ("open this file").
 - **FR-UPG4-003** Renders offline; a test asserts the HTML is produced and contains the node/edge data.
 

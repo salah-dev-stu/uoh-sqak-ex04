@@ -5,11 +5,11 @@ from graphguide.shared import config, version
 
 
 def test_code_version_is_1_00():
-    assert graphguide.VERSION == "1.04"
+    assert graphguide.VERSION == "1.05"
 
 
 def test_dunder_matches_version():
-    assert version.__version__ == version.VERSION == "1.04"
+    assert version.__version__ == version.VERSION == "1.05"
 
 
 def test_config_mirrors_code_version():

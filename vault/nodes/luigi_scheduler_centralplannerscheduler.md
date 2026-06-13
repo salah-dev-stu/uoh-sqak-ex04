@@ -1,7 +1,7 @@
 ---
 node: luigi_scheduler_centralplannerscheduler
 label: CentralPlannerScheduler
-tags: [god-node, community/42]
+tags: [hub, community/42]
 ---
 
 # CentralPlannerScheduler
