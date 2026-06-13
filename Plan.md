@@ -145,3 +145,23 @@ Keep every file ≤150 logical lines → split when a file does two jobs (e.g., 
 ## 15. Per-Mechanism PRDs & ADRs (Gate-2 companions)
 - `docs/prd/`: graphify.md, vault.md, agent.md, gatekeeper-token-meter.md, extensions.md.
 - `docs/adr/`: 0001-use-real-graphify-tool.md, 0002-langgraph-over-crewai.md, 0003-pin-python-3.13-ci.md, 0004-ast-fallback.md, 0005-gatekeeper-wraps-all-calls.md.
+
+## 16. Upgrades ("Strong → Standout") — see docs/prd/upgrade-knowledge-graph.md
+Post-audit enhancements (U1–U4, U5 optional). Same standards; STOP after U1 for review.
+
+- **U1 dense vault** — new `vault_builder/graph_pages.py`: `select_nodes(graph, bug, top_n, hops, cap)`
+  (top-N centrality ∪ K-hop-of-bug) → `render_note(node, in_set_neighbors, tags, community)` (wikilinks
+  to in-set neighbors only → no dangling; tags; Mermaid neighborhood; Dataview query) → `generate()`
+  writes `vault/nodes/*.md`. Config `config/vault.json` (top_n, hops, max_notes). SDK `build_graph_vault()`.
+  Real **Obsidian app** opened to capture Graph View screenshots → `assets/` (full / bug-local / before-after).
+- **U2 iterative agent** — frontier loop in `graph_guided` (reuse the `route_after_diagnose` back-edge):
+  `state["round"]`, expand 1 hop/round in `query_graph`, re-rank, stop on confidence or `max_rounds`
+  (config). Real iterations in trace; restore the Iterations row in `reporting.py` + `token_comparison.md`.
+- **U3 real run** — `scripts/real_run_demo.py`; a Claude-CLI-backed `LLMClient` variant (shell out via the
+  Gatekeeper, tokens via tiktoken) so no key is needed; writes `reports/real_run.md` + trace json.
+- **U4 graph.html** — pyvis graph from `graph.json` (size=centrality, color=community, God/bug highlighted);
+  Playwright headless screenshot → `assets/`; test asserts HTML produced with node/edge data.
+- **Versioning:** U1→1.01, U2→1.02, U3→1.03, U4→1.04 (single-source `version.py` + config mirror).
+- **Risks:** Obsidian GUI automation flakiness → settle layout before capture, retry; node-cap to keep
+  Graph View readable; keep generated notes out of coverage-sensitive paths (they're data, tested via the
+  generator).

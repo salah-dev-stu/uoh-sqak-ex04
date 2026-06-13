@@ -498,3 +498,60 @@
 - [x] V18. Repo public/accessible; grader runs pytest with no key [Path D]
 - [x] V19. Target repo vendored + pinned + provenance [H1, NFR-REPRO]
 - [x] V20. Self-grade 85; submission PDF correct [§5]
+
+## Phase 19 — Upgrade 1: Dense Obsidian knowledge graph + real screenshots [FR-UPG1-*] (STOP after for review)
+- [ ] 501. Create `config/vault.json` (top_n, hops, max_notes, communities toggle)
+- [ ] 502. Write failing `test_graph_pages.py`: `select_nodes` = top-N centrality ∪ K-hop-of-bug, capped
+- [ ] 503. Implement `vault_builder/graph_pages.py` `select_nodes(graph, bug, top_n, hops, cap)` [FR-UPG1-002]
+- [ ] 504. Test: `render_note` emits wikilinks ONLY to in-set neighbors (no dangling) [FR-UPG1-003]
+- [ ] 505. Implement `render_note(node, in_set_neighbors, tags, community)` [FR-UPG1-001]
+- [ ] 506. Test: note carries tags #god-node/#suspect/#bug/#fixed/#community/<id> [FR-UPG1-004]
+- [ ] 507. Implement tag assignment from god-nodes + suspect-rank + bug node + community field
+- [ ] 508. Test: note embeds a Mermaid neighborhood diagram + a Dataview query [FR-UPG1-005]
+- [ ] 509. Implement Mermaid + Dataview block rendering
+- [ ] 510. Test: `generate()` writes ≥30 notes whose wikilinks match graph edges (restricted to S) [FR-UPG1-007]
+- [ ] 511. Implement `generate(graph, out_dir, cfg)` -> list of written notes
+- [ ] 512. Refactor graph_pages.py to ≤150 logical lines (split select vs render if needed)
+- [ ] 513. Add SDK `build_graph_vault()` to facade; wire into CLI `vault --graph`
+- [ ] 514. Generate real notes into `vault/nodes/` from `reports/graph/graph.json`
+- [ ] 515. Update `index.md` + `hot.md` to link into the dense graph [FR-UPG1-006]
+- [ ] 516. Run `check_links` over the full vault -> zero dangling [FR-UPG1-008]
+- [ ] 517. Regenerate `reports/vault_before` (dense base) + `reports/vault_after` (dense + investigation)
+- [ ] 518. Update `tests/integration/test_vault_real_links.py` for the dense vault (still no dangling)
+- [ ] 519. `uv run ruff check` + `ruff format` + `check_file_lines` clean
+- [ ] 520. `uv run pytest` green, coverage >=85% (all prior tests still pass)
+- [ ] 521. Bump version 1.00 -> 1.01 (code + config mirror); version test green [R5]
+- [ ] 522. Open the vendored vault in the **real Obsidian app**; enable Graph View
+- [ ] 523. Capture `assets/graph_full.png` — full Graph View, clusters + God Node highlighted [FR-UPG1-009a]
+- [ ] 524. Capture `assets/graph_bug_local.png` — local graph centered on the bug node + suspects [FR-UPG1-009b]
+- [ ] 525. Capture `assets/graph_before_after.png` — sparse (before) vs dense (after) [FR-UPG1-009c]
+- [ ] 526. Embed the 3 screenshots in README §4/§7 [FR-UPG1-010]
+- [ ] 527. Commit Upgrade 1; push origin; confirm CI green
+- [ ] 528. STOP — present Upgrade 1 for user review
+
+## Phase 20 — Upgrade 2: Iterative graph-guided agent [FR-UPG2-*]
+- [ ] 529. Add `max_rounds` to `config/rate_limits.json`
+- [ ] 530. Test: `query_graph` expands frontier by 1 hop per round; re-ranks suspects
+- [ ] 531. Implement round-aware frontier expansion in nodes/graph_guided
+- [ ] 532. Test: mock scripted -> graph-guided converges in 2-3 rounds, naive in 1 (real iterations)
+- [ ] 533. Record real `iterations` in trace; remove any literal constant [FR-UPG2-002]
+- [ ] 534. Restore Iterations row in `reporting.py`; update `token_comparison.md` (remove "omitted" note) [FR-UPG2-004]
+- [ ] 535. Regenerate metrics + token_comparison; tests green; commit/push/CI; bump 1.02
+
+## Phase 21 — Upgrade 3: Real-LLM demonstration run [FR-UPG3-*]
+- [ ] 536. Implement a Claude-CLI-backed LLMClient variant routed via the Gatekeeper (tokens via tiktoken)
+- [ ] 537. Test the CLI client with an injected fake subprocess (no real call in CI)
+- [ ] 538. Write `scripts/real_run_demo.py` -> runs graph-guided once, writes `reports/real_run.md` + trace json
+- [ ] 539. Execute one real run; commit the artifact; README links it; update token_comparison note
+- [ ] 540. Tests stay on MockLLM (grader Path D); commit/push/CI; bump 1.03
+
+## Phase 22 — Upgrade 4: Interactive graph.html [FR-UPG4-*]
+- [ ] 541. Add pyvis dep; implement `graphify/html_graph.py` (size=centrality, color=community, God/bug marked)
+- [ ] 542. Test: HTML produced and contains node/edge data [FR-UPG4-003]
+- [ ] 543. Generate `reports/graph/graph.html` (our styled version)
+- [ ] 544. Playwright headless screenshot -> `assets/graph_html.png`; embed/link in README
+- [ ] 545. Tests green; commit/push/CI; bump 1.04
+
+## Phase 23 — Upgrade 5 (OPTIONAL): Lost in the Middle [FR-UPG5-*]
+- [ ] 546. Design the buried-context experiment (only if U1-U4 land with time)
+- [ ] 547. Run it (real LLM); write `reports/lost_in_the_middle.md`; README link; commit
