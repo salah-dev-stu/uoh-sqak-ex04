@@ -19,6 +19,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     inv = sub.add_parser("investigate")
     inv.add_argument("--mode", choices=["graph", "naive"], default="graph")
+    sub.add_parser("graph-html")
     sub.add_parser("suspects")
     sub.add_parser("knowledge-diff")
     sub.add_parser("token-report")
@@ -34,6 +35,8 @@ def main(argv: list[str] | None = None, gg: GraphGuide | None = None) -> int:
         print(gg.graphify())
     elif args.command == "vault":
         print(gg.build_graph_vault() if args.graph else gg.build_vault())
+    elif args.command == "graph-html":
+        print(gg.build_html_graph())
     elif args.command == "investigate":
         print(json.dumps(gg.investigate(args.mode), indent=2))
     elif args.command == "suspects":

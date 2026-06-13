@@ -88,6 +88,12 @@ hubs). Colour groups: 🔴 `#bug` · 🟠 `#suspect` · 🟣 `#god-node`.
 
 ![Obsidian Graph View — full](assets/graph_full.png)
 
+**Interactive graph** — open [`reports/graph/graph_interactive.html`](reports/graph/graph_interactive.html)
+in a browser (self-contained, offline) to click through the graph: node size = centrality, colour =
+community, 🟣 God Nodes and 🔴 the bug node highlighted.
+
+![Interactive graph.html](assets/graph_html.png)
+
 ## 5. The agent workflow (spec §5.3, H4)
 A **LangGraph** state machine that enforces *graph/vault before raw code*:
 ```mermaid

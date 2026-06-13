@@ -539,18 +539,18 @@
 - [x] 535. Regenerate metrics + token_comparison; tests green; commit/push/CI; bump 1.02
 
 ## Phase 21 — Upgrade 3: Real-LLM demonstration run [FR-UPG3-*]
-- [ ] 536. Implement a Claude-CLI-backed LLMClient variant routed via the Gatekeeper (tokens via tiktoken)
-- [ ] 537. Test the CLI client with an injected fake subprocess (no real call in CI)
-- [ ] 538. Write `scripts/real_run_demo.py` -> runs graph-guided once, writes `reports/real_run.md` + trace json
-- [ ] 539. Execute one real run; commit the artifact; README links it; update token_comparison note
-- [ ] 540. Tests stay on MockLLM (grader Path D); commit/push/CI; bump 1.03
+- [x] 536. Implement a Claude-CLI-backed LLMClient variant routed via the Gatekeeper (tokens via tiktoken)
+- [x] 537. Test the CLI client with an injected fake subprocess (no real call in CI)
+- [x] 538. Write `scripts/real_run_demo.py` -> runs graph-guided once, writes `reports/real_run.md` + trace json
+- [x] 539. Execute one real run; commit the artifact; README links it; update token_comparison note
+- [x] 540. Tests stay on MockLLM (grader Path D); commit/push/CI; bump 1.03
 
 ## Phase 22 — Upgrade 4: Interactive graph.html [FR-UPG4-*]
-- [ ] 541. Add pyvis dep; implement `graphify/html_graph.py` (size=centrality, color=community, God/bug marked)
-- [ ] 542. Test: HTML produced and contains node/edge data [FR-UPG4-003]
-- [ ] 543. Generate `reports/graph/graph.html` (our styled version)
-- [ ] 544. Playwright headless screenshot -> `assets/graph_html.png`; embed/link in README
-- [ ] 545. Tests green; commit/push/CI; bump 1.04
+- [x] 541. Add pyvis dep; implement `graphify/html_graph.py` (size=centrality, color=community, God/bug marked)
+- [x] 542. Test: HTML produced and contains node/edge data [FR-UPG4-003]
+- [x] 543. Generate `reports/graph/graph.html` (our styled version)
+- [x] 544. Playwright headless screenshot -> `assets/graph_html.png`; embed/link in README
+- [x] 545. Tests green; commit/push/CI; bump 1.04
 
 ## Phase 23 — Upgrade 5 (OPTIONAL): Lost in the Middle [FR-UPG5-*]
 - [ ] 546. Design the buried-context experiment (only if U1-U4 land with time)

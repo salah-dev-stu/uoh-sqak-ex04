@@ -15,7 +15,7 @@ def _reply(prompt: str) -> str:
 
 
 def test_version():
-    assert GraphGuide.version() == "1.03"
+    assert GraphGuide.version() == "1.04"
 
 
 def test_build_llm_backend_selection():
@@ -58,6 +58,14 @@ def test_investigate_graph_beats_naive():
 def test_build_graph_vault_dense(tmp_path):
     written = GraphGuide().build_graph_vault(nodes_dir=str(tmp_path))
     assert len(written) >= 30  # dense, generated from the real graph
+
+
+@pytest.mark.skipif(not REAL_GRAPH.exists(), reason="real graph not committed")
+def test_build_html_graph_offline(tmp_path):
+    out = GraphGuide().build_html_graph(out_path=str(tmp_path / "g.html"))
+    html = Path(out).read_text(encoding="utf-8")
+    assert "luigi_task_task_to_str_params" in html  # the bug node is in the graph
+    assert "<script" in html and len(html) > 50_000  # vis-network inlined (renders offline)
 
 
 @pytest.mark.skipif(not REAL_GRAPH.exists(), reason="real graph not committed")

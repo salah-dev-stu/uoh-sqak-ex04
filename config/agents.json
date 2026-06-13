@@ -1,5 +1,5 @@
 {
-  "version": "1.03",
+  "version": "1.04",
   "model_id": "claude-sonnet-4-6",
   "temperature": 0.0,
   "max_tokens": 1024,

@@ -48,3 +48,6 @@ vault/.obsidian/*
 !vault/.obsidian/graph.json
 **/.obsidian/
 !vault/.obsidian/
+
+# Playwright MCP working dir
+.playwright-mcp/

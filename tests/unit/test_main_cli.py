@@ -7,7 +7,7 @@ from graphguide.main import main
 
 class _FakeGG:
     def version(self):
-        return "1.03"
+        return "1.04"
 
     def graphify(self):
         return ["graph.json"]
@@ -17,6 +17,9 @@ class _FakeGG:
 
     def build_graph_vault(self):
         return ["nodes/luigi_task_task.md", "nodes/luigi_task_task_to_str_params.md"]
+
+    def build_html_graph(self):
+        return "reports/graph/graph_interactive.html"
 
     def investigate(self, mode):
         return {"mode": mode, "found_bug": True, "files_count": 1}
@@ -38,6 +41,7 @@ class _FakeGG:
         ["graphify"],
         ["vault"],
         ["vault", "--graph"],
+        ["graph-html"],
         ["investigate", "--mode", "graph"],
         ["investigate", "--mode", "naive"],
         ["suspects"],
@@ -52,4 +56,4 @@ def test_subcommands_dispatch(argv, capsys):
 
 def test_version_prints_version(capsys):
     main(["version"], gg=_FakeGG())
-    assert "1.03" in capsys.readouterr().out
+    assert "1.04" in capsys.readouterr().out
