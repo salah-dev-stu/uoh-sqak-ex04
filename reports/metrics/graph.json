@@ -3,18 +3,16 @@
   "nodes_visited": [
     "index.md",
     "hot.md",
-    "luigi_task_task_to_str_params",
-    "luigi_task_rationale_303",
     "luigi_task_task",
-    "luigi_task_task_get_params"
+    "luigi_task_task_to_str_params"
   ],
   "files_read": [
     "luigi/task.py"
   ],
   "files_count": 1,
-  "iterations": 1,
+  "iterations": 2,
   "tokens": 897,
   "metered_files": 1,
-  "root_cause": "ROOTCAUSE: significant guard drops params",
+  "root_cause": "ROOTCAUSE: to_str_params skips significant=False params -> KeyError on round-trip",
   "found_bug": true
 }

@@ -15,7 +15,7 @@ def _reply(prompt: str) -> str:
 
 
 def test_version():
-    assert GraphGuide.version() == "1.01"
+    assert GraphGuide.version() == "1.02"
 
 
 def test_graphify_invokes_runner():

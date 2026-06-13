@@ -15,9 +15,13 @@ LIMITS = {
 
 
 def _reply(prompt: str) -> str:
+    # 'f ' = fix prompt; else diagnose. Conclusive only once the bug node has been read.
     if prompt.startswith("f "):
         return "FIX: remove the significant guard so all params serialize"
-    return "ROOTCAUSE: to_str_params skips significant=False params -> KeyError on round-trip"
+    # graph-guided is conclusive once it reads the bug node; naive once it reads the bug's file.
+    if "[node:to_str_params]" in prompt or "[file:luigi/task.py]" in prompt:
+        return "ROOTCAUSE: to_str_params skips significant=False params -> KeyError on round-trip"
+    return "INCONCLUSIVE: expand the frontier"
 
 
 @pytest.fixture
@@ -34,6 +38,8 @@ def make_ctx():
             failing_test_node="to_str_params",
             max_files=max_files,
             prompts={"diagnose": "d {context}", "fix": "f {root_cause}"},
+            seed_nodes=["task", "parameter"],
+            max_rounds=5,
         )
         return ctx, gk
 

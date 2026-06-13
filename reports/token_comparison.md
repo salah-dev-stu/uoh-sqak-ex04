@@ -6,13 +6,14 @@
 | --- | ---: | ---: |
 | Code tokens read | 22923 | 897 |
 | Code files read | 35 | 1 |
-| Graph/vault nodes navigated | 0 | 6 |
+| Iterations (rounds) | 1 | 2 |
+| Graph/vault nodes navigated | 0 | 4 |
 | Found the bug | True | True |
 
 ## What this measures (and what it does not)
 - **Metric = code tokens actually read into the agent's context** (the spec's target: 'cut needless code reads'). The Obsidian vault (`index.md`/`hot.md`) is the cheap *navigation layer* that replaces expensive code reading; it is not counted as code cost.
 - **Both modes use a deterministic mock LLM**, so 'found the bug' is true by construction. This experiment isolates and proves the **context/token reduction** the graph enables — not a claim that graph-guidance raises the model's success rate.
-- **Both runs are single-pass** (root cause found on the first diagnosis), so iteration count is not a differentiator here and is omitted; the token/file reduction is the result.
+- **Iterations are measured**, not hardcoded: graph-guided runs a real frontier-expansion loop (seed at `hot.md` nodes -> expand one hop per round -> read the top-ranked node) and converges in a few targeted rounds, each reading a single node; naive is one bulk pass over many files. So graph-guided trades a few cheap rounds for a fraction of the tokens.
 - **Baseline fairness:** naive reads every top-level `luigi/*.py` module (capped at `max_files`) — an unfocused read of the package, not a strawman. The tokens charged equal the code it ingests (no read-then-discard).
 
 ## Why graph-guided wins

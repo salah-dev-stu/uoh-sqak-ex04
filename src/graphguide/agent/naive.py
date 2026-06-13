@@ -17,7 +17,7 @@ def run_naive(ctx: AgentContext, task: str, files: list[str]) -> AgentState:
     snippets: list[str] = []
     for path in files:
         try:
-            snippets.append(ctx.reader.read(path))
+            snippets.append(f"[file:{path}]\n{ctx.reader.read(path)}")
             read.append(path)
         except FileBudgetExceededError:
             break

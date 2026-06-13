@@ -125,7 +125,9 @@ class GraphGuide:
             failing_test_node=self._tasks["failing_test_node"],
             max_files=max_files,
             prompts=self._agents["prompts"],
+            seed_nodes=list(self._tasks.get("seed_nodes", [])),
             max_iterations=int(self._rl["max_iterations"]),
+            max_rounds=int(self._rl.get("max_rounds", 5)),
         )
 
     def _repo_files(self) -> list[str]:

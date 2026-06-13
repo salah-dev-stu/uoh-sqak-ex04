@@ -23,7 +23,11 @@ LIMITS = {"requests_per_minute": 100000, "token_budget": {"graph": 50_000_000, "
 
 
 def _reply(prompt: str) -> str:
-    return "FIX" if prompt.startswith("f ") else "ROOTCAUSE: significant guard drops params"
+    if prompt.startswith("f "):
+        return "FIX: remove the significant guard"
+    if f"[node:{BUG_NODE}]" in prompt or "[file:luigi/task.py]" in prompt:
+        return "ROOTCAUSE: significant guard drops params"
+    return "INCONCLUSIVE: expand the frontier"
 
 
 def _ctx(mode: str, max_files: int):
@@ -38,6 +42,8 @@ def _ctx(mode: str, max_files: int):
         failing_test_node=BUG_NODE,
         max_files=max_files,
         prompts={"diagnose": "d {context}", "fix": "f {root_cause}"},
+        seed_nodes=["luigi_task_task", "luigi_parameter_parameter"],
+        max_rounds=6,
     )
     return ctx, gk
 
@@ -47,7 +53,8 @@ def test_graph_guided_beats_naive_on_real_graph():
     g_ctx, g_gk = _ctx("graph", max_files=10)
     g_final = run_graph_guided(g_ctx, "fix the to_str_params round-trip bug")
     assert g_final["root_cause"] and g_final["fix"]
-    assert BUG_NODE in g_final["nodes_visited"]
+    assert BUG_NODE in g_final["read_nodes"]
+    assert g_final["iterations"] >= 2  # genuinely iterated to reach the bug node
     assert g_final["nodes_visited"][:2] == ["index.md", "hot.md"]
 
     files = sorted(

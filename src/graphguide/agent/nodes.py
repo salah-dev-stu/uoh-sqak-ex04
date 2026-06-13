@@ -1,8 +1,9 @@
-"""LangGraph node functions (FR-AGENT-002/009).
+"""LangGraph node functions (FR-AGENT-002/009, FR-UPG2).
 
-Each node is ``(ctx, state) -> partial state``. The enforced order is index ->
-hot -> graph query -> budgeted code -> diagnose -> fix: the agent consults the
-vault and graph BEFORE reading any raw code (the context-reduction mechanism).
+Genuinely iterative graph-guided flow: read_index -> read_hot (seed frontier) ->
+[ query_graph -> read_code -> diagnose -> (expand & repeat | propose_fix) ].
+Each round expands the frontier one hop from the seeds, reads the top-ranked
+unread node, and re-diagnoses — so the round count is measured, not hardcoded.
 """
 
 from __future__ import annotations
@@ -33,31 +34,37 @@ def read_hot(ctx: AgentContext, state: AgentState) -> dict[str, Any]:
         "phase": "read_hot",
         "nodes_visited": ["hot.md"],
         "context": [_read_vault(ctx.vault_dir, "hot.md")],
+        "frontier": list(ctx.seed_nodes),
+        "round": 0,
     }
 
 
 def query_graph(ctx: AgentContext, state: AgentState) -> dict[str, Any]:
-    node = ctx.failing_test_node
-    neighbors = ctx.neighbors(node)
-    suspects = ctx.source_files([node, *neighbors])
-    return {
-        "phase": "query_graph",
-        "nodes_visited": [node, *neighbors],
-        "suspects": suspects,
-        "context": [f"graph-guided suspects (from {node}): {suspects}"],
-    }
+    """Expand the frontier to ``round`` hops from the seeds; pick the top unread node."""
+    frontier = ctx.frontier(state.get("round", 0))
+    unread = [n for n in frontier if n not in state.get("read_nodes", [])]
+    ranked = ctx.rank(unread)
+    top = ranked[:1]
+    return {"phase": "query_graph", "frontier": frontier, "suspects": top, "nodes_visited": top}
 
 
 def read_code(ctx: AgentContext, state: AgentState) -> dict[str, Any]:
+    suspects = state.get("suspects", [])
+    if not suspects:
+        return {"phase": "read_code"}
+    node = suspects[0]
+    src = ctx.source_file(node)
     files: list[str] = []
     snippets: list[str] = []
-    for path in state.get("suspects", []):
+    if src:
         try:
-            snippets.append(ctx.reader.read(path))
-            files.append(path)
+            code = ctx.reader.read(src)  # cached re-reads are free + don't recount
+            snippets = [f"[node:{node}] from {src}\n{code}"]
+            if src not in state.get("files_read", []):
+                files = [src]
         except FileBudgetExceededError:
-            break
-    return {"phase": "read_code", "files_read": files, "context": snippets}
+            pass
+    return {"phase": "read_code", "files_read": files, "context": snippets, "read_nodes": [node]}
 
 
 def diagnose(ctx: AgentContext, state: AgentState) -> dict[str, Any]:
@@ -65,8 +72,12 @@ def diagnose(ctx: AgentContext, state: AgentState) -> dict[str, Any]:
     return {
         "phase": "diagnose",
         "root_cause": ctx.llm.complete(ctx.prompt("diagnose", context=context)),
-        "iterations": state.get("iterations", 0) + 1,
+        "iterations": state.get("round", 0) + 1,
     }
+
+
+def expand(ctx: AgentContext, state: AgentState) -> dict[str, Any]:
+    return {"phase": "expand", "round": state.get("round", 0) + 1}
 
 
 def propose_fix(ctx: AgentContext, state: AgentState) -> dict[str, Any]:
@@ -77,7 +88,9 @@ def propose_fix(ctx: AgentContext, state: AgentState) -> dict[str, Any]:
 
 
 def route_after_diagnose(ctx: AgentContext, state: AgentState) -> str:
-    """Bounded loop (FR-AGENT-004): proceed when diagnosed or out of iterations."""
-    if state.get("root_cause") or state.get("iterations", 0) >= ctx.max_iterations:
+    """Conclude when the diagnosis is conclusive or rounds are exhausted; else expand."""
+    rc = state.get("root_cause", "")
+    conclusive = bool(rc) and not rc.upper().startswith("INCONCLUSIVE")
+    if conclusive or state.get("round", 0) + 1 >= ctx.max_rounds:
         return "propose_fix"
-    return "query_graph"
+    return "expand"

@@ -42,6 +42,6 @@
   "iterations": 1,
   "tokens": 22923,
   "metered_files": 35,
-  "root_cause": "ROOTCAUSE: significant guard drops params",
+  "root_cause": "ROOTCAUSE: to_str_params skips significant=False params -> KeyError on round-trip",
   "found_bug": true
 }

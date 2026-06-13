@@ -76,10 +76,12 @@ def test_reader_reads_and_meters(tmp_path):
 
 def test_reader_budget_exceeded(tmp_path):
     (tmp_path / "a.py").write_text("x")
+    (tmp_path / "b.py").write_text("y")
     reader = CodeReader(_gk(), tmp_path, max_files=1)
     reader.read("a.py")
+    reader.read("a.py")  # cached re-read is free (no budget hit)
     with pytest.raises(FileBudgetExceededError):
-        reader.read("a.py")
+        reader.read("b.py")  # a distinct file exceeds the budget
 
 
 # --- context ---

@@ -144,7 +144,8 @@ class, so the agent reaches it immediately.
 |---|---:|---:|---:|
 | Code tokens read | 22,923 | 897 | **96.1%** |
 | Code files read | 35 | 1 | **97.1%** |
-| Graph/vault nodes navigated | 0 | 6 | — |
+| Iterations (rounds) | 1 (bulk) | 2 (targeted) | measured |
+| Graph/vault nodes navigated | 0 | 4 | — |
 | Found the bug | ✅ | ✅ | same |
 
 ![comparison](reports/metrics/comparison.png)
@@ -152,10 +153,12 @@ class, so the agent reaches it immediately.
 > **What this measures (honestly):** the metric is *code tokens read into context* — the spec's
 > "needless code reads" — while the vault (`index.md`/`hot.md`) is the cheap navigation layer (not
 > charged as code). Both modes use a **deterministic mock LLM**, so this isolates and proves the
-> **context/token reduction** the graph enables, *not* a higher model success rate. Both runs are
-> single-pass, so iteration count isn't a differentiator and is omitted. The naive baseline reads
-> every top-level `luigi/*.py` module (no read-then-discard) — defensible, not strawmanned. Full
-> methodology in [`reports/token_comparison.md`](reports/token_comparison.md).
+> **context/token reduction** the graph enables, *not* a higher model success rate. **Iterations are
+> genuinely measured**: graph-guided runs a real frontier-expansion loop (seed at `hot.md` → expand
+> one hop per round → read the top-ranked node), converging in 2 targeted rounds; naive is 1 bulk
+> pass over many files. The naive baseline reads every top-level `luigi/*.py` module (no
+> read-then-discard) — defensible, not strawmanned. Full methodology in
+> [`reports/token_comparison.md`](reports/token_comparison.md).
 
 ## 11. Original extensions (spec §5.6, H10)
 1. **Suspect-ranking by proximity to the failing test** — fuses centrality with graph-distance to the

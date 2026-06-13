@@ -13,7 +13,10 @@ class AgentState(TypedDict, total=False):
     nodes_visited: Annotated[list[str], operator.add]
     files_read: Annotated[list[str], operator.add]
     context: Annotated[list[str], operator.add]
+    read_nodes: Annotated[list[str], operator.add]
     suspects: list[str]
+    frontier: list[str]
+    round: int
     root_cause: str
     fix: str
     iterations: int
@@ -27,7 +30,10 @@ def initial_state(task: str, mode: str) -> AgentState:
         "nodes_visited": [],
         "files_read": [],
         "context": [],
+        "read_nodes": [],
         "suspects": [],
+        "frontier": [],
+        "round": 0,
         "root_cause": "",
         "fix": "",
         "iterations": 0,

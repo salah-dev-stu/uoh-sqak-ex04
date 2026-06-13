@@ -27,6 +27,7 @@ def comparison_markdown(graph_trace: dict[str, Any], naive_trace: dict[str, Any]
     rows = [
         ("Code tokens read", naive_trace["tokens"], graph_trace["tokens"]),
         ("Code files read", naive_trace["files_count"], graph_trace["files_count"]),
+        ("Iterations (rounds)", naive_trace["iterations"], graph_trace["iterations"]),
         ("Graph/vault nodes navigated", 0, len(graph_trace.get("nodes_visited", []))),
         ("Found the bug", naive_trace["found_bug"], graph_trace["found_bug"]),
     ]
@@ -51,8 +52,10 @@ def comparison_markdown(graph_trace: dict[str, Any], naive_trace: dict[str, Any]
         "- **Both modes use a deterministic mock LLM**, so 'found the bug' is true by construction. "
         "This experiment isolates and proves the **context/token reduction** the graph enables — not "
         "a claim that graph-guidance raises the model's success rate.",
-        "- **Both runs are single-pass** (root cause found on the first diagnosis), so iteration count "
-        "is not a differentiator here and is omitted; the token/file reduction is the result.",
+        "- **Iterations are measured**, not hardcoded: graph-guided runs a real frontier-expansion "
+        "loop (seed at `hot.md` nodes -> expand one hop per round -> read the top-ranked node) and "
+        "converges in a few targeted rounds, each reading a single node; naive is one bulk pass over "
+        "many files. So graph-guided trades a few cheap rounds for a fraction of the tokens.",
         "- **Baseline fairness:** naive reads every top-level `luigi/*.py` module (capped at "
         "`max_files`) — an unfocused read of the package, not a strawman. The tokens charged equal "
         "the code it ingests (no read-then-discard).",

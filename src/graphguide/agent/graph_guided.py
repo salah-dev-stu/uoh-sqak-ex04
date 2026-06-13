@@ -23,6 +23,7 @@ def build_graph(ctx: AgentContext):
     graph.add_node("query_graph", partial(nodes.query_graph, ctx))
     graph.add_node("read_code", partial(nodes.read_code, ctx))
     graph.add_node("diagnose", partial(nodes.diagnose, ctx))
+    graph.add_node("expand", partial(nodes.expand, ctx))
     graph.add_node("propose_fix", partial(nodes.propose_fix, ctx))
 
     graph.set_entry_point("read_index")
@@ -33,8 +34,9 @@ def build_graph(ctx: AgentContext):
     graph.add_conditional_edges(
         "diagnose",
         partial(nodes.route_after_diagnose, ctx),
-        {"propose_fix": "propose_fix", "query_graph": "query_graph"},
+        {"propose_fix": "propose_fix", "expand": "expand"},
     )
+    graph.add_edge("expand", "query_graph")  # frontier-expansion loop
     graph.add_edge("propose_fix", END)
     return graph.compile()
 
