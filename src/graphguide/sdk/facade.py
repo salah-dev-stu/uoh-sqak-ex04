@@ -20,6 +20,7 @@ from graphguide.agent.trace import build_trace
 from graphguide.constants import GRAPH_JSON, METRICS_DIR, VAULT_DIR
 from graphguide.extensions.knowledge_diff import knowledge_diff
 from graphguide.extensions.suspect_ranker import SuspectRanker
+from graphguide.graphify.centrality import god_nodes
 from graphguide.graphify.loader import GraphLoader
 from graphguide.graphify.runner import GraphifyRunner
 from graphguide.reporting import comparison_markdown
@@ -27,6 +28,7 @@ from graphguide.shared import config
 from graphguide.shared.gatekeeper import ApiGatekeeper
 from graphguide.shared.version import VERSION
 from graphguide.vault_builder.builder import VaultBuilder
+from graphguide.vault_builder.graph_pages import generate as generate_graph_notes
 
 
 class GraphGuide:
@@ -56,6 +58,32 @@ class GraphGuide:
         self, extra_links: list[tuple[str, str]] | None = None, vault_dir: str | None = None
     ) -> list[str]:
         return VaultBuilder(vault_dir or VAULT_DIR).build(self._tasks["components"], extra_links)
+
+    def build_graph_vault(self, nodes_dir: str | None = None) -> list[str]:
+        vcfg = config.load("vault")
+        graph = self._load_graph()
+        th = self._gcfg["god_nodes"]
+        god = {
+            x["node"]
+            for x in god_nodes(
+                graph.to_networkx(),
+                degree_warning=int(th["degree_warning"]),
+                degree_critical=int(th["degree_critical"]),
+                betweenness_warning=float(th["betweenness_warning"]),
+                betweenness_critical=float(th["betweenness_critical"]),
+            )
+        }
+        suspects = {r["node"] for r in self.rank_suspects(top=10)}
+        return generate_graph_notes(
+            graph,
+            nodes_dir or vcfg["nodes_dir"],
+            bug_node=self._tasks["failing_test_node"],
+            top_n=int(vcfg["top_n"]),
+            hops=int(vcfg["hops"]),
+            cap=int(vcfg["max_notes"]),
+            god=god,
+            suspects=suspects,
+        )
 
     def investigate(self, mode: str = "graph", files: list[str] | None = None) -> dict[str, Any]:
         gk = ApiGatekeeper(mode, limits=self._rl)

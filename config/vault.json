@@ -1,0 +1,6 @@
+{
+  "top_n": 40,
+  "hops": 2,
+  "max_notes": 120,
+  "nodes_dir": "vault/nodes"
+}

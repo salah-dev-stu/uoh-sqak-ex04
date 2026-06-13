@@ -33,6 +33,7 @@ class Node:
     label: str = ""
     file_type: str = ""
     source_file: str = ""
+    community: int | None = None
 
     @classmethod
     def from_dict(cls, d: dict[str, Any]) -> Node:
@@ -41,6 +42,7 @@ class Node:
             label=d.get("label", ""),
             file_type=d.get("file_type", ""),
             source_file=d.get("source_file", ""),
+            community=d.get("community"),
         )
 
 

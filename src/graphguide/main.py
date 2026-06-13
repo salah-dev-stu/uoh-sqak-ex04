@@ -13,7 +13,10 @@ def build_parser() -> argparse.ArgumentParser:
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("version")
     sub.add_parser("graphify")
-    sub.add_parser("vault")
+    vault = sub.add_parser("vault")
+    vault.add_argument(
+        "--graph", action="store_true", help="generate the dense node-per-graph-node vault"
+    )
     inv = sub.add_parser("investigate")
     inv.add_argument("--mode", choices=["graph", "naive"], default="graph")
     sub.add_parser("suspects")
@@ -30,7 +33,7 @@ def main(argv: list[str] | None = None, gg: GraphGuide | None = None) -> int:
     elif args.command == "graphify":
         print(gg.graphify())
     elif args.command == "vault":
-        print(gg.build_vault())
+        print(gg.build_graph_vault() if args.graph else gg.build_vault())
     elif args.command == "investigate":
         print(json.dumps(gg.investigate(args.mode), indent=2))
     elif args.command == "suspects":
