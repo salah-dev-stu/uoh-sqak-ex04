@@ -42,6 +42,9 @@ RULES.md
 *.docx
 
 # Obsidian: machine state + snapshot app-config (keep only vault graph color config)
-**/.obsidian/workspace*.json
-reports/vault_before/.obsidian/
-reports/vault_after/.obsidian/
+
+# Obsidian: keep ONLY the vault's graph colour-group config; ignore machine state
+vault/.obsidian/*
+!vault/.obsidian/graph.json
+**/.obsidian/
+!vault/.obsidian/
