@@ -173,7 +173,9 @@ of whether the model degrades — see [`reports/lost_in_the_middle.md`](reports/
 > charged as code). Both modes use a **deterministic mock LLM**, so this isolates and proves the
 > **context/token reduction** the graph enables, *not* a higher model success rate. **Iterations are
 > genuinely measured**: graph-guided runs a real frontier-expansion loop (seed at `hot.md` → expand
-> one hop per round → read the top-ranked node), converging in 2 targeted rounds; naive is 1 bulk
+> one hop per round → read the top-ranked node), converging in 2 targeted rounds in the harness
+> (which reads one node per round to *measure* the loop); the real run reads the bug's full file and
+> concludes in 1 round — both honest, reconciled in `reports/token_comparison.md`. Naive is 1 bulk
 > pass over many files. The naive baseline reads every top-level `luigi/*.py` module (no
 > read-then-discard) — defensible, not strawmanned. Full methodology in
 > [`reports/token_comparison.md`](reports/token_comparison.md).

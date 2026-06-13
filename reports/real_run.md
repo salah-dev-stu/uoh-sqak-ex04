@@ -10,4 +10,6 @@ One genuine run of the graph-guided agent against the **real Claude CLI** (`clau
 
 ## Model's root cause
 
+> _Note on iterations:_ this real run reads the bug node's **full file** in round 1, so the model concludes in **1 round**. The deterministic comparison harness (`reports/token_comparison.md`) reads one node per round to *measure* the frontier loop and takes 2 rounds — both honest; the count depends on the per-round read window + model confidence.
+
 > The failing test (`test_task_to_str_to_task`) breaks on the serialization round-trip because `Task.to_str_params` and `Task.from_str_params` disagree about which parameters are present. `to_str_params` builds its `str→str` dict selectively — it omits insignificant (`significant=False`) parameters — whereas `from_str_params` does the opposite: it loops over *every* declared parameter from `cls.get_params()` and reads each one with a direct, unguarded dictionary lookup (`params_str[param_name]`). So when a task carries an insignificant parameter, that key never makes it into the serialized dict, and reconstructing the task raises a `KeyError` on the missing name. The root cause is this asymmetry in the (de)serialization contract — one side skips parameters the other side unconditionally requires — not anything in the parameter parsing or the test itself.

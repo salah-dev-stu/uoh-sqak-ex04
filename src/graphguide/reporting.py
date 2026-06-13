@@ -86,6 +86,11 @@ def comparison_markdown(graph_trace: dict[str, Any], naive_trace: dict[str, Any]
         "loop (seed at `hot.md` nodes -> expand one hop per round -> read the top-ranked node) and "
         "converges in a few targeted rounds, each reading a single node; naive is one bulk pass over "
         "many files. So graph-guided trades a few cheap rounds for a fraction of the tokens.",
+        "  - *Reconciling with the real run:* this harness reads **one node per round** (a small "
+        "window) to exercise and measure the loop, so it takes **2 rounds**. The real run "
+        "(`reports/real_run.md`) reads the bug node's **full file** in round 1, so the strong model "
+        "concludes in **1 round**. Both are honest — iteration count depends on the per-round read "
+        "window and the model's confidence, not on a fixed constant.",
         "- **Baseline fairness:** naive reads every top-level `luigi/*.py` module (capped at "
         "`max_files`) — an unfocused read of the package, not a strawman. The tokens charged equal "
         "the code it ingests (no read-then-discard).",

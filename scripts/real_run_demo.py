@@ -32,7 +32,12 @@ def _report(trace: dict) -> str:
         f"- **Real tokens (Gatekeeper meter):** {trace.get('tokens')}\n"
         f"- **Found the bug:** {trace.get('found_bug')}\n\n"
         "## Model's root cause\n\n"
-        f"> {trace.get('root_cause', '').strip()}\n"
+        f"> {trace.get('root_cause', '').strip()}\n\n"
+        "> _Note on iterations:_ this real run reads the bug node's **full file** in round 1, so the "
+        "model concludes in **1 round**. The deterministic comparison harness "
+        "(`reports/token_comparison.md`) reads one node per round to *measure* the frontier loop and "
+        "takes 2 rounds — both honest; the count depends on the per-round read window + model "
+        "confidence.\n"
     )
 
 
