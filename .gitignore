@@ -51,3 +51,6 @@ vault/.obsidian/*
 
 # Playwright MCP working dir
 .playwright-mcp/
+
+# Submission cover sheet — contains student ID numbers (PII); upload to Moodle, never to the public repo
+uoh-sqak-ex04.pdf
