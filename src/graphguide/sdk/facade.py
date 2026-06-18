@@ -20,17 +20,14 @@ from graphguide.agent.trace import build_trace
 from graphguide.constants import GRAPH_JSON, METRICS_DIR, VAULT_DIR
 from graphguide.extensions.knowledge_diff import knowledge_diff
 from graphguide.extensions.suspect_ranker import SuspectRanker
-from graphguide.graphify.centrality import hub_nodes
-from graphguide.graphify.html_graph import build_interactive_html
 from graphguide.graphify.loader import GraphLoader
 from graphguide.graphify.runner import GraphifyRunner
 from graphguide.reporting import comparison_markdown
+from graphguide.sdk import graph_views
 from graphguide.shared import config
 from graphguide.shared.gatekeeper import ApiGatekeeper
 from graphguide.shared.version import VERSION
 from graphguide.vault_builder.builder import VaultBuilder
-from graphguide.vault_builder.graph_pages import generate as generate_graph_notes
-from graphguide.vault_builder.graph_pages import select_nodes
 
 
 class GraphGuide:
@@ -70,45 +67,29 @@ class GraphGuide:
         return VaultBuilder(vault_dir or VAULT_DIR).build(self._tasks["components"], extra_links)
 
     def _hub_and_suspects(self, graph) -> tuple[set[str], set[str]]:
-        th = self._gcfg["hub_nodes"]
-        hub = {
-            x["node"]
-            for x in hub_nodes(
-                graph.to_networkx(),
-                degree_warning=int(th["degree_warning"]),
-                degree_critical=int(th["degree_critical"]),
-                betweenness_warning=float(th["betweenness_warning"]),
-                betweenness_critical=float(th["betweenness_critical"]),
-            )
-        }
-        return hub, {r["node"] for r in self.rank_suspects(top=10)}
+        suspects = {r["node"] for r in self.rank_suspects(top=10)}
+        return graph_views.hub_and_suspects(graph, self._gcfg["hub_nodes"], suspects)
 
     def build_graph_vault(self, nodes_dir: str | None = None) -> list[str]:
         vcfg = config.load("vault")
         graph = self._load_graph()
         hub, suspects = self._hub_and_suspects(graph)
-        return generate_graph_notes(
+        return graph_views.graph_vault(
             graph,
+            hub,
+            suspects,
             nodes_dir or vcfg["nodes_dir"],
-            bug_node=self._tasks["failing_test_node"],
-            top_n=int(vcfg["top_n"]),
-            hops=int(vcfg["hops"]),
-            cap=int(vcfg["max_notes"]),
-            hub=hub,
-            suspects=suspects,
+            self._tasks["failing_test_node"],
+            vcfg,
         )
 
     def build_html_graph(self, out_path: str | None = None) -> str:
         vcfg = config.load("vault")
         graph = self._load_graph()
-        bug = self._tasks["failing_test_node"]
-        selected = select_nodes(
-            graph, bug, int(vcfg["top_n"]), int(vcfg["hops"]), int(vcfg["max_notes"])
-        )
         hub, suspects = self._hub_and_suspects(graph)
         out = out_path or f"{self._gcfg['out_dir']}/graph_interactive.html"
-        return build_interactive_html(
-            graph, out, selected=selected, hub=hub, suspects=suspects, bug_node=bug
+        return graph_views.html_graph(
+            graph, hub, suspects, out, self._tasks["failing_test_node"], vcfg
         )
 
     def investigate(self, mode: str = "graph", files: list[str] | None = None) -> dict[str, Any]:
